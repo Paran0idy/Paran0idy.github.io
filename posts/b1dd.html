@@ -155,9 +155,9 @@ mjx-container[display="true"] {
 mjx-container[display="true"] + br {
   display: none;
 }
-</style><link rel="alternate" href="/atom.xml" title="Twoballs" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+</style><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><link rel="alternate" href="/atom.xml" title="Twoballs" type="application/atom+xml">
+</head>
 
 
 <body>
@@ -414,8 +414,11 @@ mjx-container[display="true"] + br {
     }
 
     .toc-widget {
-        width: 345px;
-        padding-left: 20px;
+      width: 345px;
+      padding-left: 20px;
+      background-color: rgb(255, 255, 255,0.7);
+      border-radius: 10px;
+      box-shadow: 0 10px 35px 2px rgba(0, 0, 0, .15), 0 5px 15px rgba(0, 0, 0, .07), 0 2px 5px -5px rgba(0, 0, 0, .1) !important;
     }
 
     .toc-widget .toc-title {
@@ -1325,9 +1328,19 @@ $(function () {
     
 
     
-
+    
     <!-- 雪花特效 -->
     
+
+    <script type="text/javascript">
+        //只在桌面版网页启用特效
+        var windowWidth = $(window).width();
+        if (windowWidth > 768) {
+            document.write('<script type="text/javascript" src="/js/sakura.js"><\/script>');
+        }
+    </script>
+
+
 
     <!-- 烟花爆炸特效 -->
     <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
