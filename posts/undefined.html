@@ -34,9 +34,9 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Twoballs" type="application/atom+xml">
-
+<meta name="generator" content="Hexo 6.1.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Twoballs" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -429,9 +429,9 @@
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>输出如下：</p>
-<pre><code>pid = 240 count_ad = 0x7ffdb7979330 : 1
-pid = 241 count_ad = 0x7ffdb7979330 : 1
-</code></pre>
+<pre class="line-numbers language-c"><code class="language-c">pid <span class="token operator">=</span> <span class="token number">240</span> count_ad <span class="token operator">=</span> <span class="token number">0x7ffdb7979330</span> <span class="token punctuation">:</span> <span class="token number">1</span>
+pid <span class="token operator">=</span> <span class="token number">241</span> count_ad <span class="token operator">=</span> <span class="token number">0x7ffdb7979330</span> <span class="token punctuation">:</span> <span class="token number">1</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>这里会产生一个疑问，既然两个进程并<code>未共享count</code>变量，那么对count自增操作自然是分别<code>独立</code>进行，也就是最终结果都是count = 1，但count的<code>地址</code>却相同，纠结的点在于如果变量的地址相同，那第二次执行自增的count = 2。</p>
 <p>问题解决：</p>
 <blockquote>
