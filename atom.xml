@@ -6,7 +6,7 @@
   <link href="http://shenhuagg555.github.io/atom.xml" rel="self"/>
   
   <link href="http://shenhuagg555.github.io/"/>
-  <updated>2022-05-05T09:43:05.050Z</updated>
+  <updated>2022-05-09T15:35:42.682Z</updated>
   <id>http://shenhuagg555.github.io/</id>
   
   <author>
@@ -17,23 +17,52 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>6.s081的前置知识</title>
+    <title>卷积神经网络概述</title>
+    <link href="http://shenhuagg555.github.io/posts/3647.html"/>
+    <id>http://shenhuagg555.github.io/posts/3647.html</id>
+    <published>2022-05-09T15:31:43.000Z</published>
+    <updated>2022-05-09T15:35:42.682Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;1-神经网络概述&quot;&gt;&lt;a href=&quot;#1-神经网络概述&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="神经网络" scheme="http://shenhuagg555.github.io/categories/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="深度学习" scheme="http://shenhuagg555.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>6.S081的前置知识</title>
     <link href="http://shenhuagg555.github.io/posts/undefined.html"/>
     <id>http://shenhuagg555.github.io/posts/undefined.html</id>
     <published>2022-05-05T09:39:47.000Z</published>
-    <updated>2022-05-05T09:43:05.050Z</updated>
+    <updated>2022-05-09T15:35:29.152Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;1-1-S6-081实验1的前置知识&quot;&gt;&lt;a href=&quot;#1-1-S6-081实验1的前置知识&quot; class=&quot;headerlink&quot; title=&quot;1.1 S6.081实验1的前置知识&quot;&gt;&lt;/a&gt;1.1 S6.081实验1的前置知识&lt;/h1&gt;&lt;h2</summary>
+    <summary type="html">&lt;h1 id=&quot;1-1-6-S081实验1的前置知识&quot;&gt;&lt;a href=&quot;#1-1-6-S081实验1的前置知识&quot; class=&quot;headerlink&quot; title=&quot;1.1 6.S081实验1的前置知识&quot;&gt;&lt;/a&gt;1.1 6.S081实验1的前置知识&lt;/h1&gt;&lt;h2</summary>
         
       
     
     
     
+    <category term="操作系统" scheme="http://shenhuagg555.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+    <category term="6.S081" scheme="http://shenhuagg555.github.io/tags/6-S081/"/>
     
   </entry>
   
