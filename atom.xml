@@ -6,7 +6,7 @@
   <link href="http://shenhuagg555.github.io/atom.xml" rel="self"/>
   
   <link href="http://shenhuagg555.github.io/"/>
-  <updated>2022-05-10T08:36:37.858Z</updated>
+  <updated>2022-05-10T08:39:01.058Z</updated>
   <id>http://shenhuagg555.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://shenhuagg555.github.io/posts/f3af.html"/>
     <id>http://shenhuagg555.github.io/posts/f3af.html</id>
     <published>2022-05-10T08:33:16.000Z</published>
-    <updated>2022-05-10T08:36:37.858Z</updated>
+    <updated>2022-05-10T08:39:01.058Z</updated>
     
     
       
@@ -35,6 +35,8 @@
     
     
     
+    <category term="毕设" scheme="http://shenhuagg555.github.io/tags/%E6%AF%95%E8%AE%BE/"/>
+    
   </entry>
   
   <entry>
@@ -42,7 +44,7 @@
     <link href="http://shenhuagg555.github.io/posts/3647.html"/>
     <id>http://shenhuagg555.github.io/posts/3647.html</id>
     <published>2022-05-09T15:53:10.000Z</published>
-    <updated>2022-05-09T16:01:29.621Z</updated>
+    <updated>2022-05-10T08:39:04.967Z</updated>
     
     
       
@@ -58,7 +60,7 @@
     <category term="神经网络" scheme="http://shenhuagg555.github.io/categories/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
     
     
-    <category term="深度学习" scheme="http://shenhuagg555.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <category term="深度学习 毕设" scheme="http://shenhuagg555.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E6%AF%95%E8%AE%BE/"/>
     
   </entry>
   
