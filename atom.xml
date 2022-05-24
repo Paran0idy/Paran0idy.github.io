@@ -6,7 +6,7 @@
   <link href="http://shenhuagg555.github.io/atom.xml" rel="self"/>
   
   <link href="http://shenhuagg555.github.io/"/>
-  <updated>2022-05-10T08:39:01.058Z</updated>
+  <updated>2022-05-24T14:01:34.566Z</updated>
   <id>http://shenhuagg555.github.io/</id>
   
   <author>
@@ -17,18 +17,18 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>绪论</title>
+    <title>1.绪论</title>
     <link href="http://shenhuagg555.github.io/posts/f3af.html"/>
     <id>http://shenhuagg555.github.io/posts/f3af.html</id>
     <published>2022-05-10T08:33:16.000Z</published>
-    <updated>2022-05-10T08:39:01.058Z</updated>
+    <updated>2022-05-24T14:01:34.566Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h4 id=&quot;1-1研究背景及意义&quot;&gt;&lt;a href=&quot;#1-1研究背景及意义&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h1 id=&quot;1-绪论&quot;&gt;&lt;a href=&quot;#1-绪论&quot; class=&quot;headerlink&quot; title=&quot;1.绪论&quot;&gt;&lt;/a&gt;1.绪论&lt;/h1&gt;&lt;h4 id=&quot;1-1研究背景及意义&quot;&gt;&lt;a href=&quot;#1-1研究背景及意义&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -40,11 +40,11 @@
   </entry>
   
   <entry>
-    <title>卷积神经网络概述</title>
+    <title>2.卷积神经网络概述</title>
     <link href="http://shenhuagg555.github.io/posts/3647.html"/>
     <id>http://shenhuagg555.github.io/posts/3647.html</id>
     <published>2022-05-09T15:53:10.000Z</published>
-    <updated>2022-05-10T08:41:56.943Z</updated>
+    <updated>2022-05-24T14:01:49.270Z</updated>
     
     
       
