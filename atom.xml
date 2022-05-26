@@ -6,7 +6,7 @@
   <link href="http://shenhuagg555.github.io/atom.xml" rel="self"/>
   
   <link href="http://shenhuagg555.github.io/"/>
-  <updated>2022-05-26T04:37:37.528Z</updated>
+  <updated>2022-05-26T16:01:35.129Z</updated>
   <id>http://shenhuagg555.github.io/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>3.目标检测算法</title>
+    <link href="http://shenhuagg555.github.io/posts/a9a7.html"/>
+    <id>http://shenhuagg555.github.io/posts/a9a7.html</id>
+    <published>2022-05-26T15:57:42.000Z</published>
+    <updated>2022-05-26T16:01:35.129Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;基于YOLOv5的车牌检测算法&quot;&gt;&lt;a href=&quot;#基于YOLOv5的车牌检测算法&quot; class=&quot;headerlink&quot; title=&quot;基于YOLOv5的车牌检测算法&quot;&gt;&lt;/a&gt;基于YOLOv5的车牌检测算法&lt;/h1&gt;&lt;h2 id=&quot;传统目标检测算法&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="YOLOv5" scheme="http://shenhuagg555.github.io/categories/YOLOv5/"/>
+    
+    
+    <category term="毕设" scheme="http://shenhuagg555.github.io/tags/%E6%AF%95%E8%AE%BE/"/>
+    
+    <category term="深度学习" scheme="http://shenhuagg555.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
     <title>5.软硬件实验环境搭建及模型训练</title>
     <link href="http://shenhuagg555.github.io/posts/f0ea.html"/>
     <id>http://shenhuagg555.github.io/posts/f0ea.html</id>
     <published>2022-05-26T04:31:45.000Z</published>
-    <updated>2022-05-26T04:37:37.528Z</updated>
+    <updated>2022-05-26T04:39:34.917Z</updated>
     
     
       
