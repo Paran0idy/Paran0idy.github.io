@@ -374,12 +374,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%AF%95%E8%AE%BE/">
-                                <span class="chip bg-color">毕设</span>
-                            </a>
-                        
                             <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
                                 <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%AF%95%E8%AE%BE/">
+                                <span class="chip bg-color">毕设</span>
                             </a>
                         
                     </div>
@@ -425,22 +425,22 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="基于YOLOv5的车牌检测算法"><a href="#基于YOLOv5的车牌检测算法" class="headerlink" title="基于YOLOv5的车牌检测算法"></a>基于YOLOv5的车牌检测算法</h1><h2 id="传统目标检测算法"><a href="#传统目标检测算法" class="headerlink" title="传统目标检测算法"></a>传统目标检测算法</h2><p>所谓车牌检测就是把车牌从输入的车辆图像利用某种目标检测算法用矩形框将包含车牌的区域选中，并显示出检测结果的置信度得分。在传统的目标检测领域中，研究者通常利用数字图像处理方法或简单的计算机视觉算法，传统目标检测算法通常可分为两类，在目标检测领域研究早期，普遍采用基于人工设定的特征来进行目标检测，随着机器学习的发展，基于机器学习的特征的目标检测算法开始兴起。下图为传统的目标检测算法的大致流程。第一步先将待测图片输入到检测模型，接着在图片上提取候选框，此处需要对图片进行特征提取，通常在CV领域采用纹理、颜色、形状等特征表示高层次的语义特征，再基于上一步提取出来的特征，利用训练好的分类器，但分类效果取决于分类器，一个好的分类器可以提高目标检测精度，分类器的作用是对候选区域进行分类。在单一目标检测过程中，思路很直接，一般情况下设计算法只需辨别出候选框所包含的目标是被检测对象还是图片中无关的背景，而在多目标识别任务中，还需进一步识别候选框中目标的类别。最后将所有候选框都合并在一起，最后一步还需将堆叠在一起的候选框删除，在传统目标检测算法中通常采用非极大抑制算法将堆候选框删掉，删除完毕的结果即为最终的目标检测结果。</p>
-<p><img src="/posts/a9a7/3-%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%5C%E4%BC%A0%E7%BB%9F%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95.png" alt="image-20220526145906549"></p>
+<p><img src="/posts/a9a7/%E4%BC%A0%E7%BB%9F%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95.png" alt="传统目标检测算法"></p>
 <h2 id="基于YOLOv5的车牌检测算法-1"><a href="#基于YOLOv5的车牌检测算法-1" class="headerlink" title="基于YOLOv5的车牌检测算法"></a>基于YOLOv5的车牌检测算法</h2><p>目前主流的深度学习目标检测算法主要有三个分支：one-stage目标检测算法、two-stage目标检测算法、和基于生成对抗网络GAN的算法。应用较多的one-stage算法主要有YOLO系列算法、SSD算法，one-stage算法主要是通过回归来解决问题的，two-stage算法基于候选框框，例如R-CNN，而生成对抗网络基于极大似然估计原理，训练方式通常为对抗训练，例如GAN。本实验选用的目标检测算法为YOLOv5，因此主要分析one-stage算法和YOLO系列算法的原理。</p>
 <p>one-stage目标检测算法主要通过回归来解决目标检测问题，主要有YOLO系列算法，one-stage算法去掉了生成候选区这一过程，直接将分类结果及置信度显示出来。</p>
 <p>​									one-stage目标检测算法优缺点及使用场景</p>
 <p>one-stage目标检测算法运行速度很快，可以快速学习到泛化特征，但由于定位精度稍低，导致one-stage目标检测算法对于小目标的检测效果较差，在一些复杂环境中，one-stage目标检测算法的性能并不好，容易受到场景的限制。最新发布的YOLOv5目标检测算法很好的弥补了one-stage在定位精度方面的问题，并且在实际测试中，YOLOv5对小目标的检测效果更佳。 下面是官方给出的YOLOv5检测算法和EfficientDet检测算法在COCO数据集上的表现。</p>
-<p><img src="/posts/a9a7/3-%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%5CYOLO.png" alt="image-20220526161645569"></p>
+<p><img src="/posts/a9a7/YOLO.png" alt="YOLO"></p>
 <p>简要的分析一下上图的结果，根据图示可知，横坐标表示GPU的推理时间，时间越长表示该模型的运算速度越慢，效果越差，纵坐标表示模型在COCO数据集上的AP值，AP是平均精度，显然AP越大则表示模型的性能越好。由上图可知，YOLOv5s相较于其他YOLOv5系列模型具有体积小，且推理速度快的特点，并且还能获得较高AP值，因此本次实验选择性能好，体积小的YOLOv5s模型用于车牌检测。</p>
 <h3 id="YOLOv5概述"><a href="#YOLOv5概述" class="headerlink" title="YOLOv5概述"></a>YOLOv5概述</h3><p>YOLOv5由Glenn Jocher等人提出 ，是YOLO架构系列的最新产品。该网络模型检测精度高，推理速度快，最快检测速度可达140帧/秒。另一方面，YOLOv5目标检测网络模型的权重文件较小，比YOLOv4小近90%，说明YOLOv5模型适合部署到嵌入式设备中实现实时检测。因此，YOLOv5网络的优点是检测精度高，重量轻，同时检测速度快，由于其体积很小，所以可以轻易做到视频图像的实时监测。YOLO自问世以来，由于其目标检测的高效性，不断有人改进模型并使用在不同的目标检测任务中去，大多都取得了不错的检测结果。YOLOv5架构包含四个架构，分别命名为YOLOv5s、YOLOv5m、YOLOv5l和YOLOv5x。它们之间的主要区别是特征提取模块和卷积核在网络的具体位置的数量不同。在四个体系结构中，模型的大小和模型参数的数量依次增加。由于本实验中需要识别的目标只有车牌，识别模型对实时性和轻量化的要求较高。因此，本实验综合考虑了识别模型的准确性、效率和大小，基于YOLOv5s模型进行了车牌检测模型</p>
 <h3 id="YOLOv5s网络架构"><a href="#YOLOv5s网络架构" class="headerlink" title="YOLOv5s网络架构"></a>YOLOv5s网络架构</h3><p>YOLOv5s 框架主要由三个组件组成，包括：Backbone、Neck和Prediction。</p>
 <h4 id="Backbone"><a href="#Backbone" class="headerlink" title="Backbone"></a>Backbone</h4><p>Backbone是一种卷积神经网络，聚合不同的细粒度图像，形成图像特征。具体来说，Backbone的第一层是Focus模块，旨在减少模型的计算量，加快训练速度。其功能如下：首先，将输入的 3 通道图像，YOLOv5s 架构的默认输入图像大小为3×640×640，分成4个切片，然后再利用concat操作将4个切片进行深度连接，输出特征图的大小为12×320×320，然后输入到卷积层，最后通过BN层批量归一化和Hardswish激活函数，将结果输出到下一层。</p>
 <p>Backbone网络的第三层是 BottleneckCSP 模块，旨在更好地提取图像的深层特征。 BottleneckCSP模块主要由Bottleneck模块组成，它是一个残差网络架构，连接一个卷积核大小为1×1的卷积层和一个卷积核大小为3的卷积层 × 3、Bottleneck模块的最终输出是这部分的输出和通过residual结构的初始输入相加。</p>
-<p><img src="/posts/a9a7/3-%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%5Cbottleneck.png" alt="image-20220526233210332"></p>
+<p><img src="/posts/a9a7/bottleneck.png" alt="bottleneck"></p>
 <p>BottleneckCSP模块的初始输入被输入到两个分支中，通过两个分支中的卷积操作将特征图的通道数量减半。 然后，通过分支2的Bottleneck模块和Conv2d层，利用concat操作，深度连接分支1和2的输出特征图。将输出特征图通过BN层，再输入到Conv2d层，即可获得模块的输出特征图，BottleneckCSP模块的输入和该输出特征图的大小相同。</p>
-<p><img src="/posts/a9a7/3-%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%5Ccsp.png" alt="image-20220526233228330"></p>
+<p><img src="/posts/a9a7/csp.png" alt="csp"></p>
 <p>SPP 模块可以将任意大小的特征图转化为大小一定的特征向量，这一过程可以将网络的感受野明显提高。 输入特征图的尺寸大小为512×20×20。第一步先将特征图输入到卷积层后，输出的特征图大小为256×20×20，再将输出特征图输入到三个并行排布的MaxPooling层，输出之后再于二次采样的输出特征图深度连接，可以得到最终的输出特征图，其大小为1024×20× 20，最终把上一步的输出特征图输入到卷积层，得到最终大小为512×20×20的输出特征图。</p>
-<p><img src="/posts/a9a7/3-%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%5Cspp.png" alt="image-20220526233243568"></p>
+<p><img src="/posts/a9a7/spp.png" alt="spp"></p>
 <h4 id="Neck"><a href="#Neck" class="headerlink" title="Neck"></a>Neck</h4><p>Neck是一组混合组合图像特征的特征聚合层，采用生成特征金字塔网络FPN，然后将输出的特征图传输到Prediction。 Neck网络的特征提取器使用增强自底向上路径的FPN结构，这一新的改进进一步增强了低层特征的传输，增强了对不同尺度物体的检测。 因此，可以准确识别具有不同大小和比例的同一目标对象。</p>
 <h4 id="Prediction"><a href="#Prediction" class="headerlink" title="Prediction"></a>Prediction</h4><p>Prediction位于YOLOv5s的最后部分，用于检测，该网络将anchor box应用在前一层输出的特征图上，最终输出一个矩形框，显示检测对象的类别和置信度得分。 再YOLOv5s架构中，由三个Prediction层组成，第一个输入是尺寸为80×80的特征图、另外两个分别是40×40 和 20×20 ，用来检测大小不一的目标。 每个Prediction层输出一个向量，最终生成预测的矩形边界框，并在图像中标记目标类别，从而实现车牌检测。</p>
 
@@ -507,12 +507,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%AF%95%E8%AE%BE/">
-                                    <span class="chip bg-color">毕设</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
                                     <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%AF%95%E8%AE%BE/">
+                                    <span class="chip bg-color">毕设</span>
                                 </a>
                             
                         </div>
@@ -1049,12 +1049,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%AF%95%E8%AE%BE/">
-                        <span class="chip bg-color">毕设</span>
-                    </a>
-                    
                     <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
                         <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%AF%95%E8%AE%BE/">
+                        <span class="chip bg-color">毕设</span>
                     </a>
                     
                 </div>
@@ -1102,12 +1102,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%AF%95%E8%AE%BE/">
-                        <span class="chip bg-color">毕设</span>
-                    </a>
-                    
                     <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
                         <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%AF%95%E8%AE%BE/">
+                        <span class="chip bg-color">毕设</span>
                     </a>
                     
                 </div>

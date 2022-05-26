@@ -32,7 +32,9 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 6.1.0"><style>mjx-container[jax="SVG"] {
+<meta name="generator" content="Hexo 6.1.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<style>mjx-container[jax="SVG"] {
   direction: ltr;
 }
 
@@ -144,9 +146,7 @@ mjx-container[display="true"] {
 mjx-container[display="true"] + br {
   display: none;
 }
-</style>
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Paranoid" type="application/atom+xml">
+</style><link rel="alternate" href="/atom.xml" title="Paranoid" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -486,12 +486,12 @@ mjx-container[display="true"] + br {
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%AF%95%E8%AE%BE/">
-                                <span class="chip bg-color">毕设</span>
-                            </a>
-                        
                             <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
                                 <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%AF%95%E8%AE%BE/">
+                                <span class="chip bg-color">毕设</span>
                             </a>
                         
                     </div>
@@ -558,12 +558,12 @@ mjx-container[display="true"] + br {
 <p>​																								表、图</p>
 <p>从结果可知，当数据集能包含大多数情况，且数据量足够大时，能较好的学习到高准确率的车牌检测模型，而epoch基本在10轮后就已经收敛于一个很高的精度。</p>
 <h3 id="模型测试"><a href="#模型测试" class="headerlink" title="模型测试"></a>模型测试</h3><p>划分数据集时，采用了6:1:1的比例，即1/8的数据集为测试集，在detect.py中设置source路径为测试集目录，选择权重文件为train.py运行后的得到的last.pt文件，此即为训练好的车牌检测模型，由于本次实验选择的车牌识别算法为LPRnet，基于迁移学习的原则，将训练好的Final_LPRNet_model.pth权重文件作为预训练模型直接加载，执行detect.py程序，即可进行模型测试，测试结果如下：</p>
-<p><img src="/posts/f0ea/right.png" alt="image-20220525222501800"></p>
+<p><img src="/posts/f0ea/right.png" alt="right"></p>
 <p>上图可以看出即使时轻微模糊和轻微倾斜条件下，该模型仍有很好的识别性能，但在倾斜程度较大的情况下，识别效果很差。</p>
-<p><img src="/posts/f0ea/wrong.png" alt="image-20220525231139801"></p>
+<p><img src="/posts/f0ea/wrong.png" alt="wrong"></p>
 <h3 id="模型改进方向"><a href="#模型改进方向" class="headerlink" title="模型改进方向"></a>模型改进方向</h3><p>由于在车牌倾斜的情况下车牌识别的准确率很差，可以采用车牌矫正的方法对倾斜角度较大的车牌先进行一步预处理，通常采用仿射变换的方法进行车牌矫正，也可采用透视变换来进行车牌矫正，，透视变换适用于由拍摄角度导致的车牌倾斜图片，可以将二维的车牌位置坐标转换为三维空间坐标，透视变换需要得到车牌的四个位置信息，获得顶点位置后，先检测出车牌的轮廓，检测出轮廓后计算得到车牌顶点。</p>
 <h2 id="车牌识别系统界面制作"><a href="#车牌识别系统界面制作" class="headerlink" title="车牌识别系统界面制作"></a>车牌识别系统界面制作</h2><p>采用PyQt5进行车牌识别系统界面设计，Qt是基于C++的一个界面设计库，利用PyQt5的Qlabel标签显示识别图片及识别的文本结果。实现通过点击按钮即可在本地选择车牌图片进行车牌识别，并且显示识别出来的车牌号码。</p>
-<p><img src="/posts/f0ea/ui.png" alt="image-20220525163305503"></p>
+<p><img src="/posts/f0ea/ui.png" alt="ui"></p>
 <p>本界面采用3个Qlabel和1个Button，Qlabel1是用于显示图片，Qlabel2设置为车牌识别结果，Qlabel3显示车牌文本，Button用于设置车牌识别按钮，点击车牌识别按钮后，会打开本地的默认路径文件夹，此文件夹里存放的是用于车牌识别的测试样例，点击按钮后，会调用一次车牌识别程序，最终在Qlabel1里显示出识别的车牌图片并加以标注且显示置信度，Qlabel3中显示识别出的车牌文本信息，通过PyQt5的信号槽机制即可实现此功能。</p>
 <p>信号和槽是PyQt5对象之间的通信机制。由于打开的窗体时继承自QWideget类的对象，所以也支持信号与槽机制。我们只需将Button与openImage槽函数关联起来，这样只要Button发送信号，相应的openImage函数就会被执行，在openImage函数中可以定义多个动作，例如，打开车牌图片，执行一次车牌识别程序，将图片显示在Qlabel1上，并将车牌文本信息显示在Qlabel3上。</p>
 <pre class="line-numbers language-python"><code class="language-python">btn<span class="token punctuation">.</span>clicked<span class="token punctuation">.</span>connect<span class="token punctuation">(</span>self<span class="token punctuation">.</span>openimage<span class="token punctuation">)</span>
@@ -639,12 +639,12 @@ sys<span class="token punctuation">.</span>exit<span class="token punctuation">(
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%AF%95%E8%AE%BE/">
-                                    <span class="chip bg-color">毕设</span>
-                                </a>
-                            
                                 <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
                                     <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%AF%95%E8%AE%BE/">
+                                    <span class="chip bg-color">毕设</span>
                                 </a>
                             
                         </div>
@@ -1179,12 +1179,12 @@ sys<span class="token punctuation">.</span>exit<span class="token punctuation">(
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%AF%95%E8%AE%BE/">
-                        <span class="chip bg-color">毕设</span>
-                    </a>
-                    
                     <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
                         <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%AF%95%E8%AE%BE/">
+                        <span class="chip bg-color">毕设</span>
                     </a>
                     
                 </div>
