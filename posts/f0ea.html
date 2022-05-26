@@ -4,10 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="6.S081的前置知识, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="1.1 6.S081实验1的前置知识1.forkint pid = fork();  //创建一个进程，返回子进程的PID
-
-1.1fork用法一个进程可以使用fork()系统调用创建一个新的进程(称为子进程)，fork()创建了一个新的进">
+    <meta name="keywords" content="5.软硬件实验环境搭建及模型训练, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
+    <meta name="description" content="软硬件实验环境搭建及模型训练实验环境搭建本次的实验编程语言为Python3.9，在Anaconda环境下创建新的虚拟环境，安装开源深度学习库Pytorch，开源图像处理库OpenCV、CUDA11.3、PyQt5等依赖，将YOLOv5的官方">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -21,7 +19,7 @@
 
     
 
-    <title>6.S081的前置知识 | Paranoid</title>
+    <title>5.软硬件实验环境搭建及模型训练 | Paranoid</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -252,12 +250,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">6.S081的前置知识</h1>
+                    <h1 class="description center-align post-title">5.软硬件实验环境搭建及模型训练</h1>
                 </div>
             </div>
         </div>
@@ -376,8 +374,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/6-S081/">
-                                <span class="chip bg-color">6.S081</span>
+                            <a href="/tags/%E6%AF%95%E8%AE%BE/">
+                                <span class="chip bg-color">毕设</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
                             </a>
                         
                     </div>
@@ -388,8 +390,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="post-category">
-                                操作系统
+                            <a href="/categories/PyQt5/" class="post-category">
+                                PyQt5
                             </a>
                         
                     </div>
@@ -401,7 +403,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2022-05-05
+                    2022-05-26
                 </div>
                 
 
@@ -422,34 +424,45 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="1-1-6-S081实验1的前置知识"><a href="#1-1-6-S081实验1的前置知识" class="headerlink" title="1.1 6.S081实验1的前置知识"></a>1.1 6.S081实验1的前置知识</h1><h2 id="1-fork"><a href="#1-fork" class="headerlink" title="1.fork"></a>1.fork</h2><pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> pid <span class="token operator">=</span> <span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//创建一个进程，返回子进程的PID</span>
+                <h1 id="软硬件实验环境搭建及模型训练"><a href="#软硬件实验环境搭建及模型训练" class="headerlink" title="软硬件实验环境搭建及模型训练"></a>软硬件实验环境搭建及模型训练</h1><h2 id="实验环境搭建"><a href="#实验环境搭建" class="headerlink" title="实验环境搭建"></a>实验环境搭建</h2><p>本次的实验编程语言为Python3.9，在Anaconda环境下创建新的虚拟环境，安装开源深度学习库Pytorch，开源图像处理库OpenCV、CUDA11.3、PyQt5等依赖，将YOLOv5的官方最新版本git clone到本地用于训练，选择集成开发环境Pycharm进行开发调试，由于主机配备了GPU，故直接用主机训练YOLOv5，本地的操作系统为Ubuntu20.04LTS/Windows11，GPU为NVIDIA GeForce RTX 3060 ，内存16GB，CPU为12th Gen lntelR CoreTM i7-12700H等，详细实验环境见下表</p>
+<p>​																										实验环境表格</p>
+<h2 id="数据集制作"><a href="#数据集制作" class="headerlink" title="数据集制作"></a>数据集制作</h2><h3 id="CCPD2019数据集介绍"><a href="#CCPD2019数据集介绍" class="headerlink" title="CCPD2019数据集介绍"></a>CCPD2019数据集介绍</h3><p>CCPD2019数据集是由中国科学技术大学科研人员于合肥市的停车场采集而来，整个数据集包含了25w中国车牌图像，大大减少了后人车牌识别数据集的收集工作，本文实验的车牌检测数据集采用开源车牌识别数据集CCPD2019，数据集采集时间为每天的7:30-22:00，采集人员手持摄像机对合肥市停车场的进出车辆进行实时拍照，并进行图像数据采集。CCPD2019数据集的车牌照片包含多种复杂环境，CCPD2019数据集组成如下：</p>
+<p>​                                                                                                          数据集类型表格</p>
+<h3 id="CCPD2019格式转YOLOv5格式"><a href="#CCPD2019格式转YOLOv5格式" class="headerlink" title="CCPD2019格式转YOLOv5格式"></a>CCPD2019格式转YOLOv5格式</h3><p>由于CCPD2019数据集仅含有车牌图片的images，没有标注出车牌位置的labels，但每张图像的文件名是对应的标注，由于本实验采用YOLOv5目标检测算法，而YOLO格式数据集要求一张图片同时具备images和labels，故需要将CCPD2019数据集先转化成YOLOv5格式，这一过程借助Python编程可以实现标签转化功能。</p>
+<h3 id="训练集、验证集和测试集的划分"><a href="#训练集、验证集和测试集的划分" class="headerlink" title="训练集、验证集和测试集的划分"></a>训练集、验证集和测试集的划分</h3><p>在深度学习中，通常将整个数据集划分成训练集、验证集、测试集，其中训练集主要用于神经网络参数的学习，验证集主要用来检验模型训练的效果，而测试集主要用来检测学习到的模型的在真实场景的表现，由于CCPD数据集共有25w张中国车牌图片，考虑到数据集太大，训练速度太慢，故从各分类按比例选取2W张图片按照6：1：1的比例划分成训练集、验证集、测试集。</p>
+<h2 id="结果评估标准"><a href="#结果评估标准" class="headerlink" title="结果评估标准"></a>结果评估标准</h2><p>深度学习模型在目标检测任务中的检测效果需要一定的标准来进行评估，目标检测是计算机视觉领域的一个主要任务，在目标检测领域中，使用较多的估计指标为Recall、Precision、mAP、IoU等。</p>
+<h3 id="TP、TN、FP、FN"><a href="#TP、TN、FP、FN" class="headerlink" title="TP、TN、FP、FN"></a>TP、TN、FP、FN</h3><ul>
+<li>TP（True Positives），意为预测值为真，且真实值也为真。</li>
+<li>FP（False Positives），意为预测值为真，但真实值为假。</li>
+<li>TN（True Negatives），意为预测为假，且真实值也为假。</li>
+<li>FN（False Negatives），意为预测值为假，但真实值为真。</li>
+</ul>
+<h3 id="召回率"><a href="#召回率" class="headerlink" title="召回率"></a>召回率</h3><p>召回率表示实际值为真中预测值为真的概率，公式为<br>$$<br>Recall = \frac{TP}{TP+FN}<br>$$</p>
+<h3 id="精确率"><a href="#精确率" class="headerlink" title="精确率"></a>精确率</h3><p>精确率表示预测值为真中实际值为真的概率，公式为<br>$$<br>Precision = \frac{TP}{TP + FP}<br>$$</p>
+<h3 id="mAP"><a href="#mAP" class="headerlink" title="mAP"></a>mAP</h3><p>mAP指均值平均精度，而AP是在不同Recall情况下计算得到的，对所有种类的AP再求均值即可得到mAP，公式为<br>$$<br>AP = \frac{正确识别车牌数}{有效车牌总数}<br>$$</p>
+<h3 id="IoU"><a href="#IoU" class="headerlink" title="IoU"></a>IoU</h3><p>通常目标检测时都是用一个矩形框来表征检测的目标所在位置，IoU计算的是预测框和实际框的交集和并集的比值，设定IoU的临界值，当检测到目标时，只有当IoU值达到设定的门限才能认定检测结果正确，公式为<br>$$<br>Iou=\frac{Area,,of,,Overlap}{Area,,of,,Union}<br>$$</p>
+<h2 id="模型训练过程"><a href="#模型训练过程" class="headerlink" title="模型训练过程"></a>模型训练过程</h2><h3 id="设置训练参数"><a href="#设置训练参数" class="headerlink" title="设置训练参数"></a>设置训练参数</h3><p>训练YOLOv5net，优化器选用SGD，初始学习率为0.01，将超参数保存在hyp.yml中，batch-size起初设置为16，发现根本无法训练，显示内存溢出，遂调整batch-size为4，并且将主机的虚拟内存调大。配置文件从yolov5s.yaml文件读取，该文件主要设置了三个参数，nc表示数据集的类别，depth_multiple表示模型的深度，width_multiple表示模型的宽度，此外还设置了anchors、backbone、head等参数。初始的权重文件选择预训练模型yolov5s.pt，使用预训练模型可以大大加快训练速度，可以使我们在yolov5s的基础上只进行很小的改动便可以用来检测车牌，这一过程称之为迁移学习。img-szie选择640×640，数据集配置文件ccpd.yaml里设置nc为1，因为本实验只检测车牌这一个类别的物体，names只有”license”一个类别，配置训练集、验证集、测试集的文件夹路径，选择设备为gpu0，即可进行模型训练。</p>
+<h3 id="训练结果分析"><a href="#训练结果分析" class="headerlink" title="训练结果分析"></a>训练结果分析</h3><p>正式实验时，进行了两次训练，第一次训练只设置了epoch为30，且整个数据集只有5000张车牌图片，训练的结果不是很好，存在有的车牌没有检测出来。第二次训练设置epoch为60，数据集20000张图片，效果非常好，mAP达到了0.9996，图片中的车牌几乎都能检测出来，结果如下</p>
+<p>​																								表、图</p>
+<p>从结果可知，当数据集能包含大多数情况，且数据量足够大时，能较好的学习到高准确率的车牌检测模型，而epoch基本在10轮后就已经收敛于一个很高的精度。</p>
+<h3 id="模型测试"><a href="#模型测试" class="headerlink" title="模型测试"></a>模型测试</h3><p>划分数据集时，采用了6:1:1的比例，即1/8的数据集为测试集，在detect.py中设置source路径为测试集目录，选择权重文件为train.py运行后的得到的last.pt文件，此即为训练好的车牌检测模型，由于本次实验选择的车牌识别算法为LPRnet，基于迁移学习的原则，将训练好的Final_LPRNet_model.pth权重文件作为预训练模型直接加载，执行detect.py程序，即可进行模型测试，测试结果如下：</p>
+<p><img src="/posts/f0ea/right.png" alt="image-20220525222501800"></p>
+<p>上图可以看出即使时轻微模糊和轻微倾斜条件下，该模型仍有很好的识别性能，但在倾斜程度较大的情况下，识别效果很差。</p>
+<p><img src="/posts/f0ea/wrong.png" alt="image-20220525231139801"></p>
+<h3 id="模型改进方向"><a href="#模型改进方向" class="headerlink" title="模型改进方向"></a>模型改进方向</h3><p>由于在车牌倾斜的情况下车牌识别的准确率很差，可以采用车牌矫正的方法对倾斜角度较大的车牌先进行一步预处理，通常采用仿射变换的方法进行车牌矫正，也可采用透视变换来进行车牌矫正，，透视变换适用于由拍摄角度导致的车牌倾斜图片，可以将二维的车牌位置坐标转换为三维空间坐标，透视变换需要得到车牌的四个位置信息，获得顶点位置后，先检测出车牌的轮廓，检测出轮廓后计算得到车牌顶点。</p>
+<h2 id="车牌识别系统界面制作"><a href="#车牌识别系统界面制作" class="headerlink" title="车牌识别系统界面制作"></a>车牌识别系统界面制作</h2><p>采用PyQt5进行车牌识别系统界面设计，Qt是基于C++的一个界面设计库，利用PyQt5的Qlabel标签显示识别图片及识别的文本结果。实现通过点击按钮即可在本地选择车牌图片进行车牌识别，并且显示识别出来的车牌号码。</p>
+<p><img src="/posts/f0ea/ui.png" alt="image-20220525163305503"></p>
+<p>本界面采用3个Qlabel和1个Button，Qlabel1是用于显示图片，Qlabel2设置为车牌识别结果，Qlabel3显示车牌文本，Button用于设置车牌识别按钮，点击车牌识别按钮后，会打开本地的默认路径文件夹，此文件夹里存放的是用于车牌识别的测试样例，点击按钮后，会调用一次车牌识别程序，最终在Qlabel1里显示出识别的车牌图片并加以标注且显示置信度，Qlabel3中显示识别出的车牌文本信息，通过PyQt5的信号槽机制即可实现此功能。</p>
+<p>信号和槽是PyQt5对象之间的通信机制。由于打开的窗体时继承自QWideget类的对象，所以也支持信号与槽机制。我们只需将Button与openImage槽函数关联起来，这样只要Button发送信号，相应的openImage函数就会被执行，在openImage函数中可以定义多个动作，例如，打开车牌图片，执行一次车牌识别程序，将图片显示在Qlabel1上，并将车牌文本信息显示在Qlabel3上。</p>
+<pre class="line-numbers language-python"><code class="language-python">btn<span class="token punctuation">.</span>clicked<span class="token punctuation">.</span>connect<span class="token punctuation">(</span>self<span class="token punctuation">.</span>openimage<span class="token punctuation">)</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="1-1fork用法"><a href="#1-1fork用法" class="headerlink" title="1.1fork用法"></a>1.1fork用法</h3><p>一个进程可以使用<code>fork()</code>系统调用创建一个新的进程(称为子进程)，fork()创建了一个<code>新的进程</code>，其<code>内存</code>与父进程完全一样，fork在子进程中返回<code>0</code>，父进程中返回<code>子进程的PID</code>。</p>
-<h3 id="1-2fork疑云"><a href="#1-2fork疑云" class="headerlink" title="1.2fork疑云"></a>1.2fork疑云</h3><p>且看一个例子：</p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token keyword">int</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> pid <span class="token operator">=</span> <span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>pid <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
-        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"fork error\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>pid <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
-        count<span class="token operator">++</span><span class="token punctuation">,</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"pid = %d count_ad = %p : %d\n"</span><span class="token punctuation">,</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>count<span class="token punctuation">,</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">else</span>
-        count<span class="token operator">++</span><span class="token punctuation">,</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"pid = %d count_ad = %p : %d\n"</span><span class="token punctuation">,</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>count<span class="token punctuation">,</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>输出如下：</p>
-<pre class="line-numbers language-c"><code class="language-c">pid <span class="token operator">=</span> <span class="token number">240</span> count_ad <span class="token operator">=</span> <span class="token number">0x7ffdb7979330</span> <span class="token punctuation">:</span> <span class="token number">1</span>
-pid <span class="token operator">=</span> <span class="token number">241</span> count_ad <span class="token operator">=</span> <span class="token number">0x7ffdb7979330</span> <span class="token punctuation">:</span> <span class="token number">1</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>这里会产生一个疑问，既然两个进程并<code>未共享count</code>变量，那么对count自增操作自然是分别<code>独立</code>进行，也就是最终结果都是count = 1，但count的<code>地址</code>却相同，纠结的点在于如果变量的地址相同，那第二次执行自增的count = 2。</p>
-<p>问题解决：</p>
-<blockquote>
-<p>由于fork()系统调用会产生一个新的进程，而在每个进程眼中，自己都<code>独享整个内存地址空间</code>，也就是说，child-&gt;count_ad虽然和parent-&gt;count_ad<code>逻辑地址相同</code>，但其实际<code>物理地址不同</code>。</p>
-</blockquote>
+<p>最后注意需要把关闭图像界面作为结束程序的标志，也即点击关闭按钮后，整个车牌识别主程序也关闭。</p>
+<pre class="line-numbers language-python"><code class="language-python">app <span class="token operator">=</span> QtWidgets<span class="token punctuation">.</span>QApplication<span class="token punctuation">(</span>sys<span class="token punctuation">.</span>argv<span class="token punctuation">)</span>
+my <span class="token operator">=</span> picture<span class="token punctuation">(</span><span class="token punctuation">)</span>
+my<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span>
+sys<span class="token punctuation">.</span>exit<span class="token punctuation">(</span>app<span class="token punctuation">.</span>exec_<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这样一个简易的车牌识别系统界面也就完成了，由于本次实验的主要工作是完成车牌识别，主要工作集中于前期的车牌检测、车牌识别相关代码的编写与合并，故对界面并为做过多研究，仅仅实现了对车牌图片的识别，后期可以将界面加以美化，实现对视频和摄像头的实时识别。</p>
 
                 
             </div>
@@ -476,7 +489,7 @@ pid <span class="token operator">=</span> <span class="token number">241</span> 
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://shenhuagg555.github.io/posts/undefined.html">http://shenhuagg555.github.io/posts/undefined.html</a>
+                    <a href="http://shenhuagg555.github.io/posts/f0ea.html">http://shenhuagg555.github.io/posts/f0ea.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -514,8 +527,12 @@ pid <span class="token operator">=</span> <span class="token number">241</span> 
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/6-S081/">
-                                    <span class="chip bg-color">6.S081</span>
+                                <a href="/tags/%E6%AF%95%E8%AE%BE/">
+                                    <span class="chip bg-color">毕设</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
                                 </a>
                             
                         </div>
@@ -1012,17 +1029,18 @@ pid <span class="token operator">=</span> <span class="token number">241</span> 
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
-                <a href="/posts/3647.html">
+                <a href="/posts/f0ea.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="2.卷积神经网络概述">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="5.软硬件实验环境搭建及模型训练">
                         
-                        <span class="card-title">2.卷积神经网络概述</span>
+                        <span class="card-title">5.软硬件实验环境搭建及模型训练</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1032,21 +1050,22 @@ pid <span class="token operator">=</span> <span class="token number">241</span> 
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-05-09
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-05-26
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="post-category">
-                                    神经网络
+                            <a href="/categories/PyQt5/" class="post-category">
+                                    PyQt5
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1069,13 +1088,13 @@ pid <span class="token operator">=</span> <span class="token number">241</span> 
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/5df5.html">
+                <a href="/posts/f3af.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="科软跨考经验帖">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="1.绪论">
                         
-                        <span class="card-title">科软跨考经验帖</span>
+                        <span class="card-title">1.绪论</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1086,16 +1105,12 @@ pid <span class="token operator">=</span> <span class="token number">241</span> 
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-26
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-05-10
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E6%9D%82%E8%B0%88/" class="post-category">
-                                    杂谈
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Paranoid
                             
                         </span>
                     </div>
@@ -1103,8 +1118,8 @@ pid <span class="token operator">=</span> <span class="token number">241</span> 
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%A7%91%E8%BD%AF/">
-                        <span class="chip bg-color">科软</span>
+                    <a href="/tags/%E6%AF%95%E8%AE%BE/">
+                        <span class="chip bg-color">毕设</span>
                     </a>
                     
                 </div>
