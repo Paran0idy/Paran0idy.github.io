@@ -6,7 +6,7 @@
   <link href="http://shenhuagg555.github.io/atom.xml" rel="self"/>
   
   <link href="http://shenhuagg555.github.io/"/>
-  <updated>2022-05-27T13:00:42.082Z</updated>
+  <updated>2022-05-27T13:02:05.868Z</updated>
   <id>http://shenhuagg555.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://shenhuagg555.github.io/posts/95.html"/>
     <id>http://shenhuagg555.github.io/posts/95.html</id>
     <published>2022-05-27T12:55:37.000Z</published>
-    <updated>2022-05-27T13:00:42.082Z</updated>
+    <updated>2022-05-27T13:02:05.868Z</updated>
     
     
       
@@ -41,18 +41,18 @@
     <category term="目标检测" scheme="http://shenhuagg555.github.io/categories/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/YOLO/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/"/>
     
     
-    <category term="毕设" scheme="http://shenhuagg555.github.io/tags/%E6%AF%95%E8%AE%BE/"/>
-    
     <category term="深度学习" scheme="http://shenhuagg555.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="毕设" scheme="http://shenhuagg555.github.io/tags/%E6%AF%95%E8%AE%BE/"/>
     
   </entry>
   
   <entry>
-    <title>5.软硬件实验环境搭建及模型训练</title>
+    <title>4.软硬件实验环境搭建及模型训练</title>
     <link href="http://shenhuagg555.github.io/posts/f0ea.html"/>
     <id>http://shenhuagg555.github.io/posts/f0ea.html</id>
     <published>2022-05-26T04:31:45.000Z</published>
-    <updated>2022-05-27T13:01:52.296Z</updated>
+    <updated>2022-05-27T13:03:02.987Z</updated>
     
     
       
@@ -68,9 +68,9 @@
     <category term="PyQt5" scheme="http://shenhuagg555.github.io/categories/PyQt5/"/>
     
     
-    <category term="毕设" scheme="http://shenhuagg555.github.io/tags/%E6%AF%95%E8%AE%BE/"/>
-    
     <category term="深度学习" scheme="http://shenhuagg555.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="毕设" scheme="http://shenhuagg555.github.io/tags/%E6%AF%95%E8%AE%BE/"/>
     
   </entry>
   
@@ -118,9 +118,9 @@
     <category term="神经网络" scheme="http://shenhuagg555.github.io/categories/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
     
     
-    <category term="毕设" scheme="http://shenhuagg555.github.io/tags/%E6%AF%95%E8%AE%BE/"/>
-    
     <category term="深度学习" scheme="http://shenhuagg555.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="毕设" scheme="http://shenhuagg555.github.io/tags/%E6%AF%95%E8%AE%BE/"/>
     
   </entry>
   
