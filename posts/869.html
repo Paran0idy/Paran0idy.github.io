@@ -376,13 +376,22 @@
                     <div class="article-tag">
                         
                             <a href="/tags/Linux-Pytorch/">
-                                <span class="chip bg-color">Linux Pytorch</span>
+                                <span class="chip bg-color">-Linux -Pytorch</span>
                             </a>
                         
                     </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                -深度学习
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -429,12 +438,12 @@
 <pre class="line-numbers language-bash"><code class="language-bash">conda deactivate torch
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="2-Pytorch安装"><a href="#2-Pytorch安装" class="headerlink" title="2.Pytorch安装"></a>2.Pytorch安装</h2><p>Pytorch官网给出了各种OS下的最新版本，电脑装了GPU的话就安装GPU版本的，选择如下，这里CUDA的版本需要自己查一下版本。</p>
-<img src="/posts/869/image-20220628172251409.png" alt="Pytorch官网" style="zoom:50%;">
+<img src="/posts/869/image-20220628172251409.png" alt="Pytorch官网">
 
 <p>输入命令，查看CUDA版本：</p>
 <pre class="line-numbers language-bash"><code class="language-bash">nvidia-smi
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<img src="/posts/869/image-20220628172653467.png" alt="CUDA Version" style="zoom:50%;">
+<img src="/posts/869/image-20220628172653467.png" alt="CUDA Version">
 
 <p>可以看到这里我的CUDA Version是11.6，将官网的命令修改一下版本即可，注意去掉-c pytorch，这样就可以使用国内源进行下载了，切换清华源如下：</p>
 <pre class="line-numbers language-bash"><code class="language-bash">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
@@ -447,7 +456,7 @@ conda config --set show_channel_urls <span class="token function">yes</span>
 <p>这里有可能会安装为CPU版本的Pytorch，输入以下命令查看已经安装的库</p>
 <pre class="line-numbers language-bash"><code class="language-bash">conda list
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<img src="/posts/869/image-20220628173710455.png" alt="已安装的库" style="zoom:50%;">
+<img src="/posts/869/image-20220628173710455.png" alt="已安装的库">
 
 <p>如果是CPU版本的话，就要去清华源手动下载了，安装GPU版本的pytorch、torchvision</p>
 <pre class="line-numbers language-bash"><code class="language-bash">conda <span class="token function">install</span> https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/linux-64/pytorch-1.12.0-py3.9_cuda11.6_cudnn8.3.2_0.tar.bz2
@@ -484,10 +493,10 @@ c<span class="token punctuation">.</span>NotebookApp<span class="token punctuati
 <pre class="line-numbers language-bash"><code class="language-bash">jupyter notebook
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>即可显示网页链接</p>
-<img src="/posts/869/image-20220628175237834.png" alt="网页链接" style="zoom: 50%;">
+<img src="/posts/869/image-20220628175237834.png" alt="网页链接">
 
 <p>这样就可以愉快的使用Jupyter Notebook啦！！！</p>
-<img src="/posts/869/image-20220628190717443.png" alt="jupyter notebook" style="zoom: 50%;">
+<img src="/posts/869/image-20220628190717443.png" alt="jupyter notebook">
 
 <p>以上</p>
 
@@ -555,7 +564,7 @@ c<span class="token punctuation">.</span>NotebookApp<span class="token punctuati
                         <div class="article-tag">
                             
                                 <a href="/tags/Linux-Pytorch/">
-                                    <span class="chip bg-color">Linux Pytorch</span>
+                                    <span class="chip bg-color">-Linux -Pytorch</span>
                                 </a>
                             
                         </div>
@@ -1078,8 +1087,12 @@ c<span class="token punctuation">.</span>NotebookApp<span class="token punctuati
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Paranoid
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    -深度学习
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -1089,7 +1102,7 @@ c<span class="token punctuation">.</span>NotebookApp<span class="token punctuati
                 <div class="card-action article-tags">
                     
                     <a href="/tags/Linux-Pytorch/">
-                        <span class="chip bg-color">Linux Pytorch</span>
+                        <span class="chip bg-color">-Linux -Pytorch</span>
                     </a>
                     
                 </div>
