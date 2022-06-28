@@ -33,9 +33,9 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 6.1.0">
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Paranoid" type="application/atom+xml">
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Paranoid" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -429,7 +429,7 @@
 <p>输入命令，查看CUDA版本：</p>
 <pre class="line-numbers language-bash"><code class="language-bash">nvidia-smi
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="/posts/869/Hexo\blog\source_posts\WSL2下配置Anaconda、Pytorch、JupyterNotebook\image-20220628172653467.png" alt="CUDA Version"></p>
+<p><img src="/posts/869/image-20220628172653467.png" alt="CUDA Version"></p>
 <p>可以看到这里我的CUDA Version是11.6，将官网的命令修改一下版本即可，注意去掉-c pytorch，这样就可以使用国内源进行下载了，切换清华源如下：</p>
 <pre class="line-numbers language-bash"><code class="language-bash">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
