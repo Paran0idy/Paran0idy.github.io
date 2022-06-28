@@ -6,7 +6,7 @@
   <link href="http://shenhuagg555.github.io/atom.xml" rel="self"/>
   
   <link href="http://shenhuagg555.github.io/"/>
-  <updated>2022-05-31T14:59:54.017Z</updated>
+  <updated>2022-06-28T08:57:07.572Z</updated>
   <id>http://shenhuagg555.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>WSL2下配置Anaconda、Pytorch、JupyterNotebook</title>
+    <link href="http://shenhuagg555.github.io/posts/869.html"/>
+    <id>http://shenhuagg555.github.io/posts/869.html</id>
+    <published>2022-06-28T08:39:27.000Z</published>
+    <updated>2022-06-28T08:57:07.572Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;WSL2下配置Anaconda、Pytorch、JupyterNotebook&quot;&gt;&lt;a href=&quot;#WSL2下配置Anaconda、Pytorch、JupyterNotebook&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>6.S081：1.关于fork()的思考</title>

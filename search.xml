@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>WSL2下配置Anaconda、Pytorch、JupyterNotebook</title>
+      <link href="/posts/869.html"/>
+      <url>/posts/869.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="WSL2下配置Anaconda、Pytorch、JupyterNotebook"><a href="#WSL2下配置Anaconda、Pytorch、JupyterNotebook" class="headerlink" title="WSL2下配置Anaconda、Pytorch、JupyterNotebook"></a>WSL2下配置Anaconda、Pytorch、JupyterNotebook</h1><p>和原生Linux下配置环境基本一致</p><h2 id="1-Anaconda安装"><a href="#1-Anaconda安装" class="headerlink" title="1.Anaconda安装"></a>1.Anaconda安装</h2><p>去Anaconda的官网寻找最新的安装包，但这种方法下载速度太慢，可以寻找国内的源，如</p><p>在命令行输入以下命令即可</p><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">wget</span> https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2022.05-Linux-x86_64.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>然后使用<code>bash</code>命令即可成功安装</p><pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">bash</span> Anaconda3-2022.05-Linux-x86_64.sh<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="2-Pytorch安装"><a href="#2-Pytorch安装" class="headerlink" title="2.Pytorch安装"></a>2.Pytorch安装</h2><p>Pytorch官网给出了各种OS下的最新版本，复制命令下载即可，但这里</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>6.S081：1.关于fork()的思考</title>
       <link href="/posts/undefined.html"/>
       <url>/posts/undefined.html</url>
