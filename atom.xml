@@ -6,7 +6,7 @@
   <link href="http://shenhuagg555.github.io/atom.xml" rel="self"/>
   
   <link href="http://shenhuagg555.github.io/"/>
-  <updated>2022-07-14T10:01:14.060Z</updated>
+  <updated>2022-07-21T17:21:40.478Z</updated>
   <id>http://shenhuagg555.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>makefile初体验</title>
+    <link href="http://shenhuagg555.github.io/posts/ab96.html"/>
+    <id>http://shenhuagg555.github.io/posts/ab96.html</id>
+    <published>2022-07-21T16:41:42.000Z</published>
+    <updated>2022-07-21T17:21:40.478Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;makefile初体验&quot;&gt;&lt;a href=&quot;#makefile初体验&quot; class=&quot;headerlink&quot; title=&quot;makefile初体验&quot;&gt;&lt;/a&gt;makefile初体验&lt;/h1&gt;&lt;h2 id=&quot;1-什么是makefile&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="编译" scheme="http://shenhuagg555.github.io/categories/%E7%BC%96%E8%AF%91/"/>
+    
+    
+    <category term="makefile" scheme="http://shenhuagg555.github.io/tags/makefile/"/>
+    
+  </entry>
   
   <entry>
     <title>github创建仓库并使用git上传本地代码</title>
