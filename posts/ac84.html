@@ -4,9 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="6.S081：3.素数筛Primes实验, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="6.S081：3.素数筛Primes实验Problem：primes (moderate)/(hard)
-Write a concurrent version of prime sieve using pipes. This idea is">
+    <meta name="keywords" content="MIT 6.S081：3.素数筛Primes实验, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
+    <meta name="description" content="MIT 6.S081：3.素数筛Primes实验Problem：primes (moderate)/(hard)
+Write a concurrent version of prime sieve using pipes. This ide">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +20,7 @@ Write a concurrent version of prime sieve using pipes. This idea is">
 
     
 
-    <title>6.S081：3.素数筛Primes实验 | Paranoid</title>
+    <title>MIT 6.S081：3.素数筛Primes实验 | Paranoid</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -251,12 +251,12 @@ Write a concurrent version of prime sieve using pipes. This idea is">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">6.S081：3.素数筛Primes实验</h1>
+                    <h1 class="description center-align post-title">MIT 6.S081：3.素数筛Primes实验</h1>
                 </div>
             </div>
         </div>
@@ -421,12 +421,13 @@ Write a concurrent version of prime sieve using pipes. This idea is">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="6-S081：3-素数筛Primes实验"><a href="#6-S081：3-素数筛Primes实验" class="headerlink" title="6.S081：3.素数筛Primes实验"></a>6.S081：3.素数筛Primes实验</h1><h2 id="Problem：primes-moderate-x2F-hard"><a href="#Problem：primes-moderate-x2F-hard" class="headerlink" title="Problem：primes (moderate)/(hard)"></a>Problem：primes (<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2021/labs/guidance.html">moderate</a>)/(<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2021/labs/guidance.html">hard</a>)</h2><blockquote>
+                <h1 id="MIT-6-S081：3-素数筛Primes实验"><a href="#MIT-6-S081：3-素数筛Primes实验" class="headerlink" title="MIT 6.S081：3.素数筛Primes实验"></a>MIT 6.S081：3.素数筛Primes实验</h1><h2 id="Problem：primes-moderate-x2F-hard"><a href="#Problem：primes-moderate-x2F-hard" class="headerlink" title="Problem：primes (moderate)/(hard)"></a>Problem：primes (<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2021/labs/guidance.html">moderate</a>)/(<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2021/labs/guidance.html">hard</a>)</h2><blockquote>
 <p>Write a concurrent version of prime sieve using pipes. This idea is due to Doug McIlroy, inventor of Unix pipes. The picture halfway down <a target="_blank" rel="noopener" href="http://swtch.com/~rsc/thread/">this page</a> and the surrounding text explain how to do it. Your solution should be in the file <code>user/primes.c</code>.</p>
 </blockquote>
 <p>Your goal is to use <code>pipe</code> and <code>fork</code> to set up the pipeline. The first process feeds the numbers 2 through 35 into the pipeline. For each prime number, you will arrange to create one process that reads from its left neighbor over a pipe and writes to its right neighbor over another pipe. Since xv6 has limited number of file descriptors and processes, the first process can stop at 35.</p>
 <p><img src="/posts/ac84/image-20220816184206364.png" alt="primes"></p>
 <p>Some hints: </p>
+<blockquote>
 <ul>
 <li>Be careful to close file descriptors that a process doesn’t need, because otherwise your program will run xv6 out of resources before the first process reaches 35.</li>
 <li>Once the first process reaches 35, it should wait until the entire pipeline terminates, including all children, grandchildren, &amp;c. Thus the main primes process should only exit after all the output has been printed, and after all the other primes processes have exited.</li>
@@ -435,6 +436,7 @@ Write a concurrent version of prime sieve using pipes. This idea is">
 <li>You should create the processes in the pipeline only as they are needed.</li>
 <li>Add the program to <code>UPROGS</code> in Makefile.</li>
 </ul>
+</blockquote>
 <p>Your solution is correct if it implements a pipe-based sieve and produces the following output:</p>
 <pre class="line-numbers language-bash"><code class="language-bash">    $ <span class="token function">make</span> qemu
     <span class="token punctuation">..</span>.
@@ -1107,9 +1109,10 @@ Write a concurrent version of prime sieve using pipes. This idea is">
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
                 <a href="/posts/ac84.html">
                     <div class="card-image">
@@ -1127,9 +1130,9 @@ Write a concurrent version of prime sieve using pipes. This idea is">
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-08-16
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-08-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1142,6 +1145,7 @@ Write a concurrent version of prime sieve using pipes. This idea is">
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
