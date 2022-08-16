@@ -425,7 +425,7 @@ Write a concurrent version of prime sieve using pipes. This ide">
 <p>Write a concurrent version of prime sieve using pipes. This idea is due to Doug McIlroy, inventor of Unix pipes. The picture halfway down <a target="_blank" rel="noopener" href="http://swtch.com/~rsc/thread/">this page</a> and the surrounding text explain how to do it. Your solution should be in the file <code>user/primes.c</code>.</p>
 </blockquote>
 <p>Your goal is to use <code>pipe</code> and <code>fork</code> to set up the pipeline. The first process feeds the numbers 2 through 35 into the pipeline. For each prime number, you will arrange to create one process that reads from its left neighbor over a pipe and writes to its right neighbor over another pipe. Since xv6 has limited number of file descriptors and processes, the first process can stop at 35.</p>
-<p>![prmes](./MIT 6.S081：3.素数筛Primes实验/image-20220816184206364.png)</p>
+<p>![prmes](MIT 6.S081：3.素数筛Primes实验/image-20220816184206364.png)</p>
 <p>Some hints:</p>
 <ul>
 <li>Be careful to close file descriptors that a process doesn’t need, because otherwise your program will run xv6 out of resources before the first process reaches 35.</li>
@@ -467,7 +467,7 @@ Write a concurrent version of prime sieve using pipes. This ide">
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>只有fork()出来的父子进程才能通过一个管道通信，为了完成父进程写，子进程读，需要我们关闭父进程的读端和子进程的写端，管道通信的示意图如下</p>
-<p>![pipe](./MIT 6.S081：3.素数筛Primes实验/image-20220816193304351.png)</p>
+<p>![pipe](MIT 6.S081：3.素数筛Primes实验/image-20220816193304351.png)</p>
 <p>由于管道通信仅涉及父子进程，那么一个想法是在每一次创建进程之前，都先进行pipe(fd)，这样父子进程的fd都指向同一管道。</p>
 <pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">while</span><span class="token punctuation">(</span>condition<span class="token punctuation">)</span><span class="token punctuation">{</span>
     <span class="token keyword">int</span> fd<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
@@ -543,7 +543,7 @@ Write a concurrent version of prime sieve using pipes. This ide">
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="彩蛋"><a href="#彩蛋" class="headerlink" title="彩蛋"></a>彩蛋</h2><p>其实没有wait()，让父进程直接退出也能达到不产生多叉树的效果，但是如果注释掉wait()，会发现一个意想不到的结果。</p>
-<p>![wait](./MIT 6.S081：3.素数筛Primes实验/image-20220816191818576.png)</p>
+<p>![wait](MIT 6.S081：3.素数筛Primes实验/image-20220816191818576.png)</p>
 <p>会发现，<code>命令提示符$</code>被打印了出来？这里的原因需要追溯到shell的运行机制，实际上shell也是一个c程序，中间也是一段fork()，子进程执行命令，父进程等待子进程的退出(显示命令提示符$)，由于cpu调度时，一次性让primes.c的主进程(shell的子进程)执行完了，进程退出后，会回到shell程序，接着打印出$，从而有了上述的结果。</p>
 
                 
