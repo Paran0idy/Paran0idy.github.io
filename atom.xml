@@ -6,7 +6,7 @@
   <link href="http://shenhuagg555.github.io/atom.xml" rel="self"/>
   
   <link href="http://shenhuagg555.github.io/"/>
-  <updated>2022-08-16T13:53:21.236Z</updated>
+  <updated>2022-08-16T13:56:02.350Z</updated>
   <id>http://shenhuagg555.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>6.S081：3.素数筛Primes实验</title>
+    <link href="http://shenhuagg555.github.io/posts/ac84.html"/>
+    <id>http://shenhuagg555.github.io/posts/ac84.html</id>
+    <published>2022-08-16T09:06:49.000Z</published>
+    <updated>2022-08-16T13:56:02.350Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;6-S081：3-素数筛Primes实验&quot;&gt;&lt;a href=&quot;#6-S081：3-素数筛Primes实验&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="操作系统" scheme="http://shenhuagg555.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+    <category term="6.S081" scheme="http://shenhuagg555.github.io/tags/6-S081/"/>
+    
+  </entry>
   
   <entry>
     <title>MIT 6.S081：3.素数筛Primes实验</title>
@@ -42,18 +67,18 @@
   </entry>
   
   <entry>
-    <title>MIT 6.S081：2.makefile初体验</title>
+    <title>6.S081：2.makefile初体验</title>
     <link href="http://shenhuagg555.github.io/posts/ab96.html"/>
     <id>http://shenhuagg555.github.io/posts/ab96.html</id>
     <published>2022-07-21T16:41:42.000Z</published>
-    <updated>2022-08-16T11:38:37.436Z</updated>
+    <updated>2022-08-16T13:56:17.368Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;MIT-6-S081：2-makefile初体验&quot;&gt;&lt;a href=&quot;#MIT-6-S081：2-makefile初体验&quot; class=&quot;headerlink&quot; title=&quot;MIT 6.S081：2.makefile初体验&quot;&gt;&lt;/a&gt;MIT</summary>
+    <summary type="html">&lt;h1 id=&quot;6-S081：2-makefile初体验&quot;&gt;&lt;a href=&quot;#6-S081：2-makefile初体验&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -119,18 +144,18 @@
   </entry>
   
   <entry>
-    <title>MIT 6.S081：1.关于fork()的思考</title>
+    <title>6.S081：1.关于fork()的思考</title>
     <link href="http://shenhuagg555.github.io/posts/undefined.html"/>
     <id>http://shenhuagg555.github.io/posts/undefined.html</id>
     <published>2022-05-05T09:39:47.000Z</published>
-    <updated>2022-07-21T17:40:11.837Z</updated>
+    <updated>2022-08-16T13:56:09.842Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;MIT-6-S081：1-关于fork-的思考&quot;&gt;&lt;a href=&quot;#MIT-6-S081：1-关于fork-的思考&quot; class=&quot;headerlink&quot; title=&quot;MIT 6.S081：1.关于fork()的思考&quot;&gt;&lt;/a&gt;MIT</summary>
+    <summary type="html">&lt;h1 id=&quot;6-S081：1-关于fork-的思考&quot;&gt;&lt;a href=&quot;#6-S081：1-关于fork-的思考&quot; class=&quot;headerlink&quot;</summary>
         
       
     

@@ -4,10 +4,10 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="MIT 6.S081：1.关于fork()的思考, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="MIT 6.S081：1.关于fork()的思考1.forkint pid = fork();  //创建一个进程，返回子进程的PID
+    <meta name="keywords" content="6.S081：1.关于fork()的思考, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
+    <meta name="description" content="6.S081：1.关于fork()的思考1.forkint pid = fork();  //创建一个进程，返回子进程的PID
 
-1.1fork用法一个进程可以使用fork()系统调用创建一个新的进程(称为子进程)，fork()创建">
+1.1fork用法一个进程可以使用fork()系统调用创建一个新的进程(称为子进程)，fork()创建了一个新">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -21,7 +21,7 @@
 
     
 
-    <title>MIT 6.S081：1.关于fork()的思考 | Paranoid</title>
+    <title>6.S081：1.关于fork()的思考 | Paranoid</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -252,12 +252,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">MIT 6.S081：1.关于fork()的思考</h1>
+                    <h1 class="description center-align post-title">6.S081：1.关于fork()的思考</h1>
                 </div>
             </div>
         </div>
@@ -422,7 +422,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="MIT-6-S081：1-关于fork-的思考"><a href="#MIT-6-S081：1-关于fork-的思考" class="headerlink" title="MIT 6.S081：1.关于fork()的思考"></a>MIT 6.S081：1.关于fork()的思考</h1><h2 id="1-fork"><a href="#1-fork" class="headerlink" title="1.fork"></a>1.fork</h2><pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> pid <span class="token operator">=</span> <span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//创建一个进程，返回子进程的PID</span>
+                <h1 id="6-S081：1-关于fork-的思考"><a href="#6-S081：1-关于fork-的思考" class="headerlink" title="6.S081：1.关于fork()的思考"></a>6.S081：1.关于fork()的思考</h1><h2 id="1-fork"><a href="#1-fork" class="headerlink" title="1.fork"></a>1.fork</h2><pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> pid <span class="token operator">=</span> <span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//创建一个进程，返回子进程的PID</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="1-1fork用法"><a href="#1-1fork用法" class="headerlink" title="1.1fork用法"></a>1.1fork用法</h3><p>一个进程可以使用<code>fork()</code>系统调用创建一个新的进程(称为子进程)，fork()创建了一个<code>新的进程</code>，其<code>内存</code>与父进程完全一样，fork在子进程中返回<code>0</code>，父进程中返回<code>子进程的PID</code>。</p>
 <h3 id="1-2fork疑云"><a href="#1-2fork疑云" class="headerlink" title="1.2fork疑云"></a>1.2fork疑云</h3><p>且看一个例子：</p>
