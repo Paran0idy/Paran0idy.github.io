@@ -426,8 +426,8 @@
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="1-1fork用法"><a href="#1-1fork用法" class="headerlink" title="1.1fork用法"></a>1.1fork用法</h3><p>一个进程可以使用<code>fork()</code>系统调用创建一个新的进程(称为子进程)，fork()创建了一个<code>新的进程</code>，其<code>内存</code>与父进程完全一样，fork在子进程中返回<code>0</code>，父进程中返回<code>子进程的PID</code>。</p>
 <h3 id="1-2fork疑云"><a href="#1-2fork疑云" class="headerlink" title="1.2fork疑云"></a>1.2fork疑云</h3><p>且看一个例子：</p>
-<pre class="line-numbers language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h&gt;</span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h&gt;</span></span>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
 
 <span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
     <span class="token keyword">int</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
