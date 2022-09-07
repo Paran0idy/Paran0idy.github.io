@@ -6,7 +6,7 @@
   <link href="http://shenhuagg555.github.io/atom.xml" rel="self"/>
   
   <link href="http://shenhuagg555.github.io/"/>
-  <updated>2022-08-16T14:02:33.481Z</updated>
+  <updated>2022-09-07T09:09:59.746Z</updated>
   <id>http://shenhuagg555.github.io/</id>
   
   <author>
@@ -17,11 +17,57 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>6.S081：5.xargs命令实现</title>
+    <link href="http://shenhuagg555.github.io/posts/852f.html"/>
+    <id>http://shenhuagg555.github.io/posts/852f.html</id>
+    <published>2022-09-07T09:00:32.000Z</published>
+    <updated>2022-09-07T09:09:59.746Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;6-S081：5-xargs命令实现&quot;&gt;&lt;a href=&quot;#6-S081：5-xargs命令实现&quot; class=&quot;headerlink&quot; title=&quot;6.S081：5.xargs命令实现&quot;&gt;&lt;/a&gt;6.S081：5.xargs命令实现&lt;/h1&gt;&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+    <category term="6.s081" scheme="http://shenhuagg555.github.io/tags/6-s081/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>6.S081：4.find功能实现</title>
+    <link href="http://shenhuagg555.github.io/posts/51d6.html"/>
+    <id>http://shenhuagg555.github.io/posts/51d6.html</id>
+    <published>2022-09-07T08:32:10.000Z</published>
+    <updated>2022-09-07T09:10:26.712Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;6-S081：4-find功能实现&quot;&gt;&lt;a href=&quot;#6-S081：4-find功能实现&quot; class=&quot;headerlink&quot; title=&quot;6.S081：4.find功能实现&quot;&gt;&lt;/a&gt;6.S081：4.find功能实现&lt;/h1&gt;&lt;h2</summary>
+        
+      
+    
+    
+    
+    
+    <category term="6.s081" scheme="http://shenhuagg555.github.io/tags/6-s081/"/>
+    
+  </entry>
+  
+  <entry>
     <title>6.S081：3.素数筛Primes实验</title>
     <link href="http://shenhuagg555.github.io/posts/ac84.html"/>
     <id>http://shenhuagg555.github.io/posts/ac84.html</id>
     <published>2022-08-16T09:06:49.000Z</published>
-    <updated>2022-08-16T14:02:33.481Z</updated>
+    <updated>2022-08-18T09:08:28.467Z</updated>
     
     
       
