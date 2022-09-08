@@ -445,7 +445,7 @@
 <pre class="line-numbers language-c"><code class="language-c">pid <span class="token operator">=</span> <span class="token number">240</span> count_ad <span class="token operator">=</span> <span class="token number">0x7ffdb7979330</span> <span class="token punctuation">:</span> <span class="token number">1</span>
 pid <span class="token operator">=</span> <span class="token number">241</span> count_ad <span class="token operator">=</span> <span class="token number">0x7ffdb7979330</span> <span class="token punctuation">:</span> <span class="token number">1</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>这里会产生一个疑问，既然两个进程并<code>未共享count</code>变量，那么对count自增操作自然是分别<code>独立</code>进行，也就是最终结果都是count = 1，但count的<code>地址</code>却相同，纠结的点在于如果变量的地址相同，那第二次执行自增的count = 2。</p>
+<p>这里会产生一个疑问，既然两个进程并<code>未共享count</code>变量，那么对count自增操作自然是分别<code>独立</code>进行，也就是最终结果都是count = 1，但count的<code>地址</code>却相同，纠结的点在于如果变量的地址相同，那第二次执行自增的count = 2</p>
 <p>问题解决：</p>
 <blockquote>
 <p>由于fork()系统调用会产生一个新的进程，而在每个进程眼中，自己都<code>独享整个内存地址空间</code>，也就是说，child-&gt;count_ad虽然和parent-&gt;count_ad<code>逻辑地址相同</code>，但其实际<code>物理地址不同</code>。</p>
