@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
+    <meta name="keywords" content="Sysprog：3. A Minimal Debugger, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
     <meta name="description" content="lab3 ：A Minimal DebuggerExercise 1:Now read the source file and answer the following questions.
 
 How the regs command is">
@@ -21,7 +21,7 @@ How the regs command is">
 
     
 
-    <title>Paranoid</title>
+    <title>Sysprog：3. A Minimal Debugger | Paranoid</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -34,9 +34,9 @@ How the regs command is">
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Paranoid" type="application/atom+xml">
-
+<meta name="generator" content="Hexo 6.1.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Paranoid" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
@@ -252,12 +252,12 @@ How the regs command is">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title"></h1>
+                    <h1 class="description center-align post-title">Sysprog：3. A Minimal Debugger</h1>
                 </div>
             </div>
         </div>
@@ -374,12 +374,25 @@ How the regs command is">
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Sysprog/">
+                                <span class="chip bg-color">Sysprog</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Linux/" class="post-category">
+                                Linux
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -469,7 +482,7 @@ How the regs command is">
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>没有显示前导0，只需在打印时指定正确的格式即可，即<code>printf ("%lx: %016lx\n", addr, data)</code></p>
-<p>![image-20221026221903731](Sysprog：3. A Minimal Debugger/image-20221026221903731.png)</p>
+<p>![Q2](Sysprog：3. A Minimal Debugger/image-20221026221903731.png)</p>
 </li>
 </ol>
 <p>可以看到最低字节又修改为原来的值了</p>
@@ -508,7 +521,7 @@ ZydisDisassembledInstruction instruction<span class="token punctuation">;</span>
     runtime_address <span class="token operator">+</span><span class="token operator">=</span> instruction<span class="token punctuation">.</span>info<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>![image-20221024235051691](Sysprog：3. A Minimal Debugger/image-20221024235051691.png)</p>
+<p>![Q3](Sysprog：3. A Minimal Debugger/image-20221024235051691.png)</p>
 <h2 id="Challenge"><a href="#Challenge" class="headerlink" title="Challenge:"></a>Challenge:</h2><p>Another feature missing from the <code>ssedb</code> is debugging symbols. For instance, when setting up breaking points, we’d like just to type a symbolic name, such as:</p>
 <pre><code>(ssedb) b main   
 </code></pre>
@@ -551,7 +564,7 @@ ZydisDisassembledInstruction instruction<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在<code>main.c</code>中调用<code>bfd_func()</code>获得符号表，然后在<code>parseCommand</code>中判断输入是地址还是符号，如果是符号，则调用<code>symbol_address()</code>函数查找地址，顺便也实现了<code>x/i symbol</code> 和 <code>x/x symbol</code></p>
-<p>![image-20221025000155680](Sysprog：3. A Minimal Debugger/image-20221025000155680.png)</p>
+<p>![Challenge](Sysprog：3. A Minimal Debugger/image-20221025000155680.png)</p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本次实验整体不难，代码很全，难点是第三方库加入到工程中，需要一些<code>cmake</code>的知识。一开始将<code>exercese2</code>想的很简单，以为就前导0一个问题，不知道为什么要将第一个字节替换为<code>0xcc</code>，直到实现了<code>x/i</code>才知道，原来是需要一条<code>int 3</code>指令，使得子进程停止，那么问题就变得有意思了，再次返回父进程后我们需要将断点的原始信息还原。</p>
 
                 
@@ -579,7 +592,7 @@ ZydisDisassembledInstruction instruction<span class="token punctuation">;</span>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://shenhuagg555.github.io/posts/0.html">http://shenhuagg555.github.io/posts/0.html</a>
+                    <a href="http://shenhuagg555.github.io/posts/1234.html">http://shenhuagg555.github.io/posts/1234.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -616,7 +629,11 @@ ZydisDisassembledInstruction instruction<span class="token punctuation">;</span>
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
+                            
+                                <a href="/tags/Sysprog/">
+                                    <span class="chip bg-color">Sysprog</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -1111,18 +1128,17 @@ ZydisDisassembledInstruction instruction<span class="token punctuation">;</span>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;Current
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/posts/0.html">
+                <a href="/posts/asfdh.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Sysprog：2. mini Network-Analyzer">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">Sysprog：2. mini Network-Analyzer</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1132,18 +1148,29 @@ ZydisDisassembledInstruction instruction<span class="token punctuation">;</span>
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-27
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-27
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Paranoid
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Linux/" class="post-category">
+                                    Linux
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Sysprog/">
+                        <span class="chip bg-color">Sysprog</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
