@@ -6,7 +6,7 @@
   <link href="http://shenhuagg555.github.io/atom.xml" rel="self"/>
   
   <link href="http://shenhuagg555.github.io/"/>
-  <updated>2022-10-27T16:03:39.758Z</updated>
+  <updated>2022-10-28T16:24:58.202Z</updated>
   <id>http://shenhuagg555.github.io/</id>
   
   <author>
@@ -17,36 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Sysprog：1. Shell</title>
-    <link href="http://shenhuagg555.github.io/posts/sfaaf.html"/>
-    <id>http://shenhuagg555.github.io/posts/sfaaf.html</id>
-    <published>2022-10-27T15:48:39.000Z</published>
-    <updated>2022-10-27T16:03:39.758Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;lab1：Shell&quot;&gt;&lt;a href=&quot;#lab1：Shell&quot; class=&quot;headerlink&quot; title=&quot;lab1：Shell&quot;&gt;&lt;/a&gt;lab1：Shell&lt;/h1&gt;&lt;h2 id=&quot;Question-1&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="Linux" scheme="http://shenhuagg555.github.io/categories/Linux/"/>
-    
-    
-    <category term="Sysprog" scheme="http://shenhuagg555.github.io/tags/Sysprog/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Sysprog：2. mini Network-Analyzer</title>
     <link href="http://shenhuagg555.github.io/posts/asfdh.html"/>
     <id>http://shenhuagg555.github.io/posts/asfdh.html</id>
     <published>2022-10-27T15:48:39.000Z</published>
-    <updated>2022-10-27T16:15:09.329Z</updated>
+    <updated>2022-10-28T16:24:58.202Z</updated>
     
     
       
@@ -67,11 +42,36 @@
   </entry>
   
   <entry>
+    <title>Sysprog：1. Shell</title>
+    <link href="http://shenhuagg555.github.io/posts/sfaaf.html"/>
+    <id>http://shenhuagg555.github.io/posts/sfaaf.html</id>
+    <published>2022-10-27T15:48:39.000Z</published>
+    <updated>2022-10-28T16:24:25.459Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;lab1：Shell&quot;&gt;&lt;a href=&quot;#lab1：Shell&quot; class=&quot;headerlink&quot; title=&quot;lab1：Shell&quot;&gt;&lt;/a&gt;lab1：Shell&lt;/h1&gt;&lt;h2 id=&quot;Question-1&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="http://shenhuagg555.github.io/categories/Linux/"/>
+    
+    
+    <category term="Sysprog" scheme="http://shenhuagg555.github.io/tags/Sysprog/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Sysprog：3. A Minimal Debugger</title>
     <link href="http://shenhuagg555.github.io/posts/1234.html"/>
     <id>http://shenhuagg555.github.io/posts/1234.html</id>
     <published>2022-10-27T15:48:39.000Z</published>
-    <updated>2022-10-27T16:05:17.084Z</updated>
+    <updated>2022-10-28T16:22:34.988Z</updated>
     
     
       

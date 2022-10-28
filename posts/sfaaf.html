@@ -6,7 +6,8 @@
     <meta charset="utf-8">
     <meta name="keywords" content="Sysprog：1. Shell, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
     <meta name="description" content="lab1：ShellQuestion 1:If you add a background command after the pipeline command, can the pipeline work?
-Solution![Q1](Sy">
+Solution
+由上图可知，b">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -422,7 +423,7 @@ Solution![Q1](Sy">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="lab1：Shell"><a href="#lab1：Shell" class="headerlink" title="lab1：Shell"></a>lab1：Shell</h1><h2 id="Question-1"><a href="#Question-1" class="headerlink" title="Question 1:"></a><strong>Question 1</strong>:</h2><p>If you add a background command after the pipeline command, can the pipeline work?</p>
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p>![Q1](Sysprog：1. Shell/image-20221004234233382.png)</p>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p><img src="/posts/sfaaf/image-20221004234233382.png" alt="Q1"></p>
 <p>由上图可知，background command会导致pipeline不能正常工作，shell提前打印出了<code>ccs-lab@</code>字样，并且在执行完background command后依然在等待用户输入，我实现的background如下</p>
 <pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">case</span> CMD_BACK<span class="token punctuation">:</span> <span class="token punctuation">{</span>
     <span class="token keyword">struct</span> Cmd_Back <span class="token operator">*</span>t <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">struct</span> Cmd_Back <span class="token operator">*</span><span class="token punctuation">)</span> cmd<span class="token punctuation">;</span>
@@ -432,7 +433,7 @@ Solution![Q1](Sy">
           <span class="token function">Cmd_run</span><span class="token punctuation">(</span>back<span class="token punctuation">)</span><span class="token punctuation">;</span>
      <span class="token punctuation">}</span>
       <span class="token comment" spellcheck="true">//wait(0);  //no care child</span>
-    <span class="token keyword">break</span><span class="token punctuation">;</span>
+     <span class="token keyword">break</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>而在pipe的实现机制下</p>
@@ -519,18 +520,18 @@ Cmd_t <span class="token function">Cmd_Redir_new</span><span class="token punctu
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cat</span> hello.txt <span class="token operator">|</span> <span class="token function">grep</span> -n hello <span class="token operator">></span> c.txt <span class="token punctuation">;</span> <span class="token function">ls</span> -l 
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>The result will be as shown in the figure below.</p>
-<p><img src="https://csslab-ustc.github.io/courses/sysprog/labs/lab1/figures/print1.PNG" alt="img"></p>
+<p><img src="/posts/sfaaf/print1.PNG" alt="img"></p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sleep</span> 10 <span class="token operator">&amp;</span>    
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>The result will be as shown in the figure below.</p>
-<p><img src="C:/Users/17622/AppData/Roaming/Typora/typora-user-images/image-20220924143217317.png" alt="image-20220924143217317"></p>
+<p><img src="/posts/sfaaf/image-20220924143217317.png" alt="img"></p>
 <h3 id="Solution-3"><a href="#Solution-3" class="headerlink" title="Solution"></a>Solution</h3><pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">case</span> CMD_BACK<span class="token punctuation">:</span> <span class="token punctuation">{</span>
-       <span class="token keyword">struct</span> Cmd_Back <span class="token operator">*</span>t <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">struct</span> Cmd_Back <span class="token operator">*</span><span class="token punctuation">)</span> cmd<span class="token punctuation">;</span>
-       Cmd_t back <span class="token operator">=</span> t<span class="token operator">-></span>back<span class="token punctuation">;</span>
-    
-       <span class="token function">Cmd_print</span><span class="token punctuation">(</span>back<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">struct</span> Cmd_Back <span class="token operator">*</span>t <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">struct</span> Cmd_Back <span class="token operator">*</span><span class="token punctuation">)</span> cmd<span class="token punctuation">;</span>
+    Cmd_t back <span class="token operator">=</span> t<span class="token operator">-></span>back<span class="token punctuation">;</span>
+
+    <span class="token function">Cmd_print</span><span class="token punctuation">(</span>back<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"&amp; "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-       <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token keyword">break</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
 <span class="token keyword">case</span> CMD_PIPE<span class="token punctuation">:</span> <span class="token punctuation">{</span>
@@ -547,16 +548,16 @@ Cmd_t <span class="token function">Cmd_Redir_new</span><span class="token punctu
 <span class="token keyword">case</span> CMD_REDIR<span class="token punctuation">:</span> <span class="token punctuation">{</span>
     <span class="token keyword">struct</span> Cmd_Redir <span class="token operator">*</span>t <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">struct</span> Cmd_Redir <span class="token operator">*</span><span class="token punctuation">)</span> cmd<span class="token punctuation">;</span>
     Cmd_t left <span class="token operator">=</span> t<span class="token operator">-></span>left<span class="token punctuation">;</span>
-      Cmd_t right <span class="token operator">=</span> t<span class="token operator">-></span>right<span class="token punctuation">;</span>
+    Cmd_t right <span class="token operator">=</span> t<span class="token operator">-></span>right<span class="token punctuation">;</span>
 
     <span class="token function">Cmd_print</span><span class="token punctuation">(</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
-       <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"> "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"> "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">Cmd_print</span><span class="token punctuation">(</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token keyword">break</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>运行效果如下：</p>
-<p>![Q2](Sysprog：1. Shell/image-20221004233932251.png)</p>
+<p><img src="/posts/sfaaf/image-20221004233932251.png" alt="Q2"></p>
 <h2 id="Exercise-3"><a href="#Exercise-3" class="headerlink" title="Exercise 3:"></a><strong>Exercise 3</strong>:</h2><p>Please complete the <code>void Cmd_run(Cmd_t cmd)</code>. Regarding redirection commands, you only need to implement output redirection. Commands like this:</p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cat</span> hello.txt <span class="token operator">></span> c.txt 
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -565,13 +566,13 @@ Cmd_t <span class="token function">Cmd_Redir_new</span><span class="token punctu
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">cat</span> hello.txt <span class="token operator">|</span> <span class="token function">grep</span> -n hello <span class="token operator">></span> c.txt <span class="token punctuation">;</span> <span class="token function">cat</span> c.txt <span class="token punctuation">;</span> <span class="token function">ls</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>Before entering the command, create a file called <code>hello.txt</code> in the current working directory. The content of the file is as follows:</p>
-<p><img src="https://csslab-ustc.github.io/courses/sysprog/labs/lab1/figures/contents.PNG" alt="img"></p>
+<p><img src="/posts/sfaaf/contents.PNG" alt="img"></p>
 <p>The result will be as shown in the figure below.</p>
 <p><img src="https://csslab-ustc.github.io/courses/sysprog/labs/lab1/figures/test1.PNG" alt="img"></p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token function">sleep</span> 10 <span class="token operator">&amp;</span>  
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>If you enter the command <code>sleep 10</code>, you cannot use the shell for ten seconds. However, when you add an extra <code>&amp;</code> to your command, you’ll be able to use the shell immediately. The result will be as shown in the figure below.</p>
-<p><img src="https://csslab-ustc.github.io/courses/sysprog/labs/lab1/figures/test2.PNG" alt="img"></p>
+<p><img src="/posts/sfaaf/test2.PNG" alt="img"></p>
 <h3 id="Thinking"><a href="#Thinking" class="headerlink" title="Thinking"></a>Thinking</h3><p>BACK设计思路：</p>
 <ul>
 <li>父进程不等候子进程的退出</li>
@@ -588,7 +589,7 @@ Cmd_t <span class="token function">Cmd_Redir_new</span><span class="token punctu
     <span class="token keyword">struct</span> Cmd_Back <span class="token operator">*</span>t <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">struct</span> Cmd_Back <span class="token operator">*</span><span class="token punctuation">)</span> cmd<span class="token punctuation">;</span>
     Cmd_t back <span class="token operator">=</span> t<span class="token operator">-></span>back<span class="token punctuation">;</span>
     <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-         <span class="token function">Cmd_run</span><span class="token punctuation">(</span>back<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">Cmd_run</span><span class="token punctuation">(</span>back<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
     <span class="token comment" spellcheck="true">//wait(0);		// don't care child</span>
     <span class="token keyword">break</span><span class="token punctuation">;</span>
@@ -602,21 +603,21 @@ Cmd_t <span class="token function">Cmd_Redir_new</span><span class="token punctu
     <span class="token function">pipe</span><span class="token punctuation">(</span>fd<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>	<span class="token comment" spellcheck="true">// run left</span>
-           <span class="token function">close</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-           <span class="token function">dup</span><span class="token punctuation">(</span>fd<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">close</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">dup</span><span class="token punctuation">(</span>fd<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token function">close</span><span class="token punctuation">(</span>fd<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-           <span class="token function">close</span><span class="token punctuation">(</span>fd<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-           <span class="token function">Cmd_run</span><span class="token punctuation">(</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">close</span><span class="token punctuation">(</span>fd<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">Cmd_run</span><span class="token punctuation">(</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
     <span class="token function">wait</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>	<span class="token comment" spellcheck="true">// run right</span>
-          <span class="token function">close</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-           <span class="token function">dup</span><span class="token punctuation">(</span>fd<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">close</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">dup</span><span class="token punctuation">(</span>fd<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token function">close</span><span class="token punctuation">(</span>fd<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token function">close</span><span class="token punctuation">(</span>fd<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-         <span class="token function">Cmd_run</span><span class="token punctuation">(</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
-       <span class="token punctuation">}</span>
+        <span class="token function">Cmd_run</span><span class="token punctuation">(</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
     <span class="token function">close</span><span class="token punctuation">(</span>fd<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">close</span><span class="token punctuation">(</span>fd<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token function">wait</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -630,7 +631,7 @@ Cmd_t <span class="token function">Cmd_Redir_new</span><span class="token punctu
 
     Cmd_Atom redir <span class="token operator">=</span> <span class="token punctuation">(</span>Cmd_Atom<span class="token punctuation">)</span> right<span class="token punctuation">;</span> 	<span class="token comment" spellcheck="true">// get redir filename</span>
     <span class="token keyword">char</span> <span class="token operator">*</span>filename<span class="token punctuation">;</span>
-       <span class="token keyword">struct</span> node <span class="token operator">*</span>node <span class="token operator">=</span> redir<span class="token operator">-></span>node<span class="token punctuation">;</span>
+    <span class="token keyword">struct</span> node <span class="token operator">*</span>node <span class="token operator">=</span> redir<span class="token operator">-></span>node<span class="token punctuation">;</span>
     filename <span class="token operator">=</span> node<span class="token operator">-></span>data<span class="token punctuation">;</span>
 
     <span class="token function">close</span><span class="token punctuation">(</span>t<span class="token operator">-></span>fd<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// close fd 0/1</span>
@@ -640,7 +641,7 @@ Cmd_t <span class="token function">Cmd_Redir_new</span><span class="token punctu
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>运行结果如下：</p>
-<p>![Q3](Sysprog：1. Shell/image-20221004234347458.png)</p>
+<p><img src="/posts/sfaaf/image-20221004234347458.png" alt="Q3"></p>
 <h2 id="Challenge"><a href="#Challenge" class="headerlink" title="Challenge:"></a>Challenge:</h2><p>Implement the input redirection.</p>
 <h3 id="Solution-5"><a href="#Solution-5" class="headerlink" title="Solution"></a>Solution</h3><ul>
 <li>修改<code>parser.y</code></li>
@@ -683,7 +684,7 @@ command	        <span class="token punctuation">:</span>  basic_command		    <sp
 <span class="token punctuation">(</span>yyval<span class="token punctuation">.</span>cmd<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token function">Cmd_Redir_new</span><span class="token punctuation">(</span><span class="token punctuation">(</span>yyvsp<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">.</span>cmd<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>yyvsp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>cmd<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>编译运行即可，效果如下：</p>
-<p>![Challenge](Sysprog：1. Shell/image-20221004234434766.png)</p>
+<p><img src="/posts/sfaaf/image-20221004234434766-16669737783612.png" alt="challenge"></p>
 
                 
             </div>
@@ -1246,18 +1247,17 @@ command	        <span class="token punctuation">:</span>  basic_command		    <sp
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;Current
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/posts/sfaaf.html">
+                <a href="/posts/asfdh.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Sysprog：1. Shell">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Sysprog：2. mini Network-Analyzer">
                         
-                        <span class="card-title">Sysprog：1. Shell</span>
+                        <span class="card-title">Sysprog：2. mini Network-Analyzer</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1267,9 +1267,9 @@ command	        <span class="token punctuation">:</span>  basic_command		    <sp
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-27
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-27
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1282,7 +1282,6 @@ command	        <span class="token punctuation">:</span>  basic_command		    <sp
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -1301,13 +1300,13 @@ command	        <span class="token punctuation">:</span>  basic_command		    <sp
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/asfdh.html">
+                <a href="/posts/1234.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Sysprog：2. mini Network-Analyzer">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Sysprog：3. A Minimal Debugger">
                         
-                        <span class="card-title">Sysprog：2. mini Network-Analyzer</span>
+                        <span class="card-title">Sysprog：3. A Minimal Debugger</span>
                     </div>
                 </a>
                 <div class="card-content article-content">

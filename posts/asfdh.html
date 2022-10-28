@@ -6,7 +6,12 @@
     <meta charset="utf-8">
     <meta name="keywords" content="Sysprog：2. mini Network-Analyzer, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
     <meta name="description" content="mini Network-AnalyzerPart D：packet spoofing实验结果：前8个包
-![Forge](Sysprog：2. mini Network-Analyzer/image-20221027235610817.p">
+
+文件结构
+|-- Forge
+    |-- method.h
+    |-- method.c
+    |-- UDP_forge">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -422,21 +427,21 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="mini-Network-Analyzer"><a href="#mini-Network-Analyzer" class="headerlink" title="mini Network-Analyzer"></a>mini Network-Analyzer</h1><h2 id="Part-D：packet-spoofing"><a href="#Part-D：packet-spoofing" class="headerlink" title="Part D：packet spoofing"></a>Part D：packet spoofing</h2><p>实验结果：前8个包</p>
-<p>![Forge](Sysprog：2. mini Network-Analyzer/image-20221027235610817.png)</p>
+<p><img src="/posts/asfdh/image-20221027235610817.png" alt="Forge"></p>
 <p>文件结构</p>
-<pre><code>|-- Forge
-    |-- method.h
-    |-- method.c
-    |-- UDP_forge.h
-    |-- UDP_forge.c
-    |-- TCP_forge.h
-    |-- TCP_forge.c
-    |-- ARP_forge.h
-    |-- ARP_forge.c
-    |-- ICMP_forge.h
-    |-- ICMP_forge.c
-    |-- main
-</code></pre>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token operator">|</span><span class="token operator">--</span> Forge
+    <span class="token operator">|</span><span class="token operator">--</span> method<span class="token punctuation">.</span>h
+    <span class="token operator">|</span><span class="token operator">--</span> method<span class="token punctuation">.</span>c
+    <span class="token operator">|</span><span class="token operator">--</span> UDP_forge<span class="token punctuation">.</span>h
+    <span class="token operator">|</span><span class="token operator">--</span> UDP_forge<span class="token punctuation">.</span>c
+    <span class="token operator">|</span><span class="token operator">--</span> TCP_forge<span class="token punctuation">.</span>h
+    <span class="token operator">|</span><span class="token operator">--</span> TCP_forge<span class="token punctuation">.</span>c
+    <span class="token operator">|</span><span class="token operator">--</span> ARP_forge<span class="token punctuation">.</span>h
+    <span class="token operator">|</span><span class="token operator">--</span> ARP_forge<span class="token punctuation">.</span>c
+    <span class="token operator">|</span><span class="token operator">--</span> ICMP_forge<span class="token punctuation">.</span>h
+    <span class="token operator">|</span><span class="token operator">--</span> ICMP_forge<span class="token punctuation">.</span>c
+    <span class="token operator">|</span><span class="token operator">--</span> main
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>利用Raw Socket可以实现发送用户自定义的数据包,在实现各种forgery之前，先定义一个工具文件<code>method.h/method.c</code>，实现公共部分，定义的接口如下</p>
 <pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">void</span> <span class="token function">get_eth_index</span><span class="token punctuation">(</span><span class="token keyword">int</span> sock_raw<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">void</span> <span class="token function">get_mac</span><span class="token punctuation">(</span><span class="token keyword">int</span> sock_raw<span class="token punctuation">,</span> uint16_t protocol<span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token operator">*</span>total_len<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -541,12 +546,10 @@
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="3-ICMP-packet-forgery"><a href="#3-ICMP-packet-forgery" class="headerlink" title="3.ICMP packet forgery"></a>3.ICMP packet forgery</h3><p>由于struct icmp中含有union，为了方便起见，定义宏</p>
-<pre class="line-numbers language-c"><code class="language-c">
-
-<span class="token comment" spellcheck="true">// define icmp union</span>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">// define icmp union</span>
 <span class="token macro property">#<span class="token directive keyword">define</span> icmp_id         icmp_hun.ih_idseq.icd_id</span>
 <span class="token macro property">#<span class="token directive keyword">define</span> icmp_seq        icmp_hun.ih_idseq.icd_seq</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p><code>ICMP_forge.c</code>实现如下</p>
 <pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">void</span> <span class="token function">send_icmp</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">*</span>total_len<span class="token punctuation">)</span><span class="token punctuation">{</span>
     <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"icmp packaging start ... \n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -588,12 +591,12 @@
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="Part-E：Design-your-own-MAC-layer-protocol"><a href="#Part-E：Design-your-own-MAC-layer-protocol" class="headerlink" title="Part E：Design your own MAC layer protocol"></a>Part E：Design your own MAC layer protocol</h2><p>文件结构：两个主机源代码大部分相同</p>
-<pre><code>|-- final
-    |-- protocol.h    // define struct own_hdr and interface for send or receive
-    |-- send.c
-    |-- receive.c
-    |-- main.c
-</code></pre>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token operator">|</span><span class="token operator">--</span> final
+    <span class="token operator">|</span><span class="token operator">--</span> protocol<span class="token punctuation">.</span>h    <span class="token comment" spellcheck="true">// define struct own_hdr and interface for send or receive</span>
+    <span class="token operator">|</span><span class="token operator">--</span> send<span class="token punctuation">.</span>c
+    <span class="token operator">|</span><span class="token operator">--</span> receive<span class="token punctuation">.</span>c
+    <span class="token operator">|</span><span class="token operator">--</span> main<span class="token punctuation">.</span>c
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>自定义了一个以太网头部格式如下，头部后面即要发送的数据</p>
 <pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">struct</span> own_hdr<span class="token punctuation">{</span>
     <span class="token keyword">unsigned</span> <span class="token keyword">char</span> dst_mac<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
@@ -614,7 +617,7 @@ bool <span class="token function">equal</span><span class="token punctuation">(<
 <span class="token keyword">void</span> <span class="token function">get_data</span><span class="token punctuation">(</span><span class="token keyword">unsigned</span> <span class="token keyword">char</span> <span class="token operator">*</span>buffer<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>在主函数中，创建两个raw socket分别用来发送和接收数据包，主机A先发送，未收到主机B的回复之前不会再次发送，主机B同理。运行结果如下</p>
-<p>![own protocol](Sysprog：2. mini Network-Analyzer/image-20221021181821595.png)</p>
+<p><img src="/posts/asfdh/image-20221021181821595.png" alt="own protocol"></p>
 
                 
             </div>
@@ -1177,17 +1180,18 @@ bool <span class="token function">equal</span><span class="token punctuation">(<
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
-                <a href="/posts/sfaaf.html">
+                <a href="/posts/asfdh.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Sysprog：1. Shell">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Sysprog：2. mini Network-Analyzer">
                         
-                        <span class="card-title">Sysprog：1. Shell</span>
+                        <span class="card-title">Sysprog：2. mini Network-Analyzer</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1197,9 +1201,9 @@ bool <span class="token function">equal</span><span class="token punctuation">(<
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-10-27
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-27
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1212,6 +1216,7 @@ bool <span class="token function">equal</span><span class="token punctuation">(<
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1230,13 +1235,13 @@ bool <span class="token function">equal</span><span class="token punctuation">(<
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/1234.html">
+                <a href="/posts/sfaaf.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Sysprog：3. A Minimal Debugger">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Sysprog：1. Shell">
                         
-                        <span class="card-title">Sysprog：3. A Minimal Debugger</span>
+                        <span class="card-title">Sysprog：1. Shell</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
