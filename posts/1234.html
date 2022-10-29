@@ -486,6 +486,58 @@ How the regs command is">
 </li>
 </ol>
 <p>可以看到最低字节又修改为原来的值了</p>
+<h3 id="improvement"><a href="#improvement" class="headerlink" title="improvement"></a>improvement</h3><p>由于所给代码在<code>b addr</code>后会接着执行一条<code>ptrace(PTRACE_CONT, c-&gt;pid, 0, 0);</code>，这会导致<code>traced</code>程序直接命中断点，故将<code>CONT</code>指令移除，只设置断点，即写入一条<code>int 3</code>指令，并将原数据保存起来，定义<code>struct breakpoint</code></p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">struct</span> breakpoint<span class="token punctuation">{</span>
+    <span class="token keyword">long</span> addr<span class="token punctuation">;</span>
+    <span class="token keyword">unsigned</span> <span class="token keyword">long</span> origin<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>存放其地址和原始数据，而真正命中断点后还原断点信息的代码放在<code>case CMD_KIND_CONT</code></p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">case</span> CMD_KIND_CONT<span class="token punctuation">:</span><span class="token punctuation">{</span>
+    <span class="token function">ptrace</span><span class="token punctuation">(</span>PTRACE_CONT<span class="token punctuation">,</span> c<span class="token operator">-></span>pid<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> status<span class="token punctuation">;</span>
+    <span class="token function">wait</span> <span class="token punctuation">(</span><span class="token operator">&amp;</span>status<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// back to origin rip</span>
+    <span class="token keyword">struct</span> user_regs_struct regs<span class="token punctuation">;</span>
+    <span class="token function">ptrace</span> <span class="token punctuation">(</span>PTRACE_GETREGS<span class="token punctuation">,</span> c<span class="token operator">-></span>pid<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>regs<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">unsigned</span> <span class="token keyword">long</span> <span class="token keyword">long</span> rip <span class="token operator">=</span> regs<span class="token punctuation">.</span>rip <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">unsigned</span> <span class="token keyword">long</span> data <span class="token operator">=</span> <span class="token function">ptrace</span><span class="token punctuation">(</span>PTRACE_PEEKDATA<span class="token punctuation">,</span> c<span class="token operator">-></span>pid<span class="token punctuation">,</span> rip<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>uint8_t<span class="token punctuation">)</span>data <span class="token operator">==</span> <span class="token number">0xcc</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>      <span class="token comment" spellcheck="true">// meet break point</span>
+        regs<span class="token punctuation">.</span>rip<span class="token operator">--</span><span class="token punctuation">;</span>
+        <span class="token function">ptrace</span><span class="token punctuation">(</span>PTRACE_SETREGS<span class="token punctuation">,</span> c<span class="token operator">-></span>pid<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>regs<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// write back the origin data</span>
+        <span class="token keyword">unsigned</span> <span class="token keyword">long</span> origin <span class="token operator">=</span> <span class="token function">get_origin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">ptrace</span><span class="token punctuation">(</span>PTRACE_POKEDATA<span class="token punctuation">,</span> c<span class="token operator">-></span>pid<span class="token punctuation">,</span> rip<span class="token punctuation">,</span> origin<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"meet the break point %d at 0x%016x\n"</span><span class="token punctuation">,</span> idx<span class="token punctuation">,</span> rip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">WIFEXITED</span><span class="token punctuation">(</span>status<span class="token punctuation">)</span><span class="token punctuation">)</span>	<span class="token comment" spellcheck="true">// exit ?</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"process %d is exit!\n"</span><span class="token punctuation">,</span> c<span class="token operator">-></span>pid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这样做的结果是，<code>b addr</code>只设置断点，不会让<code>traced</code>程序继续运行，而<code>c</code>可以<code>traced</code>程序运行，并且可以命中断点，由于已经有了断点信息，索性增加了一个新的指令<code>info</code>：打印所有<code>break point</code>，实现如下：</p>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token keyword">int</span> len <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>	<span class="token comment" spellcheck="true">// 断点个数</span>
+<span class="token keyword">int</span> idx <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>	<span class="token comment" spellcheck="true">// 命中个数</span>
+
+<span class="token keyword">struct</span> breakpoint bp<span class="token punctuation">[</span><span class="token number">100</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> <span class="token function">update_breakpoint_table</span><span class="token punctuation">(</span><span class="token keyword">char</span> <span class="token operator">*</span>name<span class="token punctuation">,</span> <span class="token keyword">long</span> addr<span class="token punctuation">,</span> <span class="token keyword">unsigned</span> <span class="token keyword">long</span> origin<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    bp<span class="token punctuation">[</span>len<span class="token punctuation">]</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+    bp<span class="token punctuation">[</span>len<span class="token punctuation">]</span><span class="token punctuation">.</span>addr <span class="token operator">=</span> addr<span class="token punctuation">;</span>
+    bp<span class="token punctuation">[</span>len<span class="token punctuation">]</span><span class="token punctuation">.</span>origin <span class="token operator">=</span> origin<span class="token punctuation">;</span>
+    len<span class="token operator">++</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在<code>execCommand</code>中新增<code>case</code></p>
+<pre><code>case CMD_KIND_INFO:{
+    for(int i = 0; i &lt; len; i++)
+        printf("break point %d  :  0x%016x\n", i + 1, bp[i].addr);
+    return ;
+}
+</code></pre>
+<p>最终执行的效果:</p>
+<p><img src="/posts/1234/image-20221029235603319.png" alt="improvement"></p>
 <h2 id="Exercise-3"><a href="#Exercise-3" class="headerlink" title="Exercise 3:"></a>Exercise 3:</h2><p>There is also a command to disassembly bianry into assembly intructions, but has not be completed. Now run</p>
 <pre class="line-numbers language-bash"><code class="language-bash"><span class="token punctuation">(</span>ssedb<span class="token punctuation">)</span> x/i 0xaddr 
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -1132,13 +1184,13 @@ ZydisDisassembledInstruction instruction<span class="token punctuation">;</span>
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/posts/sfaaf.html">
+                <a href="/posts/asfdh.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Sysprog：1. Shell">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Sysprog：2. mini Network-Analyzer">
                         
-                        <span class="card-title">Sysprog：1. Shell</span>
+                        <span class="card-title">Sysprog：2. mini Network-Analyzer</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1573,6 +1625,15 @@ $(function () {
     <script src="/js/FunnyTitle.js"></script>
     
 
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
     
     
     <!-- 雪花特效 -->
