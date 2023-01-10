@@ -6,7 +6,7 @@
   <link href="http://shenhuagg555.github.io/atom.xml" rel="self"/>
   
   <link href="http://shenhuagg555.github.io/"/>
-  <updated>2023-01-09T16:32:22.886Z</updated>
+  <updated>2023-01-10T07:37:30.532Z</updated>
   <id>http://shenhuagg555.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://shenhuagg555.github.io/posts/5d68.html"/>
     <id>http://shenhuagg555.github.io/posts/5d68.html</id>
     <published>2023-01-09T16:16:12.000Z</published>
-    <updated>2023-01-09T16:32:22.886Z</updated>
+    <updated>2023-01-10T07:37:30.532Z</updated>
     
     
       
@@ -34,31 +34,10 @@
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>Sysprog：2. mini Network-Analyzer</title>
-    <link href="http://shenhuagg555.github.io/posts/asfdh.html"/>
-    <id>http://shenhuagg555.github.io/posts/asfdh.html</id>
-    <published>2022-10-27T15:48:39.000Z</published>
-    <updated>2022-10-28T16:24:58.202Z</updated>
+    <category term="线性回归" scheme="http://shenhuagg555.github.io/categories/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/"/>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;mini-Network-Analyzer&quot;&gt;&lt;a href=&quot;#mini-Network-Analyzer&quot; class=&quot;headerlink&quot; title=&quot;mini Network-Analyzer&quot;&gt;&lt;/a&gt;mini</summary>
-        
-      
-    
-    
-    
-    <category term="Linux" scheme="http://shenhuagg555.github.io/categories/Linux/"/>
-    
-    
-    <category term="Sysprog" scheme="http://shenhuagg555.github.io/tags/Sysprog/"/>
+    <category term="深度学习" scheme="http://shenhuagg555.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
@@ -75,6 +54,31 @@
         
         
     <summary type="html">&lt;h1 id=&quot;lab1：Shell&quot;&gt;&lt;a href=&quot;#lab1：Shell&quot; class=&quot;headerlink&quot; title=&quot;lab1：Shell&quot;&gt;&lt;/a&gt;lab1：Shell&lt;/h1&gt;&lt;h2 id=&quot;Question-1&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="http://shenhuagg555.github.io/categories/Linux/"/>
+    
+    
+    <category term="Sysprog" scheme="http://shenhuagg555.github.io/tags/Sysprog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Sysprog：2. mini Network-Analyzer</title>
+    <link href="http://shenhuagg555.github.io/posts/asfdh.html"/>
+    <id>http://shenhuagg555.github.io/posts/asfdh.html</id>
+    <published>2022-10-27T15:48:39.000Z</published>
+    <updated>2022-10-28T16:24:58.202Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;mini-Network-Analyzer&quot;&gt;&lt;a href=&quot;#mini-Network-Analyzer&quot; class=&quot;headerlink&quot; title=&quot;mini Network-Analyzer&quot;&gt;&lt;/a&gt;mini</summary>
         
       
     

@@ -5,9 +5,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="神经网络拟合函数, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="神经网络拟合函数1.准备数据根据给定的w、b生成训练集和测试集(按9:1划分)
-def gen_data(w, b, num):
-    x = torch.linspace(0, 10, num, dtype=torch.float32)">
+    <meta name="description" content="神经网络拟合函数1.准备数据导入需要使用的第三方库
+import torch
+import numpy as np
+import random
+import matplotlib.pyplot as plt
+import torch.nn ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -374,12 +377,25 @@ def gen_data(w, b, num):
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" class="post-category">
+                                线性回归
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -409,7 +425,15 @@ def gen_data(w, b, num):
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="神经网络拟合函数"><a href="#神经网络拟合函数" class="headerlink" title="神经网络拟合函数"></a>神经网络拟合函数</h1><h2 id="1-准备数据"><a href="#1-准备数据" class="headerlink" title="1.准备数据"></a>1.准备数据</h2><p>根据给定的w、b生成训练集和测试集(按9:1划分)</p>
+                <h1 id="神经网络拟合函数"><a href="#神经网络拟合函数" class="headerlink" title="神经网络拟合函数"></a>神经网络拟合函数</h1><h2 id="1-准备数据"><a href="#1-准备数据" class="headerlink" title="1.准备数据"></a>1.准备数据</h2><p>导入需要使用的第三方库</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> torch
+<span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">import</span> random
+<span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
+<span class="token keyword">import</span> torch<span class="token punctuation">.</span>nn <span class="token keyword">as</span> nn
+<span class="token keyword">import</span> torch<span class="token punctuation">.</span>functional <span class="token keyword">as</span> func
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>根据给定的<code>w、b</code>生成训练集和测试集(按9:1划分)</p>
 <pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">gen_data</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> b<span class="token punctuation">,</span> num<span class="token punctuation">)</span><span class="token punctuation">:</span>
     x <span class="token operator">=</span> torch<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> num<span class="token punctuation">,</span> dtype<span class="token operator">=</span>torch<span class="token punctuation">.</span>float32<span class="token punctuation">)</span><span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
     <span class="token keyword">print</span><span class="token punctuation">(</span>x<span class="token punctuation">.</span>shape<span class="token punctuation">)</span>
@@ -426,7 +450,7 @@ def gen_data(w, b, num):
     <span class="token keyword">return</span> train_x<span class="token punctuation">,</span> train_y<span class="token punctuation">,</span> test_x<span class="token punctuation">,</span> test_y
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
-<p> 注意这里为什么要reshape，主要原因是要进行矩阵乘法，需要将向量转化成二维张量。</p>
+<p> 注意这里为什么要<code>reshape</code>，主要原因是要进行<code>矩阵乘法</code>，需要将向量转化成二维<code>张量</code>。</p>
 </blockquote>
 <pre class="line-numbers language-python"><code class="language-python">train_x<span class="token punctuation">,</span> train_y<span class="token punctuation">,</span> test_x<span class="token punctuation">,</span> test_y <span class="token operator">=</span> gen_data<span class="token punctuation">(</span>torch<span class="token punctuation">.</span>tensor<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1.0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -440,7 +464,7 @@ def gen_data(w, b, num):
         x <span class="token operator">=</span> self<span class="token punctuation">.</span>hidden<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
         <span class="token keyword">return</span> x
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>只需实现forward方法即可</p>
+<p>实现<code>forward</code>方法即可</p>
 <h2 id="3-训练模型"><a href="#3-训练模型" class="headerlink" title="3.训练模型"></a>3.训练模型</h2><p>输入参数很简单，不用解释了</p>
 <pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">train</span><span class="token punctuation">(</span>train_x<span class="token punctuation">,</span> train_y<span class="token punctuation">,</span> epochs<span class="token punctuation">,</span> opt<span class="token punctuation">,</span> loss_func<span class="token punctuation">,</span> net<span class="token punctuation">)</span><span class="token punctuation">:</span>
     <span class="token keyword">for</span> epoch <span class="token keyword">in</span> range<span class="token punctuation">(</span>epochs<span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -459,7 +483,7 @@ def gen_data(w, b, num):
 opt <span class="token operator">=</span> torch<span class="token punctuation">.</span>optim<span class="token punctuation">.</span>SGD<span class="token punctuation">(</span>net<span class="token punctuation">.</span>parameters<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> lr <span class="token operator">=</span> <span class="token number">0.01</span><span class="token punctuation">)</span>
 epochs <span class="token operator">=</span> <span class="token number">10000</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>这里选择均方误差损失函数，因为其适合回归问题，优化器选择随机梯度下降法，训练轮次为10000</p>
+<p>这里选择均方误差损失函数，优化器选择随机梯度下降法，训练轮次为10000</p>
 <h2 id="5-开始训练"><a href="#5-开始训练" class="headerlink" title="5.开始训练"></a>5.开始训练</h2><pre class="line-numbers language-python"><code class="language-python">net <span class="token operator">=</span> model<span class="token punctuation">(</span><span class="token punctuation">)</span>
 train<span class="token punctuation">(</span>train_x<span class="token punctuation">,</span> train_y<span class="token punctuation">,</span> epochs<span class="token punctuation">,</span> opt<span class="token punctuation">,</span> loss_func<span class="token punctuation">,</span> net<span class="token punctuation">)</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
@@ -474,8 +498,38 @@ train<span class="token punctuation">(</span>train_x<span class="token punctuati
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <pre class="line-numbers language-python"><code class="language-python">prediction<span class="token punctuation">(</span>test_x<span class="token punctuation">,</span> test_y<span class="token punctuation">,</span> net<span class="token punctuation">)</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="/posts/5d68/image-20230110003011174.png" alt="预测结果"></p>
+<p><img src="/posts/5d68/image-20230110003011174.png" alt="线性函数预测结果"></p>
 <p>上图可以看出，误差已经很小了</p>
+<h2 id="7-拟合三次多项式函数"><a href="#7-拟合三次多项式函数" class="headerlink" title="7.拟合三次多项式函数"></a>7.拟合三次多项式函数</h2><p>生成数据集</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">gen_data</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">,</span> num<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    x <span class="token operator">=</span> torch<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> num<span class="token punctuation">,</span> dtype<span class="token operator">=</span>torch<span class="token punctuation">.</span>float32<span class="token punctuation">)</span><span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    y <span class="token operator">=</span> torch<span class="token punctuation">.</span>matmul<span class="token punctuation">(</span>x <span class="token operator">**</span> <span class="token number">3</span><span class="token punctuation">,</span> a<span class="token punctuation">)</span> <span class="token operator">+</span> torch<span class="token punctuation">.</span>matmul<span class="token punctuation">(</span>x <span class="token operator">**</span> <span class="token number">2</span><span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token operator">+</span> torch<span class="token punctuation">.</span>matmul<span class="token punctuation">(</span>x<span class="token punctuation">,</span> c<span class="token punctuation">)</span> <span class="token operator">+</span> d
+    y <span class="token operator">+=</span> torch<span class="token punctuation">.</span>normal<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0.01</span><span class="token punctuation">,</span> y<span class="token punctuation">.</span>shape<span class="token punctuation">)</span>
+    plt<span class="token punctuation">.</span>plot<span class="token punctuation">(</span>x<span class="token punctuation">.</span>numpy<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> y<span class="token punctuation">.</span>numpy<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'o'</span><span class="token punctuation">)</span>
+    plt<span class="token punctuation">.</span>show<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    
+    train_x <span class="token operator">=</span> x<span class="token punctuation">[</span><span class="token punctuation">:</span> num <span class="token operator">*</span> <span class="token number">9</span> <span class="token operator">//</span> <span class="token number">10</span><span class="token punctuation">]</span>
+    train_y <span class="token operator">=</span> y<span class="token punctuation">[</span><span class="token punctuation">:</span> num <span class="token operator">*</span> <span class="token number">9</span> <span class="token operator">//</span> <span class="token number">10</span><span class="token punctuation">]</span>
+    
+    test_x <span class="token operator">=</span> x<span class="token punctuation">[</span>num <span class="token operator">*</span> <span class="token number">9</span> <span class="token operator">//</span> <span class="token number">10</span> <span class="token punctuation">:</span><span class="token punctuation">]</span>
+    test_y <span class="token operator">=</span> y<span class="token punctuation">[</span>num <span class="token operator">*</span> <span class="token number">9</span> <span class="token operator">//</span> <span class="token number">10</span> <span class="token punctuation">:</span><span class="token punctuation">]</span>
+    
+    <span class="token keyword">return</span> train_x<span class="token punctuation">,</span> train_y<span class="token punctuation">,</span> test_x<span class="token punctuation">,</span> test_y
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可以利用<code>Sequential</code>创建神经网络</p>
+<pre class="line-numbers language-python"><code class="language-python">net <span class="token operator">=</span> nn<span class="token punctuation">.</span>Sequential<span class="token punctuation">(</span>nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    nn<span class="token punctuation">.</span>ReLU<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    nn<span class="token punctuation">.</span>ReLU<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    nn<span class="token punctuation">.</span>ReLU<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    nn<span class="token punctuation">.</span>Linear<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+                   <span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>拟合结果如下，图一是对训练数据的拟合效果，图二是对测试数据的拟合效果</p>
+<p><img src="/posts/5d68/image-20230110153658056.png" alt="训练数据的拟合效果"></p>
+<p><img src="/posts/5d68/image-20230110153705079.png" alt="测试数据的拟合效果"></p>
+<p>可以看出，结果应该是有一些<code>过拟合</code>的，可以通过一些优化方法来减少过拟合的影响</p>
 
                 
             </div>
@@ -539,7 +593,11 @@ train<span class="token punctuation">(</span>train_x<span class="token punctuati
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -1060,13 +1118,25 @@ train<span class="token punctuation">(</span>train_x<span class="token punctuati
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Paranoid
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" class="post-category">
+                                    线性回归
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -1077,13 +1147,13 @@ train<span class="token punctuation">(</span>train_x<span class="token punctuati
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/asfdh.html">
+                <a href="/posts/sfaaf.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Sysprog：2. mini Network-Analyzer">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Sysprog：1. Shell">
                         
-                        <span class="card-title">Sysprog：2. mini Network-Analyzer</span>
+                        <span class="card-title">Sysprog：1. Shell</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
