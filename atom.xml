@@ -6,7 +6,7 @@
   <link href="http://shenhuagg555.github.io/atom.xml" rel="self"/>
   
   <link href="http://shenhuagg555.github.io/"/>
-  <updated>2023-01-10T07:37:30.532Z</updated>
+  <updated>2023-01-10T10:03:42.640Z</updated>
   <id>http://shenhuagg555.github.io/</id>
   
   <author>
@@ -15,6 +15,158 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>猫狗大战</title>
+    <link href="http://shenhuagg555.github.io/posts/eb14.html"/>
+    <id>http://shenhuagg555.github.io/posts/eb14.html</id>
+    <published>2023-01-10T09:33:27.000Z</published>
+    <updated>2023-01-10T10:03:42.640Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;猫狗大战&quot;&gt;&lt;a href=&quot;#猫狗大战&quot; class=&quot;headerlink&quot; title=&quot;猫狗大战&quot;&gt;&lt;/a&gt;猫狗大战&lt;/h1&gt;&lt;p&gt;通过来自 kaggle 上的猫狗数据集，训练一个识别猫狗图片的分类器。要求 设计一个使用 ResNet18</summary>
+        
+      
+    
+    
+    
+    <category term="迁移学习" scheme="http://shenhuagg555.github.io/categories/%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0/"/>
+    
+    <category term="卷积神经网络" scheme="http://shenhuagg555.github.io/categories/%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="深度学习" scheme="http://shenhuagg555.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>正弦函数预测</title>
+    <link href="http://shenhuagg555.github.io/posts/9233.html"/>
+    <id>http://shenhuagg555.github.io/posts/9233.html</id>
+    <published>2023-01-10T09:18:45.000Z</published>
+    <updated>2023-01-10T09:32:45.743Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;正弦函数预测&quot;&gt;&lt;a href=&quot;#正弦函数预测&quot; class=&quot;headerlink&quot; title=&quot;正弦函数预测&quot;&gt;&lt;/a&gt;正弦函数预测&lt;/h1&gt;&lt;p&gt;通过已知的样本数据对正弦函数进行预测，并绘制出图形。设计</summary>
+        
+      
+    
+    
+    
+    <category term="LSTM" scheme="http://shenhuagg555.github.io/categories/LSTM/"/>
+    
+    
+    <category term="深度学习" scheme="http://shenhuagg555.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CIFAR-10分类网络</title>
+    <link href="http://shenhuagg555.github.io/posts/8865.html"/>
+    <id>http://shenhuagg555.github.io/posts/8865.html</id>
+    <published>2023-01-10T09:03:53.000Z</published>
+    <updated>2023-01-10T09:17:59.269Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;CIFAR-10分类网络&quot;&gt;&lt;a href=&quot;#CIFAR-10分类网络&quot; class=&quot;headerlink&quot; title=&quot;CIFAR-10分类网络&quot;&gt;&lt;/a&gt;CIFAR-10分类网络&lt;/h1&gt;&lt;p&gt;通过 CIFAR-10</summary>
+        
+      
+    
+    
+    
+    <category term="卷积神经网络" scheme="http://shenhuagg555.github.io/categories/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="深度学习" scheme="http://shenhuagg555.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>手写数字识别器</title>
+    <link href="http://shenhuagg555.github.io/posts/b31.html"/>
+    <id>http://shenhuagg555.github.io/posts/b31.html</id>
+    <published>2023-01-10T08:21:02.000Z</published>
+    <updated>2023-01-10T09:15:09.588Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;手写数字识别器&quot;&gt;&lt;a href=&quot;#手写数字识别器&quot; class=&quot;headerlink&quot; title=&quot;手写数字识别器&quot;&gt;&lt;/a&gt;手写数字识别器&lt;/h1&gt;&lt;p&gt;通过 MNIST 数据集训练得到一个手写数字分类器。要求设计一个至 少包含 2</summary>
+        
+      
+    
+    
+    
+    <category term="卷积神经网络" scheme="http://shenhuagg555.github.io/categories/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="深度学习" scheme="http://shenhuagg555.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>鸢尾花分类</title>
+    <link href="http://shenhuagg555.github.io/posts/a174.html"/>
+    <id>http://shenhuagg555.github.io/posts/a174.html</id>
+    <published>2023-01-10T08:04:11.000Z</published>
+    <updated>2023-01-10T08:18:18.270Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;鸢尾花分类&quot;&gt;&lt;a href=&quot;#鸢尾花分类&quot; class=&quot;headerlink&quot; title=&quot;鸢尾花分类&quot;&gt;&lt;/a&gt;鸢尾花分类&lt;/h1&gt;&lt;h2 id=&quot;1-准备数据&quot;&gt;&lt;a href=&quot;#1-准备数据&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="softmax回归" scheme="http://shenhuagg555.github.io/categories/softmax%E5%9B%9E%E5%BD%92/"/>
+    
+    
+    <category term="深度学习" scheme="http://shenhuagg555.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>共享单车预测</title>
+    <link href="http://shenhuagg555.github.io/posts/7f9c.html"/>
+    <id>http://shenhuagg555.github.io/posts/7f9c.html</id>
+    <published>2023-01-10T07:41:21.000Z</published>
+    <updated>2023-01-10T08:04:37.188Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;共享单车预测&quot;&gt;&lt;a href=&quot;#共享单车预测&quot; class=&quot;headerlink&quot; title=&quot;共享单车预测&quot;&gt;&lt;/a&gt;共享单车预测&lt;/h1&gt;&lt;h2 id=&quot;1-准备数据&quot;&gt;&lt;a href=&quot;#1-准备数据&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="线性回归" scheme="http://shenhuagg555.github.io/categories/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/"/>
+    
+    
+    <category term="深度学习" scheme="http://shenhuagg555.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
   
   <entry>
     <title>神经网络拟合函数</title>
@@ -67,18 +219,18 @@
   </entry>
   
   <entry>
-    <title>Sysprog：2. mini Network-Analyzer</title>
-    <link href="http://shenhuagg555.github.io/posts/asfdh.html"/>
-    <id>http://shenhuagg555.github.io/posts/asfdh.html</id>
+    <title>Sysprog：3. A Minimal Debugger</title>
+    <link href="http://shenhuagg555.github.io/posts/1234.html"/>
+    <id>http://shenhuagg555.github.io/posts/1234.html</id>
     <published>2022-10-27T15:48:39.000Z</published>
-    <updated>2022-10-28T16:24:58.202Z</updated>
+    <updated>2022-10-29T16:06:08.425Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;mini-Network-Analyzer&quot;&gt;&lt;a href=&quot;#mini-Network-Analyzer&quot; class=&quot;headerlink&quot; title=&quot;mini Network-Analyzer&quot;&gt;&lt;/a&gt;mini</summary>
+    <summary type="html">&lt;h1 id=&quot;lab3-：A-Minimal-Debugger&quot;&gt;&lt;a href=&quot;#lab3-：A-Minimal-Debugger&quot; class=&quot;headerlink&quot; title=&quot;lab3 ：A Minimal Debugger&quot;&gt;&lt;/a&gt;lab3 ：A</summary>
         
       
     
@@ -92,18 +244,18 @@
   </entry>
   
   <entry>
-    <title>Sysprog：3. A Minimal Debugger</title>
-    <link href="http://shenhuagg555.github.io/posts/1234.html"/>
-    <id>http://shenhuagg555.github.io/posts/1234.html</id>
+    <title>Sysprog：2. mini Network-Analyzer</title>
+    <link href="http://shenhuagg555.github.io/posts/asfdh.html"/>
+    <id>http://shenhuagg555.github.io/posts/asfdh.html</id>
     <published>2022-10-27T15:48:39.000Z</published>
-    <updated>2022-10-29T16:06:08.425Z</updated>
+    <updated>2022-10-28T16:24:58.202Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;lab3-：A-Minimal-Debugger&quot;&gt;&lt;a href=&quot;#lab3-：A-Minimal-Debugger&quot; class=&quot;headerlink&quot; title=&quot;lab3 ：A Minimal Debugger&quot;&gt;&lt;/a&gt;lab3 ：A</summary>
+    <summary type="html">&lt;h1 id=&quot;mini-Network-Analyzer&quot;&gt;&lt;a href=&quot;#mini-Network-Analyzer&quot; class=&quot;headerlink&quot; title=&quot;mini Network-Analyzer&quot;&gt;&lt;/a&gt;mini</summary>
         
       
     
