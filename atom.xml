@@ -6,7 +6,7 @@
   <link href="http://shenhuagg555.github.io/atom.xml" rel="self"/>
   
   <link href="http://shenhuagg555.github.io/"/>
-  <updated>2023-01-10T10:03:42.640Z</updated>
+  <updated>2023-01-10T10:03:58.993Z</updated>
   <id>http://shenhuagg555.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://shenhuagg555.github.io/posts/eb14.html"/>
     <id>http://shenhuagg555.github.io/posts/eb14.html</id>
     <published>2023-01-10T09:33:27.000Z</published>
-    <updated>2023-01-10T10:03:42.640Z</updated>
+    <updated>2023-01-10T10:03:58.993Z</updated>
     
     
       
@@ -48,7 +48,7 @@
     <link href="http://shenhuagg555.github.io/posts/9233.html"/>
     <id>http://shenhuagg555.github.io/posts/9233.html</id>
     <published>2023-01-10T09:18:45.000Z</published>
-    <updated>2023-01-10T09:32:45.743Z</updated>
+    <updated>2023-01-10T10:03:58.991Z</updated>
     
     
       
@@ -123,14 +123,14 @@
     <link href="http://shenhuagg555.github.io/posts/a174.html"/>
     <id>http://shenhuagg555.github.io/posts/a174.html</id>
     <published>2023-01-10T08:04:11.000Z</published>
-    <updated>2023-01-10T08:18:18.270Z</updated>
+    <updated>2023-01-10T10:12:42.754Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;鸢尾花分类&quot;&gt;&lt;a href=&quot;#鸢尾花分类&quot; class=&quot;headerlink&quot; title=&quot;鸢尾花分类&quot;&gt;&lt;/a&gt;鸢尾花分类&lt;/h1&gt;&lt;h2 id=&quot;1-准备数据&quot;&gt;&lt;a href=&quot;#1-准备数据&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h1 id=&quot;鸢尾花分类&quot;&gt;&lt;a href=&quot;#鸢尾花分类&quot; class=&quot;headerlink&quot; title=&quot;鸢尾花分类&quot;&gt;&lt;/a&gt;鸢尾花分类&lt;/h1&gt;&lt;p&gt;iris 数据集包含 150 个样本，对应数据集的每行数据。每行数据包含每个</summary>
         
       
     
@@ -148,14 +148,14 @@
     <link href="http://shenhuagg555.github.io/posts/7f9c.html"/>
     <id>http://shenhuagg555.github.io/posts/7f9c.html</id>
     <published>2023-01-10T07:41:21.000Z</published>
-    <updated>2023-01-10T08:04:37.188Z</updated>
+    <updated>2023-01-10T10:14:07.736Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;共享单车预测&quot;&gt;&lt;a href=&quot;#共享单车预测&quot; class=&quot;headerlink&quot; title=&quot;共享单车预测&quot;&gt;&lt;/a&gt;共享单车预测&lt;/h1&gt;&lt;h2 id=&quot;1-准备数据&quot;&gt;&lt;a href=&quot;#1-准备数据&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h1 id=&quot;共享单车预测&quot;&gt;&lt;a href=&quot;#共享单车预测&quot; class=&quot;headerlink&quot; title=&quot;共享单车预测&quot;&gt;&lt;/a&gt;共享单车预测&lt;/h1&gt;&lt;p&gt;通过历史数据预测某一地区接下来一段时间内的共享单车的数量。数据保存在文件 bikes.csv 中，请按</summary>
         
       
     

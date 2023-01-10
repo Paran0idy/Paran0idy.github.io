@@ -5,11 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="共享单车预测, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="共享单车预测1.准备数据import torch
-import numpy as np
-import torch.optim as optim
-import matplotlib.pyplot as plt
-import pandas as">
+    <meta name="description" content="共享单车预测通过历史数据预测某一地区接下来一段时间内的共享单车的数量。数据保存在文件 bikes.csv 中，请按 11:1 的比例划分训练集和测试集，首先对数据进 行预处理，然后在训练集上训练，并在测试集上验证模型。设计神经网络数据进行拟">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -424,7 +420,8 @@ import pandas as">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="共享单车预测"><a href="#共享单车预测" class="headerlink" title="共享单车预测"></a>共享单车预测</h1><h2 id="1-准备数据"><a href="#1-准备数据" class="headerlink" title="1.准备数据"></a>1.准备数据</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> torch
+                <h1 id="共享单车预测"><a href="#共享单车预测" class="headerlink" title="共享单车预测"></a>共享单车预测</h1><p>通过历史数据预测某一地区接下来一段时间内的共享单车的数量。数据保存在文件 bikes.csv 中，请按 11:1 的比例划分训练集和测试集，首先对数据进 行预处理，然后在训练集上训练，并在测试集上验证模型。设计神经网络数据进行拟合，利用训练后的模型对数据拟合并进行预测，记录误差，并绘制出拟合效果。</p>
+<h2 id="1-准备数据"><a href="#1-准备数据" class="headerlink" title="1.准备数据"></a>1.准备数据</h2><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> torch
 <span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
 <span class="token keyword">import</span> torch<span class="token punctuation">.</span>optim <span class="token keyword">as</span> optim
 <span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
