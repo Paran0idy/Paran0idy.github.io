@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Paranoid</title>
+  
+  <subtitle>[object Object]</subtitle>
+  <link href="http://shenhuagg555.github.io/atom.xml" rel="self"/>
+  
+  <link href="http://shenhuagg555.github.io/"/>
+  <updated>2022-10-28T16:24:26.000Z</updated>
+  <id>http://shenhuagg555.github.io/</id>
+  
+  <author>
+    <name>Paranoid</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Sysprog：1. Shell</title>
+    <link href="http://shenhuagg555.github.io/posts/sfaaf.html"/>
+    <id>http://shenhuagg555.github.io/posts/sfaaf.html</id>
+    <published>2022-10-27T15:48:39.000Z</published>
+    <updated>2022-10-28T16:24:26.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;lab1：Shell&quot;&gt;&lt;a href=&quot;#lab1：Shell&quot; class=&quot;headerlink&quot; title=&quot;lab1：Shell&quot;&gt;&lt;/a&gt;lab1：Shell&lt;/h1&gt;&lt;h2 id=&quot;Question-1&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="http://shenhuagg555.github.io/categories/Linux/"/>
+    
+    
+    <category term="Sysprog" scheme="http://shenhuagg555.github.io/tags/Sysprog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Sysprog：2. mini Network-Analyzer</title>
+    <link href="http://shenhuagg555.github.io/posts/asfdh.html"/>
+    <id>http://shenhuagg555.github.io/posts/asfdh.html</id>
+    <published>2022-10-27T15:48:39.000Z</published>
+    <updated>2022-10-28T16:25:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;mini-Network-Analyzer&quot;&gt;&lt;a href=&quot;#mini-Network-Analyzer&quot; class=&quot;headerlink&quot; title=&quot;mini Network-Analyzer&quot;&gt;&lt;/a&gt;mini</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="http://shenhuagg555.github.io/categories/Linux/"/>
+    
+    
+    <category term="Sysprog" scheme="http://shenhuagg555.github.io/tags/Sysprog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Sysprog：3. A Minimal Debugger</title>
+    <link href="http://shenhuagg555.github.io/posts/1234.html"/>
+    <id>http://shenhuagg555.github.io/posts/1234.html</id>
+    <published>2022-10-27T15:48:39.000Z</published>
+    <updated>2022-10-29T16:06:10.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;lab3-：A-Minimal-Debugger&quot;&gt;&lt;a href=&quot;#lab3-：A-Minimal-Debugger&quot; class=&quot;headerlink&quot; title=&quot;lab3 ：A Minimal Debugger&quot;&gt;&lt;/a&gt;lab3 ：A</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="http://shenhuagg555.github.io/categories/Linux/"/>
+    
+    
+    <category term="Sysprog" scheme="http://shenhuagg555.github.io/tags/Sysprog/"/>
+    
+  </entry>
+  
+</feed>
