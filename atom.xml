@@ -47,33 +47,6 @@
   </entry>
   
   <entry>
-    <title>Sysprog：1. Shell</title>
-    <link href="http://paran0idy.github.io/posts/sfaaf.html"/>
-    <id>http://paran0idy.github.io/posts/sfaaf.html</id>
-    <published>2022-10-27T15:48:39.000Z</published>
-    <updated>2022-10-28T16:24:26.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;lab1shell&quot;&gt;lab1：Shell&lt;/h1&gt;
-&lt;h2 id=&quot;question-1&quot;&gt;&lt;strong&gt;Question 1&lt;/strong&gt;:&lt;/h2&gt;
-&lt;p&gt;If you add a background command after the</summary>
-        
-      
-    
-    
-    
-    <category term="Linux" scheme="http://paran0idy.github.io/categories/Linux/"/>
-    
-    
-    <category term="Sysprog" scheme="http://paran0idy.github.io/tags/Sysprog/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Sysprog：2. mini Network-Analyzer</title>
     <link href="http://paran0idy.github.io/posts/asfdh.html"/>
     <id>http://paran0idy.github.io/posts/asfdh.html</id>
@@ -114,6 +87,33 @@
     <summary type="html">&lt;h1 id=&quot;lab3-a-minimal-debugger&quot;&gt;lab3 ：A Minimal Debugger&lt;/h1&gt;
 &lt;h2 id=&quot;exercise-1&quot;&gt;Exercise 1:&lt;/h2&gt;
 &lt;p&gt;Now read the source file and answer</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="http://paran0idy.github.io/categories/Linux/"/>
+    
+    
+    <category term="Sysprog" scheme="http://paran0idy.github.io/tags/Sysprog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Sysprog：1. Shell</title>
+    <link href="http://paran0idy.github.io/posts/sfaaf.html"/>
+    <id>http://paran0idy.github.io/posts/sfaaf.html</id>
+    <published>2022-10-27T15:48:39.000Z</published>
+    <updated>2022-10-28T16:24:26.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;lab1shell&quot;&gt;lab1：Shell&lt;/h1&gt;
+&lt;h2 id=&quot;question-1&quot;&gt;&lt;strong&gt;Question 1&lt;/strong&gt;:&lt;/h2&gt;
+&lt;p&gt;If you add a background command after the</summary>
         
       
     
