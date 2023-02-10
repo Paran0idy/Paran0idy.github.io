@@ -6,7 +6,7 @@
   <link href="http://paran0idy.github.io/atom.xml" rel="self"/>
   
   <link href="http://paran0idy.github.io/"/>
-  <updated>2022-10-28T16:24:26.000Z</updated>
+  <updated>2023-02-10T17:05:34.525Z</updated>
   <id>http://paran0idy.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>形式化方法</title>
+    <link href="http://paran0idy.github.io/posts/6666.html"/>
+    <id>http://paran0idy.github.io/posts/6666.html</id>
+    <published>2023-02-10T17:00:01.000Z</published>
+    <updated>2023-02-10T17:05:34.525Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h2 id=&quot;2-Propositional-Logic&quot;&gt;&lt;a href=&quot;#2-Propositional-Logic&quot; class=&quot;headerlink&quot; title=&quot;2.Propositional</summary>
+        
+      
+    
+    
+    
+    <category term="Software Enginnering" scheme="http://paran0idy.github.io/categories/Software-Enginnering/"/>
+    
+    
+    <category term="Math" scheme="http://paran0idy.github.io/tags/Math/"/>
+    
+    <category term="Logic" scheme="http://paran0idy.github.io/tags/Logic/"/>
+    
+  </entry>
   
   <entry>
     <title>Sysprog：1. Shell</title>
@@ -42,18 +70,18 @@
   </entry>
   
   <entry>
-    <title>Sysprog：2. mini Network-Analyzer</title>
-    <link href="http://paran0idy.github.io/posts/asfdh.html"/>
-    <id>http://paran0idy.github.io/posts/asfdh.html</id>
+    <title>Sysprog：3. A Minimal Debugger</title>
+    <link href="http://paran0idy.github.io/posts/1234.html"/>
+    <id>http://paran0idy.github.io/posts/1234.html</id>
     <published>2022-10-27T15:48:39.000Z</published>
-    <updated>2022-10-28T16:25:00.000Z</updated>
+    <updated>2022-10-29T16:06:10.000Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;mini-Network-Analyzer&quot;&gt;&lt;a href=&quot;#mini-Network-Analyzer&quot; class=&quot;headerlink&quot; title=&quot;mini Network-Analyzer&quot;&gt;&lt;/a&gt;mini</summary>
+    <summary type="html">&lt;h1 id=&quot;lab3-：A-Minimal-Debugger&quot;&gt;&lt;a href=&quot;#lab3-：A-Minimal-Debugger&quot; class=&quot;headerlink&quot; title=&quot;lab3 ：A Minimal Debugger&quot;&gt;&lt;/a&gt;lab3 ：A</summary>
         
       
     
@@ -67,18 +95,18 @@
   </entry>
   
   <entry>
-    <title>Sysprog：3. A Minimal Debugger</title>
-    <link href="http://paran0idy.github.io/posts/1234.html"/>
-    <id>http://paran0idy.github.io/posts/1234.html</id>
+    <title>Sysprog：2. mini Network-Analyzer</title>
+    <link href="http://paran0idy.github.io/posts/asfdh.html"/>
+    <id>http://paran0idy.github.io/posts/asfdh.html</id>
     <published>2022-10-27T15:48:39.000Z</published>
-    <updated>2022-10-29T16:06:10.000Z</updated>
+    <updated>2022-10-28T16:25:00.000Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;lab3-：A-Minimal-Debugger&quot;&gt;&lt;a href=&quot;#lab3-：A-Minimal-Debugger&quot; class=&quot;headerlink&quot; title=&quot;lab3 ：A Minimal Debugger&quot;&gt;&lt;/a&gt;lab3 ：A</summary>
+    <summary type="html">&lt;h1 id=&quot;mini-Network-Analyzer&quot;&gt;&lt;a href=&quot;#mini-Network-Analyzer&quot; class=&quot;headerlink&quot; title=&quot;mini Network-Analyzer&quot;&gt;&lt;/a&gt;mini</summary>
         
       
     
