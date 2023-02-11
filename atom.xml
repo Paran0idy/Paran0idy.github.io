@@ -6,7 +6,7 @@
   <link href="http://paran0idy.github.io/atom.xml" rel="self"/>
   
   <link href="http://paran0idy.github.io/"/>
-  <updated>2023-02-11T05:24:04.299Z</updated>
+  <updated>2023-02-11T17:57:21.875Z</updated>
   <id>http://paran0idy.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://paran0idy.github.io/posts/6666.html"/>
     <id>http://paran0idy.github.io/posts/6666.html</id>
     <published>2023-02-10T17:00:01.000Z</published>
-    <updated>2023-02-11T05:24:04.299Z</updated>
+    <updated>2023-02-11T17:57:21.875Z</updated>
     
     
       
@@ -29,7 +29,9 @@
         
         
     <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
-&lt;h2 id=&quot;2-Propositional-Logic&quot;&gt;&lt;a href=&quot;#2-Propositional-Logic&quot; class=&quot;headerlink&quot; title=&quot;2.Propositional</summary>
+&lt;h2 id=&quot;propositional-logic&quot;&gt;2.Propositional Logic&lt;/h2&gt;
+&lt;h3 id=&quot;syntax&quot;&gt;Syntax&lt;/h3&gt;
+&lt;p&gt;$$ &lt;span class=&quot;math</summary>
         
       
     
@@ -56,7 +58,9 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;lab1：Shell&quot;&gt;&lt;a href=&quot;#lab1：Shell&quot; class=&quot;headerlink&quot; title=&quot;lab1：Shell&quot;&gt;&lt;/a&gt;lab1：Shell&lt;/h1&gt;&lt;h2 id=&quot;Question-1&quot;&gt;&lt;a</summary>
+    <summary type="html">&lt;h1 id=&quot;lab1shell&quot;&gt;lab1：Shell&lt;/h1&gt;
+&lt;h2 id=&quot;question-1&quot;&gt;&lt;strong&gt;Question 1&lt;/strong&gt;:&lt;/h2&gt;
+&lt;p&gt;If you add a background command after the</summary>
         
       
     
@@ -81,7 +85,8 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;mini-Network-Analyzer&quot;&gt;&lt;a href=&quot;#mini-Network-Analyzer&quot; class=&quot;headerlink&quot; title=&quot;mini Network-Analyzer&quot;&gt;&lt;/a&gt;mini</summary>
+    <summary type="html">&lt;h1 id=&quot;mini-network-analyzer&quot;&gt;mini Network-Analyzer&lt;/h1&gt;
+&lt;h2 id=&quot;part-dpacket-spoofing&quot;&gt;Part D：packet</summary>
         
       
     
@@ -106,7 +111,9 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;lab3-：A-Minimal-Debugger&quot;&gt;&lt;a href=&quot;#lab3-：A-Minimal-Debugger&quot; class=&quot;headerlink&quot; title=&quot;lab3 ：A Minimal Debugger&quot;&gt;&lt;/a&gt;lab3 ：A</summary>
+    <summary type="html">&lt;h1 id=&quot;lab3-a-minimal-debugger&quot;&gt;lab3 ：A Minimal Debugger&lt;/h1&gt;
+&lt;h2 id=&quot;exercise-1&quot;&gt;Exercise 1:&lt;/h2&gt;
+&lt;p&gt;Now read the source file and answer</summary>
         
       
     
