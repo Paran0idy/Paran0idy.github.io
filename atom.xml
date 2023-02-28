@@ -104,11 +104,11 @@ LSTM网络进行预测，记录预测准确率并绘制图形。&lt;/p&gt;
   </entry>
   
   <entry>
-    <title>CIFAR-10分类网络</title>
+    <title>DeepLearning：CIFAR-10分类网络</title>
     <link href="http://paran0idy.github.io/posts/8865.html"/>
     <id>http://paran0idy.github.io/posts/8865.html</id>
     <published>2023-01-10T09:03:53.000Z</published>
-    <updated>2023-01-10T09:18:00.000Z</updated>
+    <updated>2023-02-28T15:12:04.755Z</updated>
     
     
       
@@ -240,6 +240,133 @@ bikes.csv 中，请按 11:1</summary>
   </entry>
   
   <entry>
+    <title>6.S081：5.xargs命令实现</title>
+    <link href="http://paran0idy.github.io/posts/852f.html"/>
+    <id>http://paran0idy.github.io/posts/852f.html</id>
+    <published>2022-12-25T09:00:32.000Z</published>
+    <updated>2023-02-28T15:51:54.816Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;s0815.xargs命令实现&quot;&gt;6.S081：5.xargs命令实现&lt;/h1&gt;
+&lt;h2 id=&quot;xargs-moderate&quot;&gt;xargs (&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="6.S081" scheme="http://paran0idy.github.io/tags/6-S081/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>6.S081：4.find功能实现</title>
+    <link href="http://paran0idy.github.io/posts/51d6.html"/>
+    <id>http://paran0idy.github.io/posts/51d6.html</id>
+    <published>2022-12-20T08:32:10.000Z</published>
+    <updated>2023-02-28T15:51:49.577Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;s0814.find功能实现&quot;&gt;6.S081：4.find功能实现&lt;/h1&gt;
+&lt;h2 id=&quot;find-moderate&quot;&gt;find (&lt;a</summary>
+        
+      
+    
+    
+    
+    
+    <category term="6.S081" scheme="http://paran0idy.github.io/tags/6-S081/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>6.S081：3.素数筛Primes实验</title>
+    <link href="http://paran0idy.github.io/posts/ac84.html"/>
+    <id>http://paran0idy.github.io/posts/ac84.html</id>
+    <published>2022-12-11T09:06:49.000Z</published>
+    <updated>2023-02-28T15:51:42.292Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;s0813.素数筛primes实验&quot;&gt;6.S081：3.素数筛Primes实验&lt;/h1&gt;
+&lt;h2 id=&quot;problemprimes-moderatehard&quot;&gt;Problem：primes (&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="操作系统" scheme="http://paran0idy.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+    <category term="6.S081" scheme="http://paran0idy.github.io/tags/6-S081/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>6.S081：2.makefile初体验</title>
+    <link href="http://paran0idy.github.io/posts/ab96.html"/>
+    <id>http://paran0idy.github.io/posts/ab96.html</id>
+    <published>2022-12-09T16:41:42.000Z</published>
+    <updated>2023-02-28T15:51:35.809Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;s0812.makefile初体验&quot;&gt;6.S081：2.makefile初体验&lt;/h1&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="编译" scheme="http://paran0idy.github.io/categories/%E7%BC%96%E8%AF%91/"/>
+    
+    
+    <category term="6.S081" scheme="http://paran0idy.github.io/tags/6-S081/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>6.S081：1.关于fork()的思考</title>
+    <link href="http://paran0idy.github.io/posts/undefined.html"/>
+    <id>http://paran0idy.github.io/posts/undefined.html</id>
+    <published>2022-12-05T09:39:47.000Z</published>
+    <updated>2023-02-28T15:51:21.603Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;s0811.关于fork的思考&quot;&gt;6.S081：1.关于fork()的思考&lt;/h1&gt;
+&lt;h2 id=&quot;fork&quot;&gt;1.fork&lt;/h2&gt;
+&lt;div class=&quot;sourceCode&quot; id=&quot;cb1&quot;&gt;&lt;pre class=&quot;sourceCode</summary>
+        
+      
+    
+    
+    
+    <category term="操作系统" scheme="http://paran0idy.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+    <category term="6.S081" scheme="http://paran0idy.github.io/tags/6-S081/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Sysprog：1. Shell</title>
     <link href="http://paran0idy.github.io/posts/sfaaf.html"/>
     <id>http://paran0idy.github.io/posts/sfaaf.html</id>
@@ -320,106 +447,6 @@ bikes.csv 中，请按 11:1</summary>
   </entry>
   
   <entry>
-    <title>6.S081：5.xargs命令实现</title>
-    <link href="http://paran0idy.github.io/posts/852f.html"/>
-    <id>http://paran0idy.github.io/posts/852f.html</id>
-    <published>2022-09-07T09:00:32.000Z</published>
-    <updated>2022-09-07T09:17:12.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;s0815.xargs命令实现&quot;&gt;6.S081：5.xargs命令实现&lt;/h1&gt;
-&lt;h2 id=&quot;xargs-moderate&quot;&gt;xargs (&lt;a</summary>
-        
-      
-    
-    
-    
-    
-    <category term="6.S081" scheme="http://paran0idy.github.io/tags/6-S081/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>6.S081：4.find功能实现</title>
-    <link href="http://paran0idy.github.io/posts/51d6.html"/>
-    <id>http://paran0idy.github.io/posts/51d6.html</id>
-    <published>2022-09-07T08:32:10.000Z</published>
-    <updated>2022-09-07T09:17:06.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;s0814.find功能实现&quot;&gt;6.S081：4.find功能实现&lt;/h1&gt;
-&lt;h2 id=&quot;find-moderate&quot;&gt;find (&lt;a</summary>
-        
-      
-    
-    
-    
-    
-    <category term="6.S081" scheme="http://paran0idy.github.io/tags/6-S081/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>6.S081：3.素数筛Primes实验</title>
-    <link href="http://paran0idy.github.io/posts/ac84.html"/>
-    <id>http://paran0idy.github.io/posts/ac84.html</id>
-    <published>2022-08-16T09:06:49.000Z</published>
-    <updated>2022-08-18T09:08:30.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;s0813.素数筛primes实验&quot;&gt;6.S081：3.素数筛Primes实验&lt;/h1&gt;
-&lt;h2 id=&quot;problemprimes-moderatehard&quot;&gt;Problem：primes (&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="操作系统" scheme="http://paran0idy.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-    <category term="6.S081" scheme="http://paran0idy.github.io/tags/6-S081/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>6.S081：2.makefile初体验</title>
-    <link href="http://paran0idy.github.io/posts/ab96.html"/>
-    <id>http://paran0idy.github.io/posts/ab96.html</id>
-    <published>2022-07-21T16:41:42.000Z</published>
-    <updated>2022-08-16T13:56:18.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;s0812.makefile初体验&quot;&gt;6.S081：2.makefile初体验&lt;/h1&gt;
-&lt;h2</summary>
-        
-      
-    
-    
-    
-    <category term="编译" scheme="http://paran0idy.github.io/categories/%E7%BC%96%E8%AF%91/"/>
-    
-    
-    <category term="6.S081" scheme="http://paran0idy.github.io/tags/6-S081/"/>
-    
-  </entry>
-  
-  <entry>
     <title>github创建仓库并使用git上传本地代码</title>
     <link href="http://paran0idy.github.io/posts/a5ca.html"/>
     <id>http://paran0idy.github.io/posts/a5ca.html</id>
@@ -474,33 +501,6 @@ Notebook&lt;/h1&gt;
     <category term="Linux" scheme="http://paran0idy.github.io/tags/Linux/"/>
     
     <category term="Pytorch" scheme="http://paran0idy.github.io/tags/Pytorch/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>6.S081：1.关于fork()的思考</title>
-    <link href="http://paran0idy.github.io/posts/undefined.html"/>
-    <id>http://paran0idy.github.io/posts/undefined.html</id>
-    <published>2022-05-05T09:39:47.000Z</published>
-    <updated>2022-09-08T13:03:26.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;s0811.关于fork的思考&quot;&gt;6.S081：1.关于fork()的思考&lt;/h1&gt;
-&lt;h2 id=&quot;fork&quot;&gt;1.fork&lt;/h2&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb1&quot;&gt;&lt;pre class=&quot;sourceCode</summary>
-        
-      
-    
-    
-    
-    <category term="操作系统" scheme="http://paran0idy.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-    
-    <category term="6.S081" scheme="http://paran0idy.github.io/tags/6-S081/"/>
     
   </entry>
   
