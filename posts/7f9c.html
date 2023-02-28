@@ -5,10 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="共享单车预测, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="共享单车预测
-通过历史数据预测某一地区接下来一段时间内的共享单车的数量。数据保存在文件
-bikes.csv 中，请按 11:1 的比例划分训练集和测试集，首先对数据进
-行预处理，然后在训练集上训练，并在测试集上验证模型。设计神经网络数据进行">
+    <meta name="description" content="共享单车预测通过历史数据预测某一地区接下来一段时间内的共享单车的数量。数据保存在文件 bikes.csv 中，请按 11:1 的比例划分训练集和测试集，首先对数据进 行预处理，然后在训练集上训练，并在测试集上验证模型。设计神经网络数据进行拟">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -427,135 +424,127 @@ bikes.csv 中，请按 11:1 的比例划分训练集和测试集，首先对数�
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="共享单车预测">共享单车预测</h1>
-<p>通过历史数据预测某一地区接下来一段时间内的共享单车的数量。数据保存在文件
-bikes.csv 中，请按 11:1 的比例划分训练集和测试集，首先对数据进
-行预处理，然后在训练集上训练，并在测试集上验证模型。设计神经网络数据进行拟合，利用训练后的模型对数据拟合并进行预测，记录误差，并绘制出拟合效果。</p>
-<h2 id="准备数据">1.准备数据</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.optim <span class="im">as</span> optim</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div>
+                <h1 id="共享单车预测"><a href="#共享单车预测" class="headerlink" title="共享单车预测"></a>共享单车预测</h1><p>通过历史数据预测某一地区接下来一段时间内的共享单车的数量。数据保存在文件 bikes.csv 中，请按 11:1 的比例划分训练集和测试集，首先对数据进 行预处理，然后在训练集上训练，并在测试集上验证模型。设计神经网络数据进行拟合，利用训练后的模型对数据拟合并进行预测，记录误差，并绘制出拟合效果。</p>
+<h2 id="1-准备数据"><a href="#1-准备数据" class="headerlink" title="1.准备数据"></a>1.准备数据</h2><pre class="line-numbers language-lang-python"><code class="language-lang-python">import torch
+import numpy as np
+import torch.optim as optim
+import matplotlib.pyplot as plt
+import pandas as pd
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>生成数据集</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gen_data(<span class="bu">file</span>):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> pd.read_csv(<span class="bu">file</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># one-hot编码</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    col_titles <span class="op">=</span> [<span class="st">'season'</span>, <span class="st">'weathersit'</span>, <span class="st">'mnth'</span>, <span class="st">'hr'</span>, <span class="st">'weekday'</span>]</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> col_titles:</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 生成形如season_0, season_1的列</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        dummies <span class="op">=</span> pd.get_dummies(data[i], prefix<span class="op">=</span>i)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> pd.concat([data, dummies], axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 删除列</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    col_titles_to_drop <span class="op">=</span> [<span class="st">'instant'</span>, <span class="st">'dteday'</span>, <span class="st">'season'</span>, <span class="st">'weathersit'</span>, <span class="st">'weekday'</span>, <span class="st">'mnth'</span>, <span class="st">'workingday'</span>, <span class="st">'hr'</span>]</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> data.drop(col_titles_to_drop, axis<span class="op">=</span><span class="dv">1</span>)    </span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 归一化</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    col_titles <span class="op">=</span> [<span class="st">'cnt'</span>, <span class="st">'temp'</span>, <span class="st">'hum'</span>, <span class="st">'windspeed'</span>]</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> col_titles:</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        mean, std <span class="op">=</span> data[i].mean(), data[i].std()</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">==</span> <span class="st">'cnt'</span>:</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>            mean_cnt, std_cnt <span class="op">=</span> mean, std</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        data[i] <span class="op">=</span> (data[i] <span class="op">-</span> mean) <span class="op">/</span> std</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">len</span>(data))</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 划分训练集和测试集11:1，`cnt`是label</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    train_data <span class="op">=</span> data[: <span class="op">-</span><span class="bu">len</span>(data) <span class="op">//</span> <span class="dv">12</span>]</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">len</span>(train_data))</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    train_value <span class="op">=</span> train_data[<span class="st">'cnt'</span>]</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    train_data <span class="op">=</span> train_data.drop([<span class="st">'cnt'</span>], axis<span class="op">=</span><span class="dv">1</span>).values</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    train_value <span class="op">=</span> train_value.values.astype(<span class="bu">float</span>).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    test_data <span class="op">=</span> data[<span class="op">-</span><span class="bu">len</span>(data) <span class="op">//</span> <span class="dv">12</span> : ]</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">len</span>(test_data))</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    test_value <span class="op">=</span> test_data[<span class="st">'cnt'</span>]</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    test_data <span class="op">=</span> test_data.drop([<span class="st">'cnt'</span>], axis<span class="op">=</span><span class="dv">1</span>).values</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    test_value <span class="op">=</span> test_value.values.astype(<span class="bu">float</span>).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> train_data, train_value, test_data, test_value, mean_cnt, std_cnt</span></code></pre></div>
-<h2 id="构建模型">2.构建模型</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>train_data, train_value, test_data, test_value, mean_cnt, std_cnt <span class="op">=</span> gen_data(<span class="st">'bikes.csv'</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>input_size <span class="op">=</span> train_data.shape[<span class="dv">1</span>] <span class="co"># 特征(列数)</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>hidden_size <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>output_size <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> torch.nn.Sequential(torch.nn.Linear(input_size, hidden_size),</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                          torch.nn.Sigmoid(),</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                          torch.nn.Linear(hidden_size, output_size))</span></code></pre></div>
-<h2 id="训练模型">3.训练模型</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train(train_data, train_value, net, loss_func, opt, epochs):</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    losses <span class="op">=</span> []</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(epochs):</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        batch_loss <span class="op">=</span> []</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> start <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="bu">len</span>(train_data), batch_size):</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> start <span class="op">+</span> batch_size <span class="op">&lt;</span> <span class="bu">len</span>(train_data):</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                end <span class="op">=</span> start <span class="op">+</span> batch_size</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                end <span class="op">=</span> <span class="bu">len</span>(train_data)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> torch.FloatTensor(train_data[start : end])</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>            y <span class="op">=</span> torch.FloatTensor(train_value[start : end])</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>            pred <span class="op">=</span> net(x)</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>            loss <span class="op">=</span> loss_func(pred, y)</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>            opt.zero_grad()</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>            loss.backward()</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>            opt.step()</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>            batch_loss.append(loss.detach().numpy())</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">%</span> <span class="dv">100</span> <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>            losses.append(np.mean(batch_loss))</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(i, np.mean(batch_loss))</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    plt.plot(np.arange(<span class="bu">len</span>(losses)) <span class="op">*</span> <span class="dv">100</span>, losses)</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>loss_func <span class="op">=</span> torch.nn.MSELoss()</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>opt <span class="op">=</span> torch.optim.SGD(net.parameters(), lr <span class="op">=</span> <span class="fl">0.01</span>)</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>epochs <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>batch_size <span class="op">=</span> <span class="dv">128</span></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>train(train_data, train_value, net, loss_func, opt, epochs)</span></code></pre></div>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">def gen_data(file):
+    data = pd.read_csv(file)
+
+    # one-hot编码
+    col_titles = ['season', 'weathersit', 'mnth', 'hr', 'weekday']
+    for i in col_titles:
+        # 生成形如season_0, season_1的列
+        dummies = pd.get_dummies(data[i], prefix=i)
+        data = pd.concat([data, dummies], axis=1)
+
+    # 删除列
+    col_titles_to_drop = ['instant', 'dteday', 'season', 'weathersit', 'weekday', 'mnth', 'workingday', 'hr']
+    data = data.drop(col_titles_to_drop, axis=1)    
+
+    # 归一化
+    col_titles = ['cnt', 'temp', 'hum', 'windspeed']
+    for i in col_titles:
+        mean, std = data[i].mean(), data[i].std()
+        if i == 'cnt':
+            mean_cnt, std_cnt = mean, std
+        data[i] = (data[i] - mean) / std
+
+    print(len(data))
+
+    # 划分训练集和测试集11:1，`cnt`是label
+    train_data = data[: -len(data) // 12]
+    print(len(train_data))
+    train_value = train_data['cnt']
+
+    train_data = train_data.drop(['cnt'], axis=1).values
+    train_value = train_value.values.astype(float).reshape(-1, 1)
+
+
+    test_data = data[-len(data) // 12 : ]
+    print(len(test_data))
+    test_value = test_data['cnt']
+
+    test_data = test_data.drop(['cnt'], axis=1).values
+    test_value = test_value.values.astype(float).reshape(-1, 1)
+
+    return train_data, train_value, test_data, test_value, mean_cnt, std_cnt
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="2-构建模型"><a href="#2-构建模型" class="headerlink" title="2.构建模型"></a>2.构建模型</h2><pre class="line-numbers language-lang-python"><code class="language-lang-python">train_data, train_value, test_data, test_value, mean_cnt, std_cnt = gen_data('bikes.csv')
+
+input_size = train_data.shape[1] # 特征(列数)
+hidden_size = 10
+output_size = 1
+
+net = torch.nn.Sequential(torch.nn.Linear(input_size, hidden_size),
+                          torch.nn.Sigmoid(),
+                          torch.nn.Linear(hidden_size, output_size))
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="3-训练模型"><a href="#3-训练模型" class="headerlink" title="3.训练模型"></a>3.训练模型</h2><pre class="line-numbers language-lang-python"><code class="language-lang-python">def train(train_data, train_value, net, loss_func, opt, epochs):
+    losses = []
+
+    for i in range(epochs):
+        batch_loss = []
+        for start in range(0, len(train_data), batch_size):
+            if start + batch_size < len(train_data):
+                end = start + batch_size
+            else:
+                end = len(train_data)
+
+            x = torch.FloatTensor(train_data[start : end])
+            y = torch.FloatTensor(train_value[start : end])
+
+            pred = net(x)
+            loss = loss_func(pred, y)
+            opt.zero_grad()
+            loss.backward()
+            opt.step()
+            batch_loss.append(loss.detach().numpy())
+
+        if i % 100 == 0:
+            losses.append(np.mean(batch_loss))
+            print(i, np.mean(batch_loss))
+
+    plt.plot(np.arange(len(losses)) * 100, losses)
+    plt.show()
+
+
+loss_func = torch.nn.MSELoss()
+opt = torch.optim.SGD(net.parameters(), lr = 0.01)
+epochs = 1000
+batch_size = 128
+train(train_data, train_value, net, loss_func, opt, epochs)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>这里没有用到加载器，DataLoader，而是手动划分了batch，并且能很好的对最后的批次进行处理(有可能不整除)</p>
 </blockquote>
-<figure>
-<img src="/posts/7f9c/image-20230110155947160-16760522453671.png" alt="训练损失">
-<figcaption aria-hidden="true">训练损失</figcaption>
-</figure>
-<h2 id="预测结果">4.预测结果</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prediction(test_data, test_value, net, mean, std):</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> torch.FloatTensor(test_data)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> torch.FloatTensor(test_value)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> net(x)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad():</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> loss_func(pred, y)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> pred.detach().numpy() <span class="op">*</span> std <span class="op">+</span> mean</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> y.detach().numpy() <span class="op">*</span> std <span class="op">+</span> mean</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    plt.plot(np.arange(x.shape[<span class="dv">0</span>]), y)</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    plt.plot(np.arange(x.shape[<span class="dv">0</span>]), pred, <span class="st">':'</span>)</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"pred_loss: "</span>, loss)</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>prediction(test_data, test_value, net, mean_cnt, std_cnt)</span></code></pre></div>
+<p><img src="/posts/7f9c/image-20230110155947160-16760522453671.png" alt="训练损失"></p>
+<h2 id="4-预测结果"><a href="#4-预测结果" class="headerlink" title="4.预测结果"></a>4.预测结果</h2><pre class="line-numbers language-lang-python"><code class="language-lang-python">def prediction(test_data, test_value, net, mean, std):
+    x = torch.FloatTensor(test_data)
+    y = torch.FloatTensor(test_value)
+
+    pred = net(x)
+    with torch.no_grad():
+        loss = loss_func(pred, y)
+
+    pred = pred.detach().numpy() * std + mean
+    y = y.detach().numpy() * std + mean
+
+    plt.plot(np.arange(x.shape[0]), y)
+    plt.plot(np.arange(x.shape[0]), pred, ':')
+    plt.show()
+    print("pred_loss: ", loss)
+
+prediction(test_data, test_value, net, mean_cnt, std_cnt)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
 <p>由于数据经过归一化，现在需要通过mean和std将数据还原回去</p>
 </blockquote>
-<figure>
-<img src="/posts/7f9c/image-20230110160002144.png" alt="预测结果">
-<figcaption aria-hidden="true">预测结果</figcaption>
-</figure>
+<p><img src="/posts/7f9c/image-20230110160002144.png" alt="预测结果"></p>
 
                 
             </div>

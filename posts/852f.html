@@ -5,10 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="6.S081：5.xargs命令实现, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="6.S081：5.xargs命令实现
-xargs (moderate)
-Write a simple version of the UNIX xargs program: read lines from the
-standard input">
+    <meta name="description" content="6.S081：5.xargs命令实现xargs (moderate)Write a simple version of the UNIX xargs program: read lines from the standard input a">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -418,100 +415,82 @@ standard input">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="s0815.xargs命令实现">6.S081：5.xargs命令实现</h1>
-<h2 id="xargs-moderate">xargs (<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2021/labs/guidance.html">moderate</a>)</h2>
-<p>Write a simple version of the UNIX xargs program: read lines from the
-standard input and run a command for each line, supplying the line as
-arguments to the command. Your solution should be in the file
-<code>user/xargs.c</code>.</p>
-<p>The following example illustrates xarg's behavior:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo hello too <span class="kw">|</span> <span class="fu">xargs</span> echo bye</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bye</span> hello too</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span></span></code></pre></div>
-<p>Note that the command here is "echo bye" and the additional arguments
-are "hello too", making the command "echo bye hello too", which outputs
-"bye hello too".</p>
-<p>Please note that xargs on UNIX makes an optimization where it will
-feed more than argument to the command at a time. We don't expect you to
-make this optimization. To make xargs on UNIX behave the way we want it
-to for this lab, please run it with the -n option set to 1. For
-instance</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="st">"1\n2"</span> <span class="kw">|</span> <span class="fu">xargs</span> <span class="at">-n</span> 1 echo line</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">line</span> 1</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">line</span> 2</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span></span></code></pre></div>
+                <h1 id="6-S081：5-xargs命令实现"><a href="#6-S081：5-xargs命令实现" class="headerlink" title="6.S081：5.xargs命令实现"></a>6.S081：5.xargs命令实现</h1><h2 id="xargs-moderate"><a href="#xargs-moderate" class="headerlink" title="xargs (moderate)"></a>xargs (<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2021/labs/guidance.html">moderate</a>)</h2><p>Write a simple version of the UNIX xargs program: read lines from the standard input and run a command for each line, supplying the line as arguments to the command. Your solution should be in the file <code>user/xargs.c</code>.</p>
+<p>The following example illustrates xarg’s behavior:</p>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">$ echo hello too | xargs echo bye
+bye hello too
+$
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>Note that the command here is “echo bye” and the additional arguments are “hello too”, making the command “echo bye hello too”, which outputs “bye hello too”.</p>
+<p>Please note that xargs on UNIX makes an optimization where it will feed more than argument to the command at a time. We don’t expect you to make this optimization. To make xargs on UNIX behave the way we want it to for this lab, please run it with the -n option set to 1. For instance</p>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">$ echo "1\n2" | xargs -n 1 echo line
+line 1
+line 2
+$
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Some hints:</p>
 <ul>
-<li>Use <code>fork</code> and <code>exec</code> to invoke the command on
-each line of input. Use <code>wait</code> in the parent to wait for the
-child to complete the command.</li>
-<li>To read individual lines of input, read a character at a time until
-a newline ('') appears.</li>
-<li>kernel/param.h declares MAXARG, which may be useful if you need to
-declare an argv array.</li>
+<li>Use <code>fork</code> and <code>exec</code> to invoke the command on each line of input. Use <code>wait</code> in the parent to wait for the child to complete the command.</li>
+<li>To read individual lines of input, read a character at a time until a newline (‘\n’) appears.</li>
+<li>kernel/param.h declares MAXARG, which may be useful if you need to declare an argv array.</li>
 <li>Add the program to <code>UPROGS</code> in Makefile.</li>
-<li>Changes to the file system persist across runs of qemu; to get a
-clean file system run make clean and then make qemu.</li>
+<li>Changes to the file system persist across runs of qemu; to get a clean file system run make clean and then make qemu.</li>
 </ul>
 <p>xargs, find, and grep combine well:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> find . b <span class="kw">|</span> <span class="fu">xargs</span> grep hello</span></code></pre></div>
-<p>will run "grep hello" on each file named b in the directories below
-".".</p>
-<p>To test your solution for xargs, run the shell script xargstest.sh.
-Your solution is correct if it produces the following output:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> make qemu</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">init:</span> starting sh</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> sh <span class="op">&lt;</span> xargstest.sh</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> $ $ $ $ $ hello</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">hello</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">hello</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> $   </span></code></pre></div>
-<p>You may have to go back and fix bugs in your find program. The output
-has many <code>$</code> because the xv6 shell doesn't realize it is
-processing commands from a file instead of from the console, and prints
-a <code>$</code> for each command in the file.</p>
-<h2 id="思考">思考</h2>
-<p>需要用到管道命令，但不需要在<code>xargs</code>里面创建管道，只需从标准输出中读取前一条命令的结果即可，若又多个结果，则遇到一个换行符就停止读取。<code>xargs</code>后是<code>命令 参数</code>，显然需要父进程<code>fork</code>出一个子进程来执行后面的命令，并且将读取的结果附加到命令参数中。</p>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">$ find . b | xargs grep hello
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>will run “grep hello” on each file named b in the directories below “.”.</p>
+<p>To test your solution for xargs, run the shell script xargstest.sh. Your solution is correct if it produces the following output:</p>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">$ make qemu
+...
+init: starting sh
+$ sh < xargstest.sh
+$ $ $ $ $ $ hello
+hello
+hello
+$ $
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>You may have to go back and fix bugs in your find program. The output has many <script type="math/tex">` because the xv6 shell doesn't realize it is processing commands from a file instead of from the console, and prints a `</script> for each command in the file.</p>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>需要用到管道命令，但不需要在<code>xargs</code>里面创建管道，只需从标准输出中读取前一条命令的结果即可，若又多个结果，则遇到一个换行符就停止读取。<code>xargs</code>后是<code>命令 参数</code>，显然需要父进程<code>fork</code>出一个子进程来执行后面的命令，并且将读取的结果附加到命令参数中。</p>
 <p>值得注意的是，从标准输出中读取字符串时，本题推荐<code>一个字符顺序读取</code>(直接读取一个字符串，似乎会产生一些问题，暂时未解决)</p>
 <p>然后就是一些字符串的简单处理，这里就直接放上代码了</p>
-<h2 id="code">Code</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"kernel/types.h"</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"user/user.h"</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"kernel/param.h"</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[]){</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> buf<span class="op">[</span>MAXARG<span class="op">];</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> <span class="op">*</span>parse<span class="op">[</span>MAXARG<span class="op">];</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span><span class="op">(</span><span class="dv">1</span><span class="op">){</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        memset<span class="op">(</span>parse<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> MAXARG<span class="op">);</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> argc<span class="op">;</span> i<span class="op">++)</span> parse<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> argv<span class="op">[</span>i<span class="op">];</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> idx <span class="op">=</span> argc<span class="op">,</span> cnt <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span><span class="op">(</span>read<span class="op">(</span><span class="dv">0</span><span class="op">,</span> <span class="op">&amp;</span>buf<span class="op">[</span>cnt<span class="op">],</span> <span class="kw">sizeof</span><span class="op">(</span><span class="dt">char</span><span class="op">))){</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span><span class="op">(</span>buf<span class="op">[</span>cnt<span class="op">]</span> <span class="op">==</span> <span class="ch">'</span><span class="sc">\n</span><span class="ch">'</span><span class="op">)</span> <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>            cnt<span class="op">++;</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        <span class="co">//printf("cnt = %d, buf = %s\n", cnt, buf);</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span><span class="op">(</span>cnt <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="cf">break</span><span class="op">;</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        buf<span class="op">[</span>cnt<span class="op">]</span> <span class="op">=</span> <span class="ch">'</span><span class="sc">\0</span><span class="ch">'</span><span class="op">;</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        parse<span class="op">[</span>idx<span class="op">++]</span> <span class="op">=</span> buf<span class="op">;</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span><span class="op">(</span>i <span class="op">&lt;</span> strlen<span class="op">(</span>buf<span class="op">)){</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span><span class="op">(</span>buf<span class="op">[</span>i<span class="op">]</span> <span class="op">==</span> <span class="ch">' '</span><span class="op">){</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>                buf<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> <span class="ch">'</span><span class="sc">\0</span><span class="ch">'</span><span class="op">;</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>                parse<span class="op">[</span>idx<span class="op">++]</span> <span class="op">=</span> buf <span class="op">+</span> i <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>            i<span class="op">++;</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> pid <span class="op">=</span> fork<span class="op">();</span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span><span class="op">(</span>pid <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> exec<span class="op">(</span>parse<span class="op">[</span><span class="dv">1</span><span class="op">],</span> parse <span class="op">+</span> <span class="dv">1</span><span class="op">);</span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>        wait<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    exit<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><pre class="line-numbers language-lang-c"><code class="language-lang-c">#include "kernel/types.h"
+#include "user/user.h"
+#include "kernel/param.h"
+
+int main(int argc, char *argv[]){
+    char buf[MAXARG];
+    char *parse[MAXARG];
+
+    while(1){
+        memset(parse, 0, MAXARG);
+        for(int i = 0; i < argc; i++) parse[i] = argv[i];
+        int idx = argc, cnt = 0;
+        while(read(0, &buf[cnt], sizeof(char))){
+            if(buf[cnt] == '\n') break;
+            cnt++;
+        }
+        //printf("cnt = %d, buf = %s\n", cnt, buf);
+        if(cnt == 0) break;
+        buf[cnt] = '\0';
+        parse[idx++] = buf;
+        int i = 1;
+        while(i < strlen(buf)){
+            if(buf[i] == ' '){
+                buf[i] = '\0';
+                parse[idx++] = buf + i + 1;
+            }
+            i++;
+        }
+
+        int pid = fork();
+        if(pid == 0) exec(parse[1], parse + 1);
+
+        wait(0);
+    }
+    exit(0);
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
