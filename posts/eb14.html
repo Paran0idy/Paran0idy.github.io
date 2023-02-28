@@ -572,7 +572,8 @@ if torch.cuda.is_available():
             epoch + 1, train_loss, valid_loss))
 
         # 如果验证集损失函数减少，就保存模型。
-        if valid_loss <= valid_loss_min: print('validation loss decreased ({:.6f} --> {:.6f}).  Saving model ...'.format(valid_loss_min,valid_loss))
+        if valid_loss <= valid_loss_min:
+            print('Validation loss decreased ({:.6f} --> {:.6f}).  Saving model ...'.format(valid_loss_min,valid_loss))
             torch.save(net.state_dict(), 'cat_vs_dog.pt')
             valid_loss_min = valid_loss
         print("spend times: ", time.time() - start)
@@ -583,7 +584,7 @@ if torch.cuda.is_available():
     plt.ylabel('loss')
     plt.legend()
     plt.show()
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></=></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <pre class="line-numbers language-lang-python"><code class="language-lang-python">train_loader, valid_loader, test_loader = gen_data()
 loss_func = nn.CrossEntropyLoss()
 opt = torch.optim.Adam(net.fc.parameters(), lr=0.001)

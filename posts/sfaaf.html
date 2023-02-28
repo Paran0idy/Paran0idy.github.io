@@ -653,15 +653,34 @@ case CMD_REDIR: {
 <pre class="line-numbers language-lang-c"><code class="language-lang-c">%left '|' ';'
 %left '>'
 %left '&'
-%left '<' %% line : command '\n' { root="$1;" $$="0;" return 0; } | ; basic_command ';' $3);} '&' '|' '>' command        { $$ = Cmd_Redir_new($1, $3, 1);}
-                |  command '<' command { $$="Cmd_Redir_new($1," $3, 0);} ; <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></'></'></code></pre>
+%left '<'
+
+%%
+
+line            :  command '\n'                { root = $1; $$ = 0; return 0; }
+                | '\n'               { root = 0; $$ = 0; return 0; }
+                ;
+
+command            :  basic_command            { $$ = $1;}
+                |  command ';' command      { $$ = Cmd_Seq_new($1, $3);}
+                |  command '&'                { $$ = Cmd_Back_new($1);}
+                |  command '|' command         { $$ = Cmd_Pipe_new($1, $3);}
+                |  command '>' command        { $$ = Cmd_Redir_new($1, $3, 1);}
+                |  command '<' command        { $$ = Cmd_Redir_new($1, $3, 0);}
+                ;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>修改<code>scanner.l</code></li>
 </ul>
 <pre class="line-numbers language-lang-c"><code class="language-lang-c"><<EOF>>                                 {return 0;}
 "&"|";"|"|"                             {return yytext[0];}
 ">"                                     {return yytext[0];}
-"<" {return yytext[0];} "\n" yytext[0]; } [ ]* {} {id}+ {yylval="strdup(yytext);" return t_arg; . {printf("lex err:[%s]", yytext); 0; <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></"></EOF></code></pre>
+"<"                                     {return yytext[0];}
+"\n"                                    {return yytext[0]; }
+[ ]*                                    {}
+{ID}+                                    {yylval = strdup(yytext); return T_ARG; }
+.                                        {printf("lex err:[%s]", yytext); return 0; }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li>原<code>Redir</code>代码无需修改，因为<code>yyparse</code>会根据<code>&lt;</code>和<code>&gt;</code>调用不同的构造函数，区别在于传入的<code>fd</code>不同</li>
 </ul>

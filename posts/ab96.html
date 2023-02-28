@@ -432,7 +432,7 @@ int main(){
     printf("hello makefile!\n");
     return 0;
 }
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></stdio.h></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>要想让这段程序能运行起来，需要经过以下几个步骤：</p>
 <p><img src="/posts/ab96/image-20220722005008191.png" alt="编译"></p>
 <ul>
@@ -486,7 +486,7 @@ int main(){
     func2();
     return 0;
 }
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></stdio.h></stdio.h></code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>可以看到<code>main.c</code>包含两个头文件<code>f1.h、f2.h</code>，要想的到一个可执行文件，需要先得到三个<code>可重定位目标文件</code>main.o、f1.o、f2.o，然后将三者<code>链接</code>起来生成可执行文件，具体来说分为以下几条命令</p>
 <pre class="line-numbers language-lang-makefile"><code class="language-lang-makefile">gcc -c f1.c -o f1.o
 gcc -c f2.c -o f2.o
