@@ -5,7 +5,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="鸢尾花分类, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="鸢尾花分类iris 数据集包含 150 个样本，对应数据集的每行数据。每行数据包含每个 样本的四个特征和样本的类别信息，iris 数据集是用来给鸢尾花做分类的数据集， 每个样本包含了花萼长度、花萼宽度、花瓣长度、花瓣宽度四个特征，请用神经 ">
+    <meta name="description" content="鸢尾花分类
+iris 数据集包含 150 个样本，对应数据集的每行数据。每行数据包含每个
+样本的四个特征和样本的类别信息，iris
+数据集是用来给鸢尾花做分类的数据集，
+每个样本包含了花萼长度、花萼宽度、花瓣长度、花瓣宽度四个特征，请用神经">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -424,128 +428,139 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="鸢尾花分类"><a href="#鸢尾花分类" class="headerlink" title="鸢尾花分类"></a>鸢尾花分类</h1><p>iris 数据集包含 150 个样本，对应数据集的每行数据。每行数据包含每个 样本的四个特征和样本的类别信息，iris 数据集是用来给鸢尾花做分类的数据集， 每个样本包含了花萼长度、花萼宽度、花瓣长度、花瓣宽度四个特征，请用神经 网络训练一个分类器，分类器可以通过样本的四个特征来判断样本属于山鸢尾、 变色鸢尾还是维吉尼亚鸢尾。数据集文件 iris.csv。要求模型准确率不低于 99%。</p>
-<h2 id="1-准备数据"><a href="#1-准备数据" class="headerlink" title="1.准备数据"></a>1.准备数据</h2><pre class="line-numbers language-lang-python"><code class="language-lang-python">import torch
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-import torch.nn as nn
-import torch.nn.functional as F
-from torch.utils.data import Dataset, DataLoader, TensorDataset
-from sklearn.utils import shuffle
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">def gen_data(file):
-    data = pd.read_csv(file)
-
-    # 打上label
-    for i in range(len(data)):
-        if data.loc[i, 'Species'] == 'setosa':
-            data.loc[i, 'Species'] = 0
-        elif data.loc[i, 'Species'] == 'versicolor':
-            data.loc[i, 'Species'] = 1
-        else:
-            data.loc[i, 'Species'] = 2
-
-    data = data.drop('Unnamed: 0', axis=1)
-    data = shuffle(data)
-    data.index = range(len(data))
-
-    # 归一化
-    col_titles = ['Sepal.Length', 'Sepal.Width', 'Petal.Length', 'Petal.Width']
-    for i in col_titles:
-        mean, std = data[i].mean(), data[i].std()
-        data[i] = (data[i] - mean) / std
-
-    train_data = data[: -32]
-    train_x = train_data.drop(['Species'], axis=1).values
-    train_y = train_data['Species'].values.astype(int)
-    train_x = torch.from_numpy(train_x).type(torch.FloatTensor)
-    train_y = torch.from_numpy(train_y).type(torch.LongTensor)
-
-    test_data = data[-32: ]
-    test_x = test_data.drop(['Species'], axis=1).values
-    test_y = test_data['Species'].values.astype(int)
-    test_x = torch.from_numpy(test_x).type(torch.FloatTensor)
-    test_y = torch.from_numpy(test_y).type(torch.LongTensor)
-
-    train_dataset = TensorDataset(train_x, train_y)
-    test_dataset = TensorDataset(test_x, test_y)
-
-    train_loader = DataLoader(dataset=train_dataset, batch_size=32, shuffle=True)
-    test_loader = DataLoader(dataset=test_dataset, batch_size=16, shuffle=True)
-
-    return train_loader, test_loader
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="2-构建模型"><a href="#2-构建模型" class="headerlink" title="2.构建模型"></a>2.构建模型</h2><p>因为鸢尾花有四个特征，三个类别，所以构造模型如下</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class model(torch.nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.hidden = nn.Linear(4, 5) # 四个特征
-        self.out = nn.Linear(5, 3)    # 三个类别
-
-    def forward(self, x):
-        x = self.hidden(x)
-        x = F.relu(x)
-        x = self.out(x)
-        return x
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="3-训练模型"><a href="#3-训练模型" class="headerlink" title="3.训练模型"></a>3.训练模型</h2><pre class="line-numbers language-lang-python"><code class="language-lang-python">def train(net, loss_func, opt, epochs, train_loader):
-    losses = []
-
-    for epoch in range(epochs):
-        batch_loss = []
-        for i, data in enumerate(train_loader):
-            x, y = data
-            pred = net(x)
-            loss = loss_func(pred, y)
-
-            opt.zero_grad()
-            loss.backward()
-            opt.step()
-            batch_loss.append(loss.detach().numpy())
-
-        losses.append(np.mean(batch_loss))
-
-        if epoch % 100 == 0:
-            print("loss: ", loss)
-
-    plt.plot(np.arange(epochs), losses)
-      plt.show()
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">net = model()
-loss_func = nn.CrossEntropyLoss()
-opt = torch.optim.SGD(net.parameters(), lr=0.05)
-epochs = 1000
-train_loader, test_loader = gen_data('iris.csv')
-train(net, loss_func, opt, epochs, train_loader)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                <h1 id="鸢尾花分类">鸢尾花分类</h1>
+<p>iris 数据集包含 150 个样本，对应数据集的每行数据。每行数据包含每个
+样本的四个特征和样本的类别信息，iris
+数据集是用来给鸢尾花做分类的数据集，
+每个样本包含了花萼长度、花萼宽度、花瓣长度、花瓣宽度四个特征，请用神经
+网络训练一个分类器，分类器可以通过样本的四个特征来判断样本属于山鸢尾、
+变色鸢尾还是维吉尼亚鸢尾。数据集文件 iris.csv。要求模型准确率不低于
+99%。</p>
+<h2 id="准备数据">1.准备数据</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn.functional <span class="im">as</span> F</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.utils.data <span class="im">import</span> Dataset, DataLoader, TensorDataset</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.utils <span class="im">import</span> shuffle</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gen_data(<span class="bu">file</span>):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> pd.read_csv(<span class="bu">file</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 打上label</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(data)):</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> data.loc[i, <span class="st">'Species'</span>] <span class="op">==</span> <span class="st">'setosa'</span>:</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            data.loc[i, <span class="st">'Species'</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> data.loc[i, <span class="st">'Species'</span>] <span class="op">==</span> <span class="st">'versicolor'</span>:</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>            data.loc[i, <span class="st">'Species'</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>            data.loc[i, <span class="st">'Species'</span>] <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> data.drop(<span class="st">'Unnamed: 0'</span>, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> shuffle(data)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    data.index <span class="op">=</span> <span class="bu">range</span>(<span class="bu">len</span>(data))</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 归一化</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    col_titles <span class="op">=</span> [<span class="st">'Sepal.Length'</span>, <span class="st">'Sepal.Width'</span>, <span class="st">'Petal.Length'</span>, <span class="st">'Petal.Width'</span>]</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> col_titles:</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        mean, std <span class="op">=</span> data[i].mean(), data[i].std()</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        data[i] <span class="op">=</span> (data[i] <span class="op">-</span> mean) <span class="op">/</span> std</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    train_data <span class="op">=</span> data[: <span class="op">-</span><span class="dv">32</span>]</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    train_x <span class="op">=</span> train_data.drop([<span class="st">'Species'</span>], axis<span class="op">=</span><span class="dv">1</span>).values</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    train_y <span class="op">=</span> train_data[<span class="st">'Species'</span>].values.astype(<span class="bu">int</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    train_x <span class="op">=</span> torch.from_numpy(train_x).<span class="bu">type</span>(torch.FloatTensor)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    train_y <span class="op">=</span> torch.from_numpy(train_y).<span class="bu">type</span>(torch.LongTensor)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    test_data <span class="op">=</span> data[<span class="op">-</span><span class="dv">32</span>: ]</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    test_x <span class="op">=</span> test_data.drop([<span class="st">'Species'</span>], axis<span class="op">=</span><span class="dv">1</span>).values</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    test_y <span class="op">=</span> test_data[<span class="st">'Species'</span>].values.astype(<span class="bu">int</span>)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    test_x <span class="op">=</span> torch.from_numpy(test_x).<span class="bu">type</span>(torch.FloatTensor)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    test_y <span class="op">=</span> torch.from_numpy(test_y).<span class="bu">type</span>(torch.LongTensor)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    train_dataset <span class="op">=</span> TensorDataset(train_x, train_y)</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    test_dataset <span class="op">=</span> TensorDataset(test_x, test_y)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    train_loader <span class="op">=</span> DataLoader(dataset<span class="op">=</span>train_dataset, batch_size<span class="op">=</span><span class="dv">32</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    test_loader <span class="op">=</span> DataLoader(dataset<span class="op">=</span>test_dataset, batch_size<span class="op">=</span><span class="dv">16</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> train_loader, test_loader  </span></code></pre></div>
+<h2 id="构建模型">2.构建模型</h2>
+<p>因为鸢尾花有四个特征，三个类别，所以构造模型如下</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> model(torch.nn.Module):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.hidden <span class="op">=</span> nn.Linear(<span class="dv">4</span>, <span class="dv">5</span>) <span class="co"># 四个特征</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.out <span class="op">=</span> nn.Linear(<span class="dv">5</span>, <span class="dv">3</span>)    <span class="co"># 三个类别</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.hidden(x)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> F.relu(x)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.out(x)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x  </span></code></pre></div>
+<h2 id="训练模型">3.训练模型</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train(net, loss_func, opt, epochs, train_loader):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    losses <span class="op">=</span> []</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(epochs):</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        batch_loss <span class="op">=</span> []</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i, data <span class="kw">in</span> <span class="bu">enumerate</span>(train_loader):</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            x, y <span class="op">=</span> data</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>            pred <span class="op">=</span> net(x)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>            loss <span class="op">=</span> loss_func(pred, y)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>            opt.zero_grad()</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>            loss.backward()</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>            opt.step()</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>            batch_loss.append(loss.detach().numpy())</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        losses.append(np.mean(batch_loss))</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> epoch <span class="op">%</span> <span class="dv">100</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"loss: "</span>, loss)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    plt.plot(np.arange(epochs), losses)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> model()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>loss_func <span class="op">=</span> nn.CrossEntropyLoss()</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>opt <span class="op">=</span> torch.optim.SGD(net.parameters(), lr<span class="op">=</span><span class="fl">0.05</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>epochs <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>train_loader, test_loader <span class="op">=</span> gen_data(<span class="st">'iris.csv'</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>train(net, loss_func, opt, epochs, train_loader)</span></code></pre></div>
 <blockquote>
 <p>这里的损失函数，选择的是交叉熵损失函数，其自带sofmax层，可以串接在最后一层全连接输出后，达到分类效果</p>
 </blockquote>
-<p><img src="/posts/a174/image-20230110161720711.png" alt="训练损失"></p>
-<h2 id="4-预测结果"><a href="#4-预测结果" class="headerlink" title="4.预测结果"></a>4.预测结果</h2><pre class="line-numbers language-lang-python"><code class="language-lang-python">def prediction(net, test_loader):
-    rights = 0
-    length = 0
-
-    for i, data in enumerate(test_loader):
-        x, y = data
-        pred = net(x)
-
-        rights += rightness(pred, y)[0]
-        length += rightness(pred, y)[1]
-        print('labels: ', y)
-        print('pred:   ', torch.max(pred, 1)[1], '\n')
-
-    print("acc: ", rights / length * 100)
-
-def rightness(pred, labels):
-    pred = torch.max(pred, 1)[1]
-    rights = pred.eq(labels).sum()
-    return rights, len(labels)
-
-prediction(net, test_loader)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="/posts/a174/image-20230110161742790.png" alt="预测结果"></p>
+<figure>
+<img src="/posts/a174/image-20230110161720711.png" alt="训练损失">
+<figcaption aria-hidden="true">训练损失</figcaption>
+</figure>
+<h2 id="预测结果">4.预测结果</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prediction(net, test_loader):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    rights <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    length <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, data <span class="kw">in</span> <span class="bu">enumerate</span>(test_loader):</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        x, y <span class="op">=</span> data</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        pred <span class="op">=</span> net(x)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        rights <span class="op">+=</span> rightness(pred, y)[<span class="dv">0</span>]</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        length <span class="op">+=</span> rightness(pred, y)[<span class="dv">1</span>]</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'labels: '</span>, y)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'pred:   '</span>, torch.<span class="bu">max</span>(pred, <span class="dv">1</span>)[<span class="dv">1</span>], <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"acc: "</span>, rights <span class="op">/</span> length <span class="op">*</span> <span class="dv">100</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rightness(pred, labels):</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> torch.<span class="bu">max</span>(pred, <span class="dv">1</span>)[<span class="dv">1</span>]</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    rights <span class="op">=</span> pred.eq(labels).<span class="bu">sum</span>()</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> rights, <span class="bu">len</span>(labels)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>prediction(net, test_loader)</span></code></pre></div>
+<figure>
+<img src="/posts/a174/image-20230110161742790.png" alt="预测结果">
+<figcaption aria-hidden="true">预测结果</figcaption>
+</figure>
 
                 
             </div>

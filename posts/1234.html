@@ -5,9 +5,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Sysprog：3. A Minimal Debugger, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="lab3 ：A Minimal DebuggerExercise 1:Now read the source file and answer the following questions.
+    <meta name="description" content="lab3 ：A Minimal Debugger
+Exercise 1:
+Now read the source file and answer the following questions.
 
-How the regs command is">
+How the regs command ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -426,201 +428,220 @@ How the regs command is">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="lab3-：A-Minimal-Debugger"><a href="#lab3-：A-Minimal-Debugger" class="headerlink" title="lab3 ：A Minimal Debugger"></a>lab3 ：A Minimal Debugger</h1><h2 id="Exercise-1"><a href="#Exercise-1" class="headerlink" title="Exercise 1:"></a>Exercise 1:</h2><p>Now read the source file and answer the following questions.</p>
+                <h1 id="lab3-a-minimal-debugger">lab3 ：A Minimal Debugger</h1>
+<h2 id="exercise-1">Exercise 1:</h2>
+<p>Now read the source file and answer the following questions.</p>
 <ul>
 <li>How the <code>regs</code> command is implemented?</li>
 </ul>
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><ul>
-<li>定义<code>user_regs_struct</code>类型变量<code>regs</code>接收寄存器组</li>
-<li><p>调用<code>ptrace (PTRACE_GETREGS, c-&gt;pid, 0, &amp;regs)</code>将寄存器的值写入<code>regs</code></p>
-</li>
-<li><p>打印各寄存器的值</p>
-</li>
+<h3 id="solution">Solution</h3>
+<ul>
+<li><p>定义<code>user_regs_struct</code>类型变量<code>regs</code>接收寄存器组</p></li>
+<li><p>调用<code>ptrace (PTRACE_GETREGS, c-&gt;pid, 0, &amp;regs)</code>将寄存器的值写入<code>regs</code></p></li>
+<li><p>打印各寄存器的值</p></li>
 </ul>
-<h2 id="Exercise-2"><a href="#Exercise-2" class="headerlink" title="Exercise 2:"></a>Exercise 2:</h2><p>Now, how the breaking point command <code>b 0xaddr</code> is implemented? In fact, there is a serious bug in current implementation we offered you. Let’s check where is this bug. First run this</p>
-<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">objdump -d hello
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>and figure out the address of the function <code>print</code>, suppose that address is <code>0xaddr</code> on your machine. Now in the <code>ssedb</code>, you set up a break point on address <code>0xaddr</code> by typing (remember this address must be in hexadecimal, which has a leading <code>0x</code>):</p>
-<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">(ssedb) b 0xaddr
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="exercise-2">Exercise 2:</h2>
+<p>Now, how the breaking point command <code>b 0xaddr</code> is
+implemented? In fact, there is a serious bug in current implementation
+we offered you. Let's check where is this bug. First run this</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">objdump</span> <span class="at">-d</span> hello</span></code></pre></div>
+<p>and figure out the address of the function <code>print</code>,
+suppose that address is <code>0xaddr</code> on your machine. Now in the
+<code>ssedb</code>, you set up a break point on address
+<code>0xaddr</code> by typing (remember this address must be in
+hexadecimal, which has a leading <code>0x</code>):</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">ssedb</span><span class="kw">)</span> <span class="ex">b</span> 0xaddr</span></code></pre></div>
 <p>now peek the registers:</p>
-<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">(ssedb) regs
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>What’s the value of <code>rip</code>? Is this value right? Why?</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">ssedb</span><span class="kw">)</span> <span class="ex">regs</span></span></code></pre></div>
+<p>What's the value of <code>rip</code>? Is this value right? Why?</p>
 <p>And then disassembly the content at address <code>0xaddr</code>.</p>
-<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">(ssedb) x/x 0xaddr
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>What’s there? Have you detected the bug? How to fix this bug?</p>
-<h3 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h3><ol>
-<li><p><code>rip</code>的值需要从两方面讨论，因为<code>rip</code>存储的是下一条指令的地址，设置断点时，将第一个字节设置为<code>0xcc</code>即<code>int 3</code>软中断指令，当子进程执行到此处时，会停止且发送信号给父进程，由于已经执行了<code>int 3</code> 那么其实<code>rip</code>的值是正确的，因为它确实指向了<code>int 3</code>的下一条指令的地址，但是，这种情况却不是我们想要的，因为我们为了让子进程停在断点处，于是覆盖了第一个字节，那么第一个字节的指令并未执行，所以在父进程中我们就需要恢复断点信息(因为第一个字节的指令并未执行)，即</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">ssedb</span><span class="kw">)</span> <span class="ex">x/x</span> 0xaddr</span></code></pre></div>
+<p>What's there? Have you detected the bug? How to fix this bug?</p>
+<h3 id="solution-1">Solution</h3>
+<ol type="1">
+<li><p><code>rip</code>的值需要从两方面讨论，因为<code>rip</code>存储的是下一条指令的地址，设置断点时，将第一个字节设置为<code>0xcc</code>即<code>int 3</code>软中断指令，当子进程执行到此处时，会停止且发送信号给父进程，由于已经执行了<code>int 3</code>
+那么其实<code>rip</code>的值是正确的，因为它确实指向了<code>int 3</code>的下一条指令的地址，但是，这种情况却不是我们想要的，因为我们为了让子进程停在断点处，于是覆盖了第一个字节，那么第一个字节的指令并未执行，所以在父进程中我们就需要恢复断点信息(因为第一个字节的指令并未执行)，即</p>
 <ul>
 <li><code>rip = rip - 1</code></li>
 <li>将<code>0xcc</code>改为原来的值</li>
 </ul>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">case CMD_KIND_BREAK:{
-    unsigned long brk = 0x00000000000000cc;
-    unsigned long data;
-    unsigned long back;     // copy the origin data
-
-    data = ptrace(PTRACE_PEEKDATA, c->pid, c->u.addr, 0);
-    back = data;
-    printf ("init data     = %lx\n", data);
-    data = (data & 0xffffffffffffff00) | brk;
-    printf ("revised data  = %lx\n", data);
-    ptrace(PTRACE_POKEDATA, c->pid, c->u.addr, data);
-    // child will stop in (int 3)
-    ptrace(PTRACE_CONT, c->pid, 0, 0);
-    waitChild ();
-
-    // write back the origin rip
-    struct user_regs_struct regs;
-    ptrace (PTRACE_GETREGS, c->pid, 0, &regs);
-    regs.rip--;
-    ptrace (PTRACE_SETREGS, c->pid, 0, &regs);
-    // write back the origin data
-    ptrace(PTRACE_POKEDATA, c->pid, c->u.addr, back);
-
-    return;
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-</li>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">case</span> CMD_KIND_BREAK<span class="op">:{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">long</span> brk <span class="op">=</span> <span class="bn">0x00000000000000cc</span><span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">long</span> data<span class="op">;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">long</span> back<span class="op">;</span>     <span class="co">// copy the origin data</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> ptrace<span class="op">(</span>PTRACE_PEEKDATA<span class="op">,</span> c<span class="op">-&gt;</span>pid<span class="op">,</span> c<span class="op">-&gt;</span>u<span class="op">.</span>addr<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    back <span class="op">=</span> data<span class="op">;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    printf <span class="op">(</span><span class="st">"init data     = </span><span class="sc">%lx\n</span><span class="st">"</span><span class="op">,</span> data<span class="op">);</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> <span class="op">(</span>data <span class="op">&amp;</span> <span class="bn">0xffffffffffffff00</span><span class="op">)</span> <span class="op">|</span> brk<span class="op">;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    printf <span class="op">(</span><span class="st">"revised data  = </span><span class="sc">%lx\n</span><span class="st">"</span><span class="op">,</span> data<span class="op">);</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    ptrace<span class="op">(</span>PTRACE_POKEDATA<span class="op">,</span> c<span class="op">-&gt;</span>pid<span class="op">,</span> c<span class="op">-&gt;</span>u<span class="op">.</span>addr<span class="op">,</span> data<span class="op">);</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">// child will stop in (int 3)</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    ptrace<span class="op">(</span>PTRACE_CONT<span class="op">,</span> c<span class="op">-&gt;</span>pid<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    waitChild <span class="op">();</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">// write back the origin rip</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> user_regs_struct regs<span class="op">;</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    ptrace <span class="op">(</span>PTRACE_GETREGS<span class="op">,</span> c<span class="op">-&gt;</span>pid<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="op">&amp;</span>regs<span class="op">);</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    regs<span class="op">.</span>rip<span class="op">--;</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    ptrace <span class="op">(</span>PTRACE_SETREGS<span class="op">,</span> c<span class="op">-&gt;</span>pid<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="op">&amp;</span>regs<span class="op">);</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">// write back the origin data</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    ptrace<span class="op">(</span>PTRACE_POKEDATA<span class="op">,</span> c<span class="op">-&gt;</span>pid<span class="op">,</span> c<span class="op">-&gt;</span>u<span class="op">.</span>addr<span class="op">,</span> back<span class="op">);</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
 <li><p>没有显示前导0，只需在打印时指定正确的格式即可，即<code>printf ("%lx: %016lx\n", addr, data)</code></p>
-<p><img src="/posts/1234/image-20221026221903731.png" alt="Q2"></p>
-</li>
+<figure>
+<img src="/posts/1234/image-20221026221903731.png" alt="Q2">
+<figcaption aria-hidden="true">Q2</figcaption>
+</figure></li>
 </ol>
 <p>可以看到最低字节又修改为原来的值了</p>
-<h3 id="improvement"><a href="#improvement" class="headerlink" title="improvement"></a>improvement</h3><p>由于所给代码在<code>b addr</code>后会接着执行一条<code>ptrace(PTRACE_CONT, c-&gt;pid, 0, 0);</code>，这会导致<code>traced</code>程序直接命中断点，故将<code>CONT</code>指令移除，只设置断点，即写入一条<code>int 3</code>指令，并将原数据保存起来，定义<code>struct breakpoint</code></p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">struct breakpoint{
-    long addr;
-    unsigned long origin;
-};
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="improvement">improvement</h3>
+<p>由于所给代码在<code>b addr</code>后会接着执行一条<code>ptrace(PTRACE_CONT, c-&gt;pid, 0, 0);</code>，这会导致<code>traced</code>程序直接命中断点，故将<code>CONT</code>指令移除，只设置断点，即写入一条<code>int 3</code>指令，并将原数据保存起来，定义<code>struct breakpoint</code></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> breakpoint<span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">long</span> addr<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">long</span> origin<span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
 <p>存放其地址和原始数据，而真正命中断点后还原断点信息的代码放在<code>case CMD_KIND_CONT</code></p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">case CMD_KIND_CONT:{
-    ptrace(PTRACE_CONT, c->pid, 0, 0);
-    int status;
-    wait (&status);
-
-    // back to origin rip
-    struct user_regs_struct regs;
-    ptrace (PTRACE_GETREGS, c->pid, 0, &regs);
-    unsigned long long rip = regs.rip - 1;
-    unsigned long data = ptrace(PTRACE_PEEKDATA, c->pid, rip, 0);
-    if((uint8_t)data == 0xcc) {      // meet break point
-        regs.rip--;
-        ptrace(PTRACE_SETREGS, c->pid, 0, &regs);
-        // write back the origin data
-        unsigned long origin = get_origin();
-        ptrace(PTRACE_POKEDATA, c->pid, rip, origin);
-        printf("meet the break point %d at 0x%016x\n", idx, rip);
-    }
-    if(WIFEXITED(status))    // exit ?
-        printf("process %d is exit!\n", c->pid);
-    return;
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">case</span> CMD_KIND_CONT<span class="op">:{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    ptrace<span class="op">(</span>PTRACE_CONT<span class="op">,</span> c<span class="op">-&gt;</span>pid<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> status<span class="op">;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    wait <span class="op">(&amp;</span>status<span class="op">);</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// back to origin rip</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> user_regs_struct regs<span class="op">;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    ptrace <span class="op">(</span>PTRACE_GETREGS<span class="op">,</span> c<span class="op">-&gt;</span>pid<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="op">&amp;</span>regs<span class="op">);</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">long</span> <span class="dt">long</span> rip <span class="op">=</span> regs<span class="op">.</span>rip <span class="op">-</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">long</span> data <span class="op">=</span> ptrace<span class="op">(</span>PTRACE_PEEKDATA<span class="op">,</span> c<span class="op">-&gt;</span>pid<span class="op">,</span> rip<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">((</span><span class="dt">uint8_t</span><span class="op">)</span>data <span class="op">==</span> <span class="bn">0xcc</span><span class="op">)</span> <span class="op">{</span>      <span class="co">// meet break point</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        regs<span class="op">.</span>rip<span class="op">--;</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        ptrace<span class="op">(</span>PTRACE_SETREGS<span class="op">,</span> c<span class="op">-&gt;</span>pid<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="op">&amp;</span>regs<span class="op">);</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        <span class="co">// write back the origin data</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">unsigned</span> <span class="dt">long</span> origin <span class="op">=</span> get_origin<span class="op">();</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        ptrace<span class="op">(</span>PTRACE_POKEDATA<span class="op">,</span> c<span class="op">-&gt;</span>pid<span class="op">,</span> rip<span class="op">,</span> origin<span class="op">);</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"meet the break point </span><span class="sc">%d</span><span class="st"> at 0x</span><span class="sc">%016x\n</span><span class="st">"</span><span class="op">,</span> idx<span class="op">,</span> rip<span class="op">);</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>WIFEXITED<span class="op">(</span>status<span class="op">))</span>   <span class="co">// exit ?</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"process </span><span class="sc">%d</span><span class="st"> is exit!</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> c<span class="op">-&gt;</span>pid<span class="op">);</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>这样做的结果是，<code>b addr</code>只设置断点，不会让<code>traced</code>程序继续运行，而<code>c</code>可以<code>traced</code>程序运行，并且可以命中断点，由于已经有了断点信息，索性增加了一个新的指令<code>info</code>：打印所有<code>break point</code>，实现如下：</p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">int len = 0;    // 断点个数
-int idx = 0;    // 命中个数
-
-struct breakpoint bp[100];
-
-void update_breakpoint_table(char *name, long addr, unsigned long origin){
-    bp[len].name = name;
-    bp[len].addr = addr;
-    bp[len].origin = origin;
-    len++;
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> len <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>    <span class="co">// 断点个数</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> idx <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>    <span class="co">// 命中个数</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> breakpoint bp<span class="op">[</span><span class="dv">100</span><span class="op">];</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> update_breakpoint_table<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>name<span class="op">,</span> <span class="dt">long</span> addr<span class="op">,</span> <span class="dt">unsigned</span> <span class="dt">long</span> origin<span class="op">){</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    bp<span class="op">[</span>len<span class="op">].</span>name <span class="op">=</span> name<span class="op">;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    bp<span class="op">[</span>len<span class="op">].</span>addr <span class="op">=</span> addr<span class="op">;</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    bp<span class="op">[</span>len<span class="op">].</span>origin <span class="op">=</span> origin<span class="op">;</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    len<span class="op">++;</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>在<code>execCommand</code>中新增<code>case</code></p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">case CMD_KIND_INFO:{
-    for(int i = 0; i < len; i++)
-        printf("break point %d  :  0x%016x\n", i + 1, bp[i].addr);
-    return ;
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">case</span> CMD_KIND_INFO<span class="op">:{</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> len<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"break point </span><span class="sc">%d</span><span class="st">  :  0x</span><span class="sc">%016x\n</span><span class="st">"</span><span class="op">,</span> i <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> bp<span class="op">[</span>i<span class="op">].</span>addr<span class="op">);</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>最终执行的效果:</p>
-<p><img src="/posts/1234/image-20221029235603319.png" alt="improvement"></p>
-<h2 id="Exercise-3"><a href="#Exercise-3" class="headerlink" title="Exercise 3:"></a>Exercise 3:</h2><p>There is also a command to disassembly bianry into assembly intructions, but has not be completed. Now run</p>
-<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">(ssedb) x/i 0xaddr
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>you’ll see an error message indicating the file position you should supply code. Implement it. (Hint: manual disassemblying is tedious and error-prone, so you may find some libraries are helpful, such as the <a target="_blank" rel="noopener" href="https://github.com/zyantific/zydis">zydis</a>.)</p>
-<h3 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h3><p>使用第三方库<code>zydis</code>，指令在我的机器上按<code>little endian</code>存储，故需要将获得的8字节16进制数据逆序且两两一组存放</p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">ZyanU8 arr[80];  // define byte arr
-long addr = c->u.addr;
-for (int i = 0; i < 10; i++){
-    long data = ptrace(PTRACE_PEEKDATA, c->pid, addr, 0);
-    for(int j = 0; j < 8; j++){
-        arr[8 * i + j] = data & 0x00000000000000ff;
-        data = ((data & 0xffffffffffffff00) >> 8);
-    }
-    addr += 8;
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure>
+<img src="/posts/1234/image-20221029235603319.png" alt="improvement">
+<figcaption aria-hidden="true">improvement</figcaption>
+</figure>
+<h2 id="exercise-3">Exercise 3:</h2>
+<p>There is also a command to disassembly bianry into assembly
+intructions, but has not be completed. Now run</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">ssedb</span><span class="kw">)</span> <span class="ex">x/i</span> 0xaddr </span></code></pre></div>
+<p>you'll see an error message indicating the file position you should
+supply code. Implement it. (Hint: manual disassemblying is tedious and
+error-prone, so you may find some libraries are helpful, such as the <a target="_blank" rel="noopener" href="https://github.com/zyantific/zydis">zydis</a>.)</p>
+<h3 id="solution-2">Solution</h3>
+<p>使用第三方库<code>zydis</code>，指令在我的机器上按<code>little endian</code>存储，故需要将获得的8字节16进制数据逆序且两两一组存放</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ZyanU8 arr<span class="op">[</span><span class="dv">80</span><span class="op">];</span>  <span class="co">// define byte arr</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="dt">long</span> addr <span class="op">=</span> c<span class="op">-&gt;</span>u<span class="op">.</span>addr<span class="op">;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">10</span><span class="op">;</span> i<span class="op">++){</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">long</span> data <span class="op">=</span> ptrace<span class="op">(</span>PTRACE_PEEKDATA<span class="op">,</span> c<span class="op">-&gt;</span>pid<span class="op">,</span> addr<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> <span class="dv">8</span><span class="op">;</span> j<span class="op">++){</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        arr<span class="op">[</span><span class="dv">8</span> <span class="op">*</span> i <span class="op">+</span> j<span class="op">]</span> <span class="op">=</span> data <span class="op">&amp;</span> <span class="bn">0x00000000000000ff</span><span class="op">;</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> <span class="op">((</span>data <span class="op">&amp;</span> <span class="bn">0xffffffffffffff00</span><span class="op">)</span> <span class="op">&gt;&gt;</span> <span class="dv">8</span><span class="op">);</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    addr <span class="op">+=</span> <span class="dv">8</span><span class="op">;</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>这样机器码会按地址的从小到大存放在<code>arr</code>中，便于反汇编成汇编代码，然后交给<code>zydis</code>解析即可</p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">ZyanU64 runtime_address = c->u.addr;
-
-// Loop over the instructions in our buffer.
-ZyanUSize offset = 0;
-ZydisDisassembledInstruction instruction;
-
-while (ZYAN_SUCCESS(ZydisDisassembleIntel(
-    /* machine_mode:    */ ZYDIS_MACHINE_MODE_LONG_64,
-    /* runtime_address: */ runtime_address,
-    /* buffer:          */ arr + offset,
-    /* length:          */ sizeof(arr) - offset,
-    /* instruction:     */ &instruction
-))) {
-    printf("%016" PRIX64 "  %s\n", runtime_address, instruction.text);
-    offset += instruction.info.length;
-    runtime_address += instruction.info.length;
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="/posts/1234/image-20221024235051691.png" alt="Q3"></p>
-<h2 id="Challenge"><a href="#Challenge" class="headerlink" title="Challenge:"></a>Challenge:</h2><p>Another feature missing from the <code>ssedb</code> is debugging symbols. For instance, when setting up breaking points, we’d like just to type a symbolic name, such as:</p>
-<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">(ssedb) b main
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>instead of an ugly hexadecimal address for <code>main</code>. Implement this feature.</p>
-<h3 id="Solution-3"><a href="#Solution-3" class="headerlink" title="Solution"></a>Solution</h3><p>调用BFD库，BFD库可以将符号和对应的值(地址)保存起来，这样如果输入一个符号，只需查询其地址即可</p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">asymbol **symbol_table;    // symbol table
-long num_symbols;        // length
-
-// store symbol's name and value
-void bfd_func(char *file){
-    long storage_needed;
-    bfd *abfd;
-
-    bfd_init(); // magic
-
-    abfd = bfd_openr(file, NULL);
-    assert(abfd != NULL);
-    bfd_check_format(abfd, bfd_object);
-    storage_needed = bfd_get_symtab_upper_bound(abfd);
-    assert(storage_needed >= 0);
-
-    symbol_table = (asymbol**)malloc(storage_needed);
-    assert(symbol_table != 0);
-    num_symbols = bfd_canonicalize_symtab(abfd, symbol_table);
-    assert(num_symbols >= 0);
-}
-
-// find symbol address
-long symbol_address(char *s){
-    symbol_info symbolinfo;
-    for(int i = 0; i < num_symbols; i++){
-        if (symbol_table[i]->section == NULL) continue;
-
-        bfd_symbol_info(symbol_table[i], &symbolinfo);
-        if (strcmp(s, symbolinfo.name))  continue;
-
-        printf("%s : 0x%x\n", symbolinfo.name, symbolinfo.value);
-        return (long)symbolinfo.value;
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>在<code>main.c</code>中调用<code>bfd_func()</code>获得符号表，然后在<code>parseCommand</code>中判断输入是地址还是符号，如果是符号，则调用<code>symbol_address()</code>函数查找地址，顺便也实现了<code>x/i symbol</code> 和 <code>x/x symbol</code></p>
-<p><img src="/posts/1234/image-20221025000155680.png" alt="Challenge"></p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本次实验整体不难，代码很全，难点是第三方库加入到工程中，需要一些<code>cmake</code>的知识。一开始将<code>exercese2</code>想的很简单，以为就前导0一个问题，不知道为什么要将第一个字节替换为<code>0xcc</code>，直到实现了<code>x/i</code>才知道，原来是需要一条<code>int 3</code>指令，使得子进程停止，那么问题就变得有意思了，再次返回父进程后我们需要将断点的原始信息还原。</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ZyanU64 runtime_address <span class="op">=</span> c<span class="op">-&gt;</span>u<span class="op">.</span>addr<span class="op">;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Loop over the instructions in our buffer.</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>ZyanUSize offset <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>ZydisDisassembledInstruction instruction<span class="op">;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span>ZYAN_SUCCESS<span class="op">(</span>ZydisDisassembleIntel<span class="op">(</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* machine_mode:    */</span> ZYDIS_MACHINE_MODE_LONG_64<span class="op">,</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* runtime_address: */</span> runtime_address<span class="op">,</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* buffer:          */</span> arr <span class="op">+</span> offset<span class="op">,</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* length:          */</span> <span class="kw">sizeof</span><span class="op">(</span>arr<span class="op">)</span> <span class="op">-</span> offset<span class="op">,</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* instruction:     */</span> <span class="op">&amp;</span>instruction</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="op">)))</span> <span class="op">{</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"%016"</span> PRIX64 <span class="st">"  </span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span> runtime_address<span class="op">,</span> instruction<span class="op">.</span>text<span class="op">);</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    offset <span class="op">+=</span> instruction<span class="op">.</span>info<span class="op">.</span>length<span class="op">;</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    runtime_address <span class="op">+=</span> instruction<span class="op">.</span>info<span class="op">.</span>length<span class="op">;</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<figure>
+<img src="/posts/1234/image-20221024235051691.png" alt="Q3">
+<figcaption aria-hidden="true">Q3</figcaption>
+</figure>
+<h2 id="challenge">Challenge:</h2>
+<p>Another feature missing from the <code>ssedb</code> is debugging
+symbols. For instance, when setting up breaking points, we'd like just
+to type a symbolic name, such as:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">(</span><span class="ex">ssedb</span><span class="kw">)</span> <span class="ex">b</span> main   </span></code></pre></div>
+<p>instead of an ugly hexadecimal address for <code>main</code>.
+Implement this feature.</p>
+<h3 id="solution-3">Solution</h3>
+<p>调用BFD库，BFD库可以将符号和对应的值(地址)保存起来，这样如果输入一个符号，只需查询其地址即可</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>asymbol <span class="op">**</span>symbol_table<span class="op">;</span> <span class="co">// symbol table</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="dt">long</span> num_symbols<span class="op">;</span>       <span class="co">// length</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">// store symbol's name and value</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> bfd_func<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>file<span class="op">){</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">long</span> storage_needed<span class="op">;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    bfd <span class="op">*</span>abfd<span class="op">;</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    bfd_init<span class="op">();</span> <span class="co">// magic</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    abfd <span class="op">=</span> bfd_openr<span class="op">(</span>file<span class="op">,</span> NULL<span class="op">);</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    assert<span class="op">(</span>abfd <span class="op">!=</span> NULL<span class="op">);</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    bfd_check_format<span class="op">(</span>abfd<span class="op">,</span> bfd_object<span class="op">);</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    storage_needed <span class="op">=</span> bfd_get_symtab_upper_bound<span class="op">(</span>abfd<span class="op">);</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    assert<span class="op">(</span>storage_needed <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    symbol_table <span class="op">=</span> <span class="op">(</span>asymbol<span class="op">**)</span>malloc<span class="op">(</span>storage_needed<span class="op">);</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    assert<span class="op">(</span>symbol_table <span class="op">!=</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    num_symbols <span class="op">=</span> bfd_canonicalize_symtab<span class="op">(</span>abfd<span class="op">,</span> symbol_table<span class="op">);</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    assert<span class="op">(</span>num_symbols <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="co">// find symbol address</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="dt">long</span> symbol_address<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>s<span class="op">){</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    symbol_info symbolinfo<span class="op">;</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> num_symbols<span class="op">;</span> i<span class="op">++){</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>symbol_table<span class="op">[</span>i<span class="op">]-&gt;</span>section <span class="op">==</span> NULL<span class="op">)</span> <span class="cf">continue</span><span class="op">;</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>        bfd_symbol_info<span class="op">(</span>symbol_table<span class="op">[</span>i<span class="op">],</span> <span class="op">&amp;</span>symbolinfo<span class="op">);</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>strcmp<span class="op">(</span>s<span class="op">,</span> symbolinfo<span class="op">.</span>name<span class="op">))</span>  <span class="cf">continue</span><span class="op">;</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"</span><span class="sc">%s</span><span class="st"> : 0x</span><span class="sc">%x\n</span><span class="st">"</span><span class="op">,</span> symbolinfo<span class="op">.</span>name<span class="op">,</span> symbolinfo<span class="op">.</span>value<span class="op">);</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">(</span><span class="dt">long</span><span class="op">)</span>symbolinfo<span class="op">.</span>value<span class="op">;</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>在<code>main.c</code>中调用<code>bfd_func()</code>获得符号表，然后在<code>parseCommand</code>中判断输入是地址还是符号，如果是符号，则调用<code>symbol_address()</code>函数查找地址，顺便也实现了<code>x/i symbol</code>
+和 <code>x/x symbol</code></p>
+<figure>
+<img src="/posts/1234/image-20221025000155680.png" alt="Challenge">
+<figcaption aria-hidden="true">Challenge</figcaption>
+</figure>
+<h2 id="小结">小结</h2>
+<p>本次实验整体不难，代码很全，难点是第三方库加入到工程中，需要一些<code>cmake</code>的知识。一开始将<code>exercese2</code>想的很简单，以为就前导0一个问题，不知道为什么要将第一个字节替换为<code>0xcc</code>，直到实现了<code>x/i</code>才知道，原来是需要一条<code>int 3</code>指令，使得子进程停止，那么问题就变得有意思了，再次返回父进程后我们需要将断点的原始信息还原。</p>
 
                 
             </div>
