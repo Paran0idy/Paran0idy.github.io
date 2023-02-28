@@ -5,11 +5,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="WSL2下配置Anaconda、Pytorch、Jupyter Notebook, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="WSL2下配置Anaconda、Pytorch、Jupyter
-Notebook
-和原生Linux下配置环境基本一致
-1.Anaconda安装
-去Anaconda的官网寻找最新的安装包，但这种方法下载速度太慢，可以寻找国内的源，如清华源，输">
+    <meta name="description" content="WSL2下配置Anaconda、Pytorch、Jupyter Notebook和原生Linux下配置环境基本一致
+1.Anaconda安装去Anaconda的官网寻找最新的安装包，但这种方法下载速度太慢，可以寻找国内的源，如清华源，输入以">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -432,65 +429,74 @@ Notebook
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="wsl2下配置anacondapytorchjupyter-notebook">WSL2下配置Anaconda、Pytorch、Jupyter
-Notebook</h1>
-<p>和原生Linux下配置环境基本一致</p>
-<h2 id="anaconda安装">1.Anaconda安装</h2>
-<p>去Anaconda的官网寻找最新的安装包，但这种方法下载速度太慢，可以寻找国内的源，如<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn">清华源</a>，输入以下命令</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2022.05-Linux-x86_64.sh</span></code></pre></div>
+                <h1 id="WSL2下配置Anaconda、Pytorch、Jupyter-Notebook"><a href="#WSL2下配置Anaconda、Pytorch、Jupyter-Notebook" class="headerlink" title="WSL2下配置Anaconda、Pytorch、Jupyter Notebook"></a>WSL2下配置Anaconda、Pytorch、Jupyter Notebook</h1><p>和原生Linux下配置环境基本一致</p>
+<h2 id="1-Anaconda安装"><a href="#1-Anaconda安装" class="headerlink" title="1.Anaconda安装"></a>1.Anaconda安装</h2><p>去Anaconda的官网寻找最新的安装包，但这种方法下载速度太慢，可以寻找国内的源，如<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn">清华源</a>，输入以下命令</p>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2022.05-Linux-x86_64.sh
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>然后使用<code>bash</code>命令即可成功安装</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> Anaconda3-2022.05-Linux-x86_64.sh</span></code></pre></div>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">bash Anaconda3-2022.05-Linux-x86_64.sh
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>创建一个虚拟环境来安装Pytorch</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> torch python=3.9</span></code></pre></div>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">conda create -n torch python=3.9
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>启动环境</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate torch</span></code></pre></div>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">conda activate torch
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>关闭环境</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> deactivate torch</span></code></pre></div>
-<h2 id="pytorch安装">2.Pytorch安装</h2>
-<p>Pytorch官网给出了各种OS下的最新版本，电脑装了GPU的话就安装GPU版本的，选择如下，这里CUDA的版本需要自己查一下版本。</p>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">conda deactivate torch
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="2-Pytorch安装"><a href="#2-Pytorch安装" class="headerlink" title="2.Pytorch安装"></a>2.Pytorch安装</h2><p>Pytorch官网给出了各种OS下的最新版本，电脑装了GPU的话就安装GPU版本的，选择如下，这里CUDA的版本需要自己查一下版本。</p>
 <p><img src="/posts/869/image-20220628172251409.png" alt="Pytorch官网"></p>
 <p>输入命令，查看CUDA版本：</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nvidia-smi</span></span></code></pre></div>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">nvidia-smi
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="/posts/869/image-20220628172653467.png" alt="CUDA Version"></p>
-<p>可以看到这里我的CUDA
-Version是11.6，将官网的命令修改一下版本即可，注意去掉-c
-pytorch，这样就可以使用国内源进行下载了，切换清华源如下：</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--add</span> channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> config <span class="at">--set</span> show_channel_urls yes</span></code></pre></div>
+<p>可以看到这里我的CUDA Version是11.6，将官网的命令修改一下版本即可，注意去掉-c pytorch，这样就可以使用国内源进行下载了，切换清华源如下：</p>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+conda config --set show_channel_urls yes
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>安装命令如下：</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install pytorch torchvision torchaudio cudatoolkit=11.6</span></code></pre></div>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">conda install pytorch torchvision torchaudio cudatoolkit=11.6
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>这里有可能会安装为CPU版本的Pytorch，输入以下命令查看已经安装的库</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> list</span></code></pre></div>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">conda list
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><img src="/posts/869/image-20220628173710455.png" alt="已安装的库"></p>
 <p>如果是CPU版本的话，就要去清华源手动下载了，安装GPU版本的pytorch、torchvision</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/linux-64/pytorch-1.12.0-py3.9_cuda11.6_cudnn8.3.2_0.tar.bz2</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/linux-64/torchvision-0.13.0-py39_cu116.tar.bz2</span></code></pre></div>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">conda install https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/linux-64/pytorch-1.12.0-py3.9_cuda11.6_cudnn8.3.2_0.tar.bz2
+conda install https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/linux-64/torchvision-0.13.0-py39_cu116.tar.bz2
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>安装完毕，验证是否安装成功</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(torch.cuda.is_available()) <span class="co">#输出True即为安装成功</span></span></code></pre></div>
-<h2 id="jupyter-notebook安装">3.Jupyter Notebook安装</h2>
-<p>安装Jupyter
-Notebook比较简单，直接在新创建的torch环境中，输入以下命令</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install jupyter notebook</span></code></pre></div>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">import torch
+print(torch.cuda.is_available()) #输出True即为安装成功
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="3-Jupyter-Notebook安装"><a href="#3-Jupyter-Notebook安装" class="headerlink" title="3.Jupyter Notebook安装"></a>3.Jupyter Notebook安装</h2><p>安装Jupyter Notebook比较简单，直接在新创建的torch环境中，输入以下命令</p>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">conda install jupyter notebook
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>添加内核</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> ipykernel install <span class="at">--user</span></span></code></pre></div>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">python -m ipykernel install --user
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>插件扩展</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install <span class="at">-c</span> conda-forge jupyter_contrib_nbextensions </span></code></pre></div>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">conda install -c conda-forge jupyter_contrib_nbextensions
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>安装主题</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install jupyterthemes</span></code></pre></div>
-<p>一顿操作后，启动Jupyter
-Notebook时，发现无法显示网页链接，于是查看Jupyter
-Notebook配置，输入以下命令</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> notebook <span class="at">--generate-config</span></span></code></pre></div>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">conda install jupyterthemes
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>一顿操作后，启动Jupyter Notebook时，发现无法显示网页链接，于是查看Jupyter Notebook配置，输入以下命令</p>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">jupyter notebook --generate-config
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>找到配置文件所在位置，找到<code>jupyter_notebook_config.py</code>，打开并搜索此句</p>
-<pre class="text"><code>#c.NotebookApp.notebook_dir = ''</code></pre>
+<pre class="line-numbers language-lang-text"><code class="language-lang-text">#c.NotebookApp.notebook_dir = ''
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>在该语句下面添加</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> webbrowser</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>webbrowser.register(<span class="st">'edge'</span>,<span class="va">None</span>,webbrowser.GenericBrowser(<span class="st">u'your webbrowser path'</span>))</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>c.NotebookApp.browser <span class="op">=</span> <span class="st">'edge'</span></span></code></pre></div>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">import webbrowser
+webbrowser.register('edge',None,webbrowser.GenericBrowser(u'your webbrowser path'))
+c.NotebookApp.browser = 'edge'
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>之后启动Jupyter Notebook，输入</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> notebook</span></code></pre></div>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">jupyter notebook
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>即可显示网页链接</p>
 <p><img src="/posts/869/image-20220628175237834.png" alt="网页链接"></p>
 <p>这样就可以愉快的使用Jupyter Notebook啦！！！</p>
