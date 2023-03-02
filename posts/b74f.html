@@ -5,12 +5,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="ANTLR4构建AST, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="Challenge：使用ANTLR4构建AST1.定义语法规则编写Calculator.g4文件，如下
+    <meta name="description" content="Challenge：使用ANTLR4构建AST
+1.定义语法规则
+编写Calculator.g4文件，如下
 grammar Calculator;
 
 prog    : stat+ ;
 
-stat    : expr NEWLINE      ">
+stat    : expr NEWLINE    ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -429,101 +431,107 @@ stat    : expr NEWLINE      ">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Challenge：使用ANTLR4构建AST"><a href="#Challenge：使用ANTLR4构建AST" class="headerlink" title="Challenge：使用ANTLR4构建AST"></a>Challenge：使用ANTLR4构建AST</h1><h2 id="1-定义语法规则"><a href="#1-定义语法规则" class="headerlink" title="1.定义语法规则"></a>1.定义语法规则</h2><p>编写<code>Calculator.g4</code>文件，如下</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">grammar Calculator;
-
-prog    : stat+ ;
-
-stat    : expr NEWLINE              # printExpr
-        ;
-
-expr    : expr '*' expr             # mul
-        | expr '/' expr             # div
-        | expr '+' expr             # add
-        | expr '-' expr             # sub
-        | '(' expr ')'              # bracket
-        | INT                       # int
-        ;
-
-NEWLINE :'\r'? '\n' ;
-
-INT     : [0-9]+ ;
-
-MUL     : '*' ;
-DIV     : '/' ;
-ADD     : '+' ;
-SUB     : '-' ;
-
-WS      : [ \t\r\n]+ -> skip ;
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="2-定义对AST访问的动作"><a href="#2-定义对AST访问的动作" class="headerlink" title="2.定义对AST访问的动作"></a>2.定义对AST访问的动作</h2><p>输入</p>
-<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">antlr4 -no-listener -visitor -Dlanguage=Python3 Calculator.g4
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                <h1 id="challenge使用antlr4构建ast">Challenge：使用ANTLR4构建AST</h1>
+<h2 id="定义语法规则">1.定义语法规则</h2>
+<p>编写<code>Calculator.g4</code>文件，如下</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>grammar Calculator<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>prog    : stat<span class="op">+</span> <span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>stat    : expr NEWLINE              <span class="co"># printExpr</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>expr    : expr <span class="st">'*'</span> expr             <span class="co"># mul</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">|</span> expr <span class="st">'/'</span> expr             <span class="co"># div</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">|</span> expr <span class="st">'+'</span> expr             <span class="co"># add</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">|</span> expr <span class="st">'-'</span> expr             <span class="co"># sub</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">|</span> <span class="st">'('</span> expr <span class="st">')'</span>              <span class="co"># bracket</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">|</span> INT                       <span class="co"># int</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>NEWLINE :<span class="st">'</span><span class="ch">\r</span><span class="st">'</span>? <span class="st">'</span><span class="ch">\n</span><span class="st">'</span> <span class="op">;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>INT     : [<span class="dv">0</span><span class="op">-</span><span class="dv">9</span>]<span class="op">+</span> <span class="op">;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>MUL     : <span class="st">'*'</span> <span class="op">;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>DIV     : <span class="st">'/'</span> <span class="op">;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>ADD     : <span class="st">'+'</span> <span class="op">;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>SUB     : <span class="st">'-'</span> <span class="op">;</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>WS      : [ \t\r\n]<span class="op">+</span> <span class="op">-&gt;</span> skip <span class="op">;</span></span></code></pre></div>
+<h2 id="定义对ast访问的动作">2.定义对AST访问的动作</h2>
+<p>输入</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">antlr4</span> <span class="at">-no-listener</span> <span class="at">-visitor</span> <span class="at">-Dlanguage</span><span class="op">=</span>Python3 Calculator.g4</span></code></pre></div>
 <p>即可自动生成<code>lexer、parser、visitor</code>且均由<code>python</code>编写</p>
-<p><img src="/posts/b74f/image-20221120003913606.png" alt="image-20221120003913606"></p>
+<figure>
+<img src="/posts/b74f/image-20221120003913606.png" alt="image-20221120003913606">
+<figcaption aria-hidden="true">image-20221120003913606</figcaption>
+</figure>
 <p>创建一个<code>myVisitor</code>类，继承自<code>CalculatorVisitor</code>，定义对<code>AST</code>的访问动作</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">from antlr4 import *
-from CalculatorLexer import CalculatorLexer
-from CalculatorParser import CalculatorParser
-from CalculatorVisitor import CalculatorVisitor
-
-
-class myVisitor(CalculatorVisitor):
-
-    def visitProg(self, ctx: CalculatorParser.ProgContext):
-        array = []
-        for i in range(ctx.getChildCount()):
-            array.append(self.visit(ctx.stat(i)))
-        return array
-
-    def visitPrintExpr(self, ctx: CalculatorParser.PrintExprContext):
-        val = self.visit(ctx.expr())
-        print(val)
-        return val;
-
-    def visitDiv(self, ctx: CalculatorParser.DivContext):
-        return self.visit(ctx.expr(0)) / self.visit(ctx.expr(1))
-
-    def visitAdd(self, ctx: CalculatorParser.AddContext):
-        return self.visit(ctx.expr(0)) + self.visit(ctx.expr(1))
-
-    def visitSub(self, ctx: CalculatorParser.SubContext):
-        return self.visit(ctx.expr(0)) - self.visit(ctx.expr(1))
-
-    def visitMul(self, ctx: CalculatorParser.MulContext):
-        return self.visit(ctx.expr(0)) * self.visit(ctx.expr(1))
-
-    def visitBracket(self, ctx: CalculatorParser.BracketContext):
-        return self.visit(ctx.expr())
-
-    def visitInt(self, ctx: CalculatorParser.IntContext):
-        return int(ctx.getText())
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="3-测试"><a href="#3-测试" class="headerlink" title="3.测试"></a>3.测试</h2><p>给定写好的代数表达式文件<code>expr.txt</code></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> antlr4 <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> CalculatorLexer <span class="im">import</span> CalculatorLexer</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> CalculatorParser <span class="im">import</span> CalculatorParser</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> CalculatorVisitor <span class="im">import</span> CalculatorVisitor</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> myVisitor(CalculatorVisitor):</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> visitProg(<span class="va">self</span>, ctx: CalculatorParser.ProgContext):</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        array <span class="op">=</span> []</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(ctx.getChildCount()):</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>            array.append(<span class="va">self</span>.visit(ctx.stat(i)))</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> array</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> visitPrintExpr(<span class="va">self</span>, ctx: CalculatorParser.PrintExprContext):</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        val <span class="op">=</span> <span class="va">self</span>.visit(ctx.expr())</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(val)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> val<span class="op">;</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> visitDiv(<span class="va">self</span>, ctx: CalculatorParser.DivContext):</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.visit(ctx.expr(<span class="dv">0</span>)) <span class="op">/</span> <span class="va">self</span>.visit(ctx.expr(<span class="dv">1</span>))</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> visitAdd(<span class="va">self</span>, ctx: CalculatorParser.AddContext):</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.visit(ctx.expr(<span class="dv">0</span>)) <span class="op">+</span> <span class="va">self</span>.visit(ctx.expr(<span class="dv">1</span>))</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> visitSub(<span class="va">self</span>, ctx: CalculatorParser.SubContext):</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.visit(ctx.expr(<span class="dv">0</span>)) <span class="op">-</span> <span class="va">self</span>.visit(ctx.expr(<span class="dv">1</span>))</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> visitMul(<span class="va">self</span>, ctx: CalculatorParser.MulContext):</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.visit(ctx.expr(<span class="dv">0</span>)) <span class="op">*</span> <span class="va">self</span>.visit(ctx.expr(<span class="dv">1</span>))</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> visitBracket(<span class="va">self</span>, ctx: CalculatorParser.BracketContext):</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.visit(ctx.expr())</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> visitInt(<span class="va">self</span>, ctx: CalculatorParser.IntContext):</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">int</span>(ctx.getText())</span></code></pre></div>
+<h2 id="测试">3.测试</h2>
+<p>给定写好的代数表达式文件<code>expr.txt</code></p>
 <pre><code>(1 + 2) * 3
 1 + 2 * 3
 1 + 2 + 3
-</code></pre><p>在<code>main.py</code>定义函数<code>antlr</code></p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">array = antlr()
-answer = [9, 7, 6]
-
-def antlr():
-    input = FileStream("expr.txt")
-    lexer = CalculatorLexer(input)
-    stream = CommonTokenStream(lexer)
-    parser = CalculatorParser(stream)
-    tree = parser.prog()
-    visitor = myVisitor()
-    array = visitor.visitProg(tree)
-    return array
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</code></pre>
+<p>在<code>main.py</code>定义函数<code>antlr</code></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>array <span class="op">=</span> antlr()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>answer <span class="op">=</span> [<span class="dv">9</span>, <span class="dv">7</span>, <span class="dv">6</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> antlr():</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">input</span> <span class="op">=</span> FileStream(<span class="st">"expr.txt"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    lexer <span class="op">=</span> CalculatorLexer(<span class="bu">input</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    stream <span class="op">=</span> CommonTokenStream(lexer)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    parser <span class="op">=</span> CalculatorParser(stream)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    tree <span class="op">=</span> parser.prog()</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    visitor <span class="op">=</span> myVisitor()</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    array <span class="op">=</span> visitor.visitProg(tree)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> array</span></code></pre></div>
 <p>在单元测试中加入</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">    def test_antlr(self):
-        for i in range(len(array)):
-            self.assertEqual(array[i], answer[i])
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> test_antlr(<span class="va">self</span>):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(array)):</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.assertEqual(array[i], answer[i])</span></code></pre></div>
 <p>最终效果</p>
-<p><img src="/posts/b74f/image-20221120004523313.png" alt="image-20221120004523313"></p>
+<figure>
+<img src="/posts/b74f/image-20221120004523313.png" alt="image-20221120004523313">
+<figcaption aria-hidden="true">image-20221120004523313</figcaption>
+</figure>
 
                 
             </div>

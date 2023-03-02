@@ -5,13 +5,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Sysprog：2. mini Network-Analyzer, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="mini Network-AnalyzerPart D：packet spoofing实验结果：前8个包
+    <meta name="description" content="mini Network-Analyzer
+Part D：packet spoofing
+实验结果：前8个包
+
+
+Forge
 
 文件结构
 |-- Forge
     |-- method.h
     |-- method.c
-    |-- UDP_forge">
+    |--">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -430,198 +435,202 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="mini-Network-Analyzer"><a href="#mini-Network-Analyzer" class="headerlink" title="mini Network-Analyzer"></a>mini Network-Analyzer</h1><h2 id="Part-D：packet-spoofing"><a href="#Part-D：packet-spoofing" class="headerlink" title="Part D：packet spoofing"></a>Part D：packet spoofing</h2><p>实验结果：前8个包</p>
-<p><img src="/posts/asfdh/image-20221027235610817.png" alt="Forge"></p>
+                <h1 id="mini-network-analyzer">mini Network-Analyzer</h1>
+<h2 id="part-dpacket-spoofing">Part D：packet spoofing</h2>
+<p>实验结果：前8个包</p>
+<figure>
+<img src="/posts/asfdh/image-20221027235610817.png" alt="Forge">
+<figcaption aria-hidden="true">Forge</figcaption>
+</figure>
 <p>文件结构</p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">|-- Forge
-    |-- method.h
-    |-- method.c
-    |-- UDP_forge.h
-    |-- UDP_forge.c
-    |-- TCP_forge.h
-    |-- TCP_forge.c
-    |-- ARP_forge.h
-    |-- ARP_forge.c
-    |-- ICMP_forge.h
-    |-- ICMP_forge.c
-    |-- main
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>利用Raw Socket可以实现发送用户自定义的数据包,在实现各种forgery之前，先定义一个工具文件<code>method.h/method.c</code>，实现公共部分，定义的接口如下</p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">void get_eth_index(int sock_raw);
-void get_mac(int sock_raw, uint16_t protocol, int *total_len);
-
-void str2ip(char *src, unsigned char *dst);
-unsigned short checksum(unsigned char *buf, int size);
-
-void forge(void(*pro)(int *total_len), uint16_t mac_protocol, uint8_t ip_protocol);     // forge template
-void send_ip(void(*func)(int *total_len), int sock_raw, uint8_t protocol, int *total_len);
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">|--</span> Forge</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">|--</span> method<span class="op">.</span>h</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">|--</span> method<span class="op">.</span>c</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">|--</span> UDP_forge<span class="op">.</span>h</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">|--</span> UDP_forge<span class="op">.</span>c</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">|--</span> TCP_forge<span class="op">.</span>h</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">|--</span> TCP_forge<span class="op">.</span>c</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">|--</span> ARP_forge<span class="op">.</span>h</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">|--</span> ARP_forge<span class="op">.</span>c</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">|--</span> ICMP_forge<span class="op">.</span>h</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">|--</span> ICMP_forge<span class="op">.</span>c</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">|--</span> main</span></code></pre></div>
+<p>利用Raw
+Socket可以实现发送用户自定义的数据包,在实现各种forgery之前，先定义一个工具文件<code>method.h/method.c</code>，实现公共部分，定义的接口如下</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> get_eth_index<span class="op">(</span><span class="dt">int</span> sock_raw<span class="op">);</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> get_mac<span class="op">(</span><span class="dt">int</span> sock_raw<span class="op">,</span> <span class="dt">uint16_t</span> protocol<span class="op">,</span> <span class="dt">int</span> <span class="op">*</span>total_len<span class="op">);</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> str2ip<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>src<span class="op">,</span> <span class="dt">unsigned</span> <span class="dt">char</span> <span class="op">*</span>dst<span class="op">);</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">short</span> checksum<span class="op">(</span><span class="dt">unsigned</span> <span class="dt">char</span> <span class="op">*</span>buf<span class="op">,</span> <span class="dt">int</span> size<span class="op">);</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> forge<span class="op">(</span><span class="dt">void</span><span class="op">(*</span>pro<span class="op">)(</span><span class="dt">int</span> <span class="op">*</span>total_len<span class="op">),</span> <span class="dt">uint16_t</span> mac_protocol<span class="op">,</span> <span class="dt">uint8_t</span> ip_protocol<span class="op">);</span>     <span class="co">// forge template</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> send_ip<span class="op">(</span><span class="dt">void</span><span class="op">(*</span>func<span class="op">)(</span><span class="dt">int</span> <span class="op">*</span>total_len<span class="op">),</span> <span class="dt">int</span> sock_raw<span class="op">,</span> <span class="dt">uint8_t</span> protocol<span class="op">,</span> <span class="dt">int</span> <span class="op">*</span>total_len<span class="op">);</span></span></code></pre></div>
 <p>在forge函数中，通过传入相应的协议函数指针，即可生成一个对应协议的数据包，并且由于大多数网络层以上的协议都是基于IP的，故将<code>send_ip</code>也写成一个模板。</p>
 <p>例如要发送TCP，参数为：<code>1：填充协议的函数指针；2：MAC的协议字段；3：IP的协议字段(ARP协议此参数填0即可)</code></p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">forge(send_tcp, ETH_P_IP, IPPROTO_TCP);
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>forge<span class="op">(</span>send_tcp<span class="op">,</span> ETH_P_IP<span class="op">,</span> IPPROTO_TCP<span class="op">);</span></span></code></pre></div>
 <p>其中<code>forge()</code>实现如下</p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">void forge(void(*pro)(int *total_len), uint16_t mac_protocol, uint8_t ip_protocol){
-    int sock_raw = sock_raw = socket(AF_PACKET,SOCK_RAW,ETH_P_IP);
-    if(sock_raw == -1)
-        printf("error in socket\n");
-
-    send_buff = (unsigned char*)malloc(64);             // increase in case of large data.
-    memset(send_buff, 0, 64);
-
-    int total_len = 0;
-    get_eth_index(sock_raw);                // interface number
-    get_mac(sock_raw, mac_protocol, &total_len);
-
-    if(mac_protocol == ETH_P_ARP)  pro(&total_len);
-    else send_ip(pro, sock_raw, ip_protocol, &total_len);
-
-    struct sockaddr_ll sadr_ll;
-    sadr_ll.sll_ifindex = ifreq_idx.ifr_ifindex;
-    sadr_ll.sll_halen   = ETH_ALEN;
-    for(int i = 0; i < 6; i++)
-        sadr_ll.sll_addr[i]  = dst_mac[i];
-
-    int cnt = 1;
-    printf("sending...\n");
-
-    while(cnt-- > 0){
-        int send_len = sendto(sock_raw, send_buff, 64, 0, (const struct sockaddr*)&sadr_ll, sizeof(struct sockaddr_ll));
-        if(send_len < 0){
-            printf("error in sending....sendlen = %d....errno = %d\n", send_len, errno);
-            break;
-        }
-    }
-    close(sock_raw);
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="1-UDP-packet-forgery"><a href="#1-UDP-packet-forgery" class="headerlink" title="1.UDP packet forgery"></a>1.UDP packet forgery</h3><pre class="line-numbers language-lang-c"><code class="language-lang-c">void send_udp(int *total_len){
-    printf("udp packaging start ... \n");
-    struct udphdr *uh = (struct udphdr *)(send_buff + sizeof(struct iphdr) + sizeof(struct ethhdr));
-
-    uh->source    = htons(23451);
-    uh->dest    = htons(23452);
-    uh->check    = 0;   //Many OSes ignore this field , so we do not calculate it.
-
-    *total_len += sizeof(struct udphdr);
-    uh->len        = htons((*total_len - sizeof(struct iphdr) - sizeof(struct ethhdr)));
-    printf("udp packaging start ... \n");
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="2-TCP-packet-forgery"><a href="#2-TCP-packet-forgery" class="headerlink" title="2.TCP packet forgery"></a>2.TCP packet forgery</h3><p>由于TCP的checksum需要添加伪首部才能计算正确，故在头文件定义伪首部</p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">struct psd_hdr{
-    unsigned int src_ipaddr;
-    unsigned int dst_ipaddr;
-    unsigned char nop;
-    unsigned char protocol;
-    unsigned short tcp_len;
-};
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> forge<span class="op">(</span><span class="dt">void</span><span class="op">(*</span>pro<span class="op">)(</span><span class="dt">int</span> <span class="op">*</span>total_len<span class="op">),</span> <span class="dt">uint16_t</span> mac_protocol<span class="op">,</span> <span class="dt">uint8_t</span> ip_protocol<span class="op">){</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> sock_raw <span class="op">=</span> sock_raw <span class="op">=</span> socket<span class="op">(</span>AF_PACKET<span class="op">,</span>SOCK_RAW<span class="op">,</span>ETH_P_IP<span class="op">);</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>sock_raw <span class="op">==</span> <span class="op">-</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"error in socket</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    send_buff <span class="op">=</span> <span class="op">(</span><span class="dt">unsigned</span> <span class="dt">char</span><span class="op">*)</span>malloc<span class="op">(</span><span class="dv">64</span><span class="op">);</span>             <span class="co">// increase in case of large data.</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    memset<span class="op">(</span>send_buff<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">64</span><span class="op">);</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> total_len <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    get_eth_index<span class="op">(</span>sock_raw<span class="op">);</span>                <span class="co">// interface number</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    get_mac<span class="op">(</span>sock_raw<span class="op">,</span> mac_protocol<span class="op">,</span> <span class="op">&amp;</span>total_len<span class="op">);</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>mac_protocol <span class="op">==</span> ETH_P_ARP<span class="op">)</span>  pro<span class="op">(&amp;</span>total_len<span class="op">);</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> send_ip<span class="op">(</span>pro<span class="op">,</span> sock_raw<span class="op">,</span> ip_protocol<span class="op">,</span> <span class="op">&amp;</span>total_len<span class="op">);</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> sockaddr_ll sadr_ll<span class="op">;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    sadr_ll<span class="op">.</span>sll_ifindex <span class="op">=</span> ifreq_idx<span class="op">.</span>ifr_ifindex<span class="op">;</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    sadr_ll<span class="op">.</span>sll_halen   <span class="op">=</span> ETH_ALEN<span class="op">;</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">6</span><span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        sadr_ll<span class="op">.</span>sll_addr<span class="op">[</span>i<span class="op">]</span>  <span class="op">=</span> dst_mac<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> cnt <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"sending...</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span><span class="op">(</span>cnt<span class="op">--</span> <span class="op">&gt;</span> <span class="dv">0</span><span class="op">){</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> send_len <span class="op">=</span> sendto<span class="op">(</span>sock_raw<span class="op">,</span> send_buff<span class="op">,</span> <span class="dv">64</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="op">(</span><span class="dt">const</span> <span class="kw">struct</span> sockaddr<span class="op">*)&amp;</span>sadr_ll<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> sockaddr_ll<span class="op">));</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span><span class="op">(</span>send_len <span class="op">&lt;</span> <span class="dv">0</span><span class="op">){</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">"error in sending....sendlen = </span><span class="sc">%d</span><span class="st">....errno = </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> send_len<span class="op">,</span> errno<span class="op">);</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    close<span class="op">(</span>sock_raw<span class="op">);</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h3 id="udp-packet-forgery">1.UDP packet forgery</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> send_udp<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>total_len<span class="op">){</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"udp packaging start ... </span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> udphdr <span class="op">*</span>uh <span class="op">=</span> <span class="op">(</span><span class="kw">struct</span> udphdr <span class="op">*)(</span>send_buff <span class="op">+</span> <span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> iphdr<span class="op">)</span> <span class="op">+</span> <span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> ethhdr<span class="op">));</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    uh<span class="op">-&gt;</span>source  <span class="op">=</span> htons<span class="op">(</span><span class="dv">23451</span><span class="op">);</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    uh<span class="op">-&gt;</span>dest    <span class="op">=</span> htons<span class="op">(</span><span class="dv">23452</span><span class="op">);</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    uh<span class="op">-&gt;</span>check   <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>   <span class="co">//Many OSes ignore this field , so we do not calculate it.</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>total_len <span class="op">+=</span> <span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> udphdr<span class="op">);</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    uh<span class="op">-&gt;</span>len     <span class="op">=</span> htons<span class="op">((*</span>total_len <span class="op">-</span> <span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> iphdr<span class="op">)</span> <span class="op">-</span> <span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> ethhdr<span class="op">)));</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"udp packaging start ... </span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h3 id="tcp-packet-forgery">2.TCP packet forgery</h3>
+<p>由于TCP的checksum需要添加伪首部才能计算正确，故在头文件定义伪首部</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> psd_hdr<span class="op">{</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> src_ipaddr<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> dst_ipaddr<span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">char</span> nop<span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">char</span> protocol<span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">short</span> tcp_len<span class="op">;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
 <p><code>TCP_forge.c</code>如下</p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">void send_tcp(int *total_len){
-    struct tcphdr *th = (struct tcphdr *)(send_buff + sizeof(struct iphdr) + sizeof(struct ethhdr));
-
-    printf("tcp packaging start ... \n");
-    //write udp_header
-    th->th_sport    = htons(2333);
-    th->th_dport    = htons(80);
-    th->th_seq      = htons(0);
-    th->th_ack      = htons(0);
-    th->th_off      = sizeof (struct tcphdr) / 4;
-    th->th_flags    = TH_SYN;
-    th->th_win      = htons(4096);
-
-    // define pseudo header for tcp checksum
-    struct psd_hdr psd;
-    psd.src_ipaddr = inet_addr(src_ip);
-    psd.dst_ipaddr = inet_addr(dst_ip);
-    psd.nop = 0;
-    psd.protocol = 6;
-    psd.tcp_len = htons(sizeof (struct tcphdr));
-
-    unsigned char cur[1000];
-
-    memcpy(cur, &psd, sizeof(struct psd_hdr));
-    memcpy(cur + sizeof (struct psd_hdr), th, sizeof(struct tcphdr));
-    th->th_sum = htons(checksum(cur, sizeof(struct tcphdr) + sizeof (struct psd_hdr)));
-
-    *total_len += sizeof(struct tcphdr);
-    printf("tcp packaging done ... \n");
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="3-ICMP-packet-forgery"><a href="#3-ICMP-packet-forgery" class="headerlink" title="3.ICMP packet forgery"></a>3.ICMP packet forgery</h3><p>由于struct icmp中含有union，为了方便起见，定义宏</p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">// define icmp union
-#define icmp_id         icmp_hun.ih_idseq.icd_id
-#define icmp_seq        icmp_hun.ih_idseq.icd_seq
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> send_tcp<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>total_len<span class="op">){</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> tcphdr <span class="op">*</span>th <span class="op">=</span> <span class="op">(</span><span class="kw">struct</span> tcphdr <span class="op">*)(</span>send_buff <span class="op">+</span> <span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> iphdr<span class="op">)</span> <span class="op">+</span> <span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> ethhdr<span class="op">));</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"tcp packaging start ... </span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">//write udp_header</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    th<span class="op">-&gt;</span>th_sport    <span class="op">=</span> htons<span class="op">(</span><span class="dv">2333</span><span class="op">);</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    th<span class="op">-&gt;</span>th_dport    <span class="op">=</span> htons<span class="op">(</span><span class="dv">80</span><span class="op">);</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    th<span class="op">-&gt;</span>th_seq      <span class="op">=</span> htons<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    th<span class="op">-&gt;</span>th_ack      <span class="op">=</span> htons<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    th<span class="op">-&gt;</span>th_off      <span class="op">=</span> <span class="kw">sizeof</span> <span class="op">(</span><span class="kw">struct</span> tcphdr<span class="op">)</span> <span class="op">/</span> <span class="dv">4</span><span class="op">;</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    th<span class="op">-&gt;</span>th_flags    <span class="op">=</span> TH_SYN<span class="op">;</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    th<span class="op">-&gt;</span>th_win      <span class="op">=</span> htons<span class="op">(</span><span class="dv">4096</span><span class="op">);</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">// define pseudo header for tcp checksum</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> psd_hdr psd<span class="op">;</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    psd<span class="op">.</span>src_ipaddr <span class="op">=</span> inet_addr<span class="op">(</span>src_ip<span class="op">);</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    psd<span class="op">.</span>dst_ipaddr <span class="op">=</span> inet_addr<span class="op">(</span>dst_ip<span class="op">);</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    psd<span class="op">.</span>nop <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    psd<span class="op">.</span>protocol <span class="op">=</span> <span class="dv">6</span><span class="op">;</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    psd<span class="op">.</span>tcp_len <span class="op">=</span> htons<span class="op">(</span><span class="kw">sizeof</span> <span class="op">(</span><span class="kw">struct</span> tcphdr<span class="op">));</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">char</span> cur<span class="op">[</span><span class="dv">1000</span><span class="op">];</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    memcpy<span class="op">(</span>cur<span class="op">,</span> <span class="op">&amp;</span>psd<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> psd_hdr<span class="op">));</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    memcpy<span class="op">(</span>cur <span class="op">+</span> <span class="kw">sizeof</span> <span class="op">(</span><span class="kw">struct</span> psd_hdr<span class="op">),</span> th<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> tcphdr<span class="op">));</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    th<span class="op">-&gt;</span>th_sum <span class="op">=</span> htons<span class="op">(</span>checksum<span class="op">(</span>cur<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> tcphdr<span class="op">)</span> <span class="op">+</span> <span class="kw">sizeof</span> <span class="op">(</span><span class="kw">struct</span> psd_hdr<span class="op">)));</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>total_len <span class="op">+=</span> <span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> tcphdr<span class="op">);</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"tcp packaging done ... </span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h3 id="icmp-packet-forgery">3.ICMP packet forgery</h3>
+<p>由于struct icmp中含有union，为了方便起见，定义宏</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">// define icmp union</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define icmp_id         icmp_hun</span><span class="op">.</span><span class="pp">ih_idseq</span><span class="op">.</span><span class="pp">icd_id</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define icmp_seq        icmp_hun</span><span class="op">.</span><span class="pp">ih_idseq</span><span class="op">.</span><span class="pp">icd_seq</span></span></code></pre></div>
 <p><code>ICMP_forge.c</code>实现如下</p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">void send_icmp(int *total_len){
-    printf("icmp packaging start ... \n");
-    struct icmp *ih = (struct icmp *)(send_buff + sizeof(struct iphdr) + sizeof(struct ethhdr));
-
-    ih->icmp_type = ICMP_ECHO;
-    ih->icmp_code = 0;
-    ih->icmp_cksum = htons(checksum((unsigned char *)(send_buff + sizeof (struct ethhdr) + sizeof (struct iphdr)), sizeof (struct icmp)));
-    ih->icmp_id = 0;
-    ih->icmp_seq = 0;
-
-    *total_len += sizeof(struct icmp);
-    printf("icmp packaging done ... \n");
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="4-ARP-packet-forgery"><a href="#4-ARP-packet-forgery" class="headerlink" title="4.ARP packet forgery"></a>4.ARP packet forgery</h3><p>由于<code>ARP</code>与<code>IP</code>一样都是网络层协议，故在<code>MAC</code>层需要将<code>protocol</code>改为<code>ETH_P_ARP</code>。</p>
-<p>并且ARP协议的头部定义需要在 <code>&lt;netinet/if_ether.h&gt;</code>头文件下找，而非<code>&lt;net/if_arp.h&gt;</code></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> send_icmp<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>total_len<span class="op">){</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"icmp packaging start ... </span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> icmp <span class="op">*</span>ih <span class="op">=</span> <span class="op">(</span><span class="kw">struct</span> icmp <span class="op">*)(</span>send_buff <span class="op">+</span> <span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> iphdr<span class="op">)</span> <span class="op">+</span> <span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> ethhdr<span class="op">));</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    ih<span class="op">-&gt;</span>icmp_type <span class="op">=</span> ICMP_ECHO<span class="op">;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    ih<span class="op">-&gt;</span>icmp_code <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    ih<span class="op">-&gt;</span>icmp_cksum <span class="op">=</span> htons<span class="op">(</span>checksum<span class="op">((</span><span class="dt">unsigned</span> <span class="dt">char</span> <span class="op">*)(</span>send_buff <span class="op">+</span> <span class="kw">sizeof</span> <span class="op">(</span><span class="kw">struct</span> ethhdr<span class="op">)</span> <span class="op">+</span> <span class="kw">sizeof</span> <span class="op">(</span><span class="kw">struct</span> iphdr<span class="op">)),</span> <span class="kw">sizeof</span> <span class="op">(</span><span class="kw">struct</span> icmp<span class="op">)));</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    ih<span class="op">-&gt;</span>icmp_id <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    ih<span class="op">-&gt;</span>icmp_seq <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>total_len <span class="op">+=</span> <span class="kw">sizeof</span><span class="op">(</span><span class="kw">struct</span> icmp<span class="op">);</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"icmp packaging done ... </span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h3 id="arp-packet-forgery">4.ARP packet forgery</h3>
+<p>由于<code>ARP</code>与<code>IP</code>一样都是网络层协议，故在<code>MAC</code>层需要将<code>protocol</code>改为<code>ETH_P_ARP</code>。</p>
+<p>并且ARP协议的头部定义需要在
+<code>&lt;netinet/if_ether.h&gt;</code>头文件下找，而非<code>&lt;net/if_arp.h&gt;</code></p>
 <p><code>ARP_forge.c</code>定义如下</p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">void send_arp(int *total_len){
-    printf("arp packaging start ... \n");
-    struct ether_arp *ah = (struct ether_arp *)(send_buff + sizeof (struct ethhdr));
-
-    str2ip(src_ip, ah->arp_spa);
-    str2ip(dst_ip, ah->arp_tpa);
-
-    for(int i = 0; i < 6; i++){
-        ah->arp_sha[i] = (unsigned char)(ifreq_mac.ifr_hwaddr.sa_data[i]);
-        ah->arp_tha[i]   =  (unsigned char)0x00;
-    }
-
-    ah->ea_hdr.ar_hrd = htons(0x01);
-    ah->ea_hdr.ar_pro = htons(ETH_P_IP);
-    ah->ea_hdr.ar_hln = ETH_ALEN;
-    ah->ea_hdr.ar_pln = 0x04;
-    ah->ea_hdr.ar_op = htons(ARPOP_REQUEST);
-
-    *total_len += sizeof (struct ether_arp);
-    printf("arp packaging done ... \n");
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="Part-E：Design-your-own-MAC-layer-protocol"><a href="#Part-E：Design-your-own-MAC-layer-protocol" class="headerlink" title="Part E：Design your own MAC layer protocol"></a>Part E：Design your own MAC layer protocol</h2><p>文件结构：两个主机源代码大部分相同</p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">|-- final
-    |-- protocol.h    // define struct own_hdr and interface for send or receive
-    |-- send.c
-    |-- receive.c
-    |-- main.c
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> send_arp<span class="op">(</span><span class="dt">int</span> <span class="op">*</span>total_len<span class="op">){</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"arp packaging start ... </span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> ether_arp <span class="op">*</span>ah <span class="op">=</span> <span class="op">(</span><span class="kw">struct</span> ether_arp <span class="op">*)(</span>send_buff <span class="op">+</span> <span class="kw">sizeof</span> <span class="op">(</span><span class="kw">struct</span> ethhdr<span class="op">));</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    str2ip<span class="op">(</span>src_ip<span class="op">,</span> ah<span class="op">-&gt;</span>arp_spa<span class="op">);</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    str2ip<span class="op">(</span>dst_ip<span class="op">,</span> ah<span class="op">-&gt;</span>arp_tpa<span class="op">);</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">6</span><span class="op">;</span> i<span class="op">++){</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        ah<span class="op">-&gt;</span>arp_sha<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> <span class="op">(</span><span class="dt">unsigned</span> <span class="dt">char</span><span class="op">)(</span>ifreq_mac<span class="op">.</span>ifr_hwaddr<span class="op">.</span>sa_data<span class="op">[</span>i<span class="op">]);</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        ah<span class="op">-&gt;</span>arp_tha<span class="op">[</span>i<span class="op">]</span>   <span class="op">=</span>  <span class="op">(</span><span class="dt">unsigned</span> <span class="dt">char</span><span class="op">)</span><span class="bn">0x00</span><span class="op">;</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    ah<span class="op">-&gt;</span>ea_hdr<span class="op">.</span>ar_hrd <span class="op">=</span> htons<span class="op">(</span><span class="bn">0x01</span><span class="op">);</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    ah<span class="op">-&gt;</span>ea_hdr<span class="op">.</span>ar_pro <span class="op">=</span> htons<span class="op">(</span>ETH_P_IP<span class="op">);</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    ah<span class="op">-&gt;</span>ea_hdr<span class="op">.</span>ar_hln <span class="op">=</span> ETH_ALEN<span class="op">;</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    ah<span class="op">-&gt;</span>ea_hdr<span class="op">.</span>ar_pln <span class="op">=</span> <span class="bn">0x04</span><span class="op">;</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    ah<span class="op">-&gt;</span>ea_hdr<span class="op">.</span>ar_op <span class="op">=</span> htons<span class="op">(</span>ARPOP_REQUEST<span class="op">);</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>total_len <span class="op">+=</span> <span class="kw">sizeof</span> <span class="op">(</span><span class="kw">struct</span> ether_arp<span class="op">);</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"arp packaging done ... </span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h2 id="part-edesign-your-own-mac-layer-protocol">Part E：Design your
+own MAC layer protocol</h2>
+<p>文件结构：两个主机源代码大部分相同</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">|--</span> final</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">|--</span> protocol<span class="op">.</span>h    <span class="co">// define struct own_hdr and interface for send or receive</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">|--</span> send<span class="op">.</span>c</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">|--</span> receive<span class="op">.</span>c</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">|--</span> main<span class="op">.</span>c</span></code></pre></div>
 <p>自定义了一个以太网头部格式如下，头部后面即要发送的数据</p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">struct own_hdr{
-    unsigned char dst_mac[6];
-    unsigned char src_mac[6];
-};
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> own_hdr<span class="op">{</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">char</span> dst_mac<span class="op">[</span><span class="dv">6</span><span class="op">];</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">char</span> src_mac<span class="op">[</span><span class="dv">6</span><span class="op">];</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
 <p>分别定义send.c/receive.c用来实现发送和接收的方法</p>
-<pre class="line-numbers language-lang-c"><code class="language-lang-c">// send
-void get_eth_index();
-void get_own_mac(unsigned char *buffer, unsigned char dst_mac[]);
-void send_data(unsigned char *buffer);
-
-// receive
-void packet_print(unsigned char* buffer, int buffer_len);
-void own_mac_header(unsigned char *buffer);
-bool filterByMacAddress(unsigned char *buffer, unsigned char mac_addr[], int type);
-bool equal(unsigned char *dst, unsigned char *src);
-void get_data(unsigned char *buffer);
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>在主函数中，创建两个raw socket分别用来发送和接收数据包，主机A先发送，未收到主机B的回复之前不会再次发送，主机B同理。运行结果如下</p>
-<p><img src="/posts/asfdh/image-20221021181821595.png" alt="own protocol"></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">// send</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> get_eth_index<span class="op">();</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> get_own_mac<span class="op">(</span><span class="dt">unsigned</span> <span class="dt">char</span> <span class="op">*</span>buffer<span class="op">,</span> <span class="dt">unsigned</span> <span class="dt">char</span> dst_mac<span class="op">[]);</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> send_data<span class="op">(</span><span class="dt">unsigned</span> <span class="dt">char</span> <span class="op">*</span>buffer<span class="op">);</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">// receive</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> packet_print<span class="op">(</span><span class="dt">unsigned</span> <span class="dt">char</span><span class="op">*</span> buffer<span class="op">,</span> <span class="dt">int</span> buffer_len<span class="op">);</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> own_mac_header<span class="op">(</span><span class="dt">unsigned</span> <span class="dt">char</span> <span class="op">*</span>buffer<span class="op">);</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> filterByMacAddress<span class="op">(</span><span class="dt">unsigned</span> <span class="dt">char</span> <span class="op">*</span>buffer<span class="op">,</span> <span class="dt">unsigned</span> <span class="dt">char</span> mac_addr<span class="op">[],</span> <span class="dt">int</span> type<span class="op">);</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> equal<span class="op">(</span><span class="dt">unsigned</span> <span class="dt">char</span> <span class="op">*</span>dst<span class="op">,</span> <span class="dt">unsigned</span> <span class="dt">char</span> <span class="op">*</span>src<span class="op">);</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> get_data<span class="op">(</span><span class="dt">unsigned</span> <span class="dt">char</span> <span class="op">*</span>buffer<span class="op">);</span></span></code></pre></div>
+<p>在主函数中，创建两个raw
+socket分别用来发送和接收数据包，主机A先发送，未收到主机B的回复之前不会再次发送，主机B同理。运行结果如下</p>
+<figure>
+<img src="/posts/asfdh/image-20221021181821595.png" alt="own protocol">
+<figcaption aria-hidden="true">own protocol</figcaption>
+</figure>
 
                 
             </div>

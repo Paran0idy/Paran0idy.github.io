@@ -5,12 +5,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="神经网络拟合函数, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="神经网络拟合函数1.准备数据导入需要使用的第三方库
+    <meta name="description" content="神经网络拟合函数
+1.准备数据
+导入需要使用的第三方库
 import torch
 import numpy as np
 import random
 import matplotlib.pyplot as plt
-import torch.nn ">
+import torch.n">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -429,110 +431,116 @@ import torch.nn ">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="神经网络拟合函数"><a href="#神经网络拟合函数" class="headerlink" title="神经网络拟合函数"></a>神经网络拟合函数</h1><h2 id="1-准备数据"><a href="#1-准备数据" class="headerlink" title="1.准备数据"></a>1.准备数据</h2><p>导入需要使用的第三方库</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">import torch
-import numpy as np
-import random
-import matplotlib.pyplot as plt
-import torch.nn as nn
-import torch.functional as func
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                <h1 id="神经网络拟合函数">神经网络拟合函数</h1>
+<h2 id="准备数据">1.准备数据</h2>
+<p>导入需要使用的第三方库</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.functional <span class="im">as</span> func</span></code></pre></div>
 <p>根据给定的<code>w、b</code>生成训练集和测试集(按9:1划分)</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">def gen_data(w, b, num):
-    x = torch.linspace(0, 10, num, dtype=torch.float32).reshape(-1, 1)
-    print(x.shape)
-    y = torch.matmul(x, w) + b
-    y += torch.normal(0, 0.01, y.shape)
-    print(y.shape)
-
-    train_x = x[: num * 9 // 10]
-    train_y = y[: num * 9 // 10]
-
-    test_x = x[num * 9 // 10 :]
-    test_y = y[num * 9 // 10 :]
-
-    return train_x, train_y, test_x, test_y
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gen_data(w, b, num):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> torch.linspace(<span class="dv">0</span>, <span class="dv">10</span>, num, dtype<span class="op">=</span>torch.float32).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x.shape)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> torch.matmul(x, w) <span class="op">+</span> b</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    y <span class="op">+=</span> torch.normal(<span class="dv">0</span>, <span class="fl">0.01</span>, y.shape)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(y.shape)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    train_x <span class="op">=</span> x[: num <span class="op">*</span> <span class="dv">9</span> <span class="op">//</span> <span class="dv">10</span>]</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    train_y <span class="op">=</span> y[: num <span class="op">*</span> <span class="dv">9</span> <span class="op">//</span> <span class="dv">10</span>]</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    test_x <span class="op">=</span> x[num <span class="op">*</span> <span class="dv">9</span> <span class="op">//</span> <span class="dv">10</span> :]</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    test_y <span class="op">=</span> y[num <span class="op">*</span> <span class="dv">9</span> <span class="op">//</span> <span class="dv">10</span> :]</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> train_x, train_y, test_x, test_y</span></code></pre></div>
 <blockquote>
-<p> 注意这里为什么要<code>reshape</code>，主要原因是要进行<code>矩阵乘法</code>，需要将向量转化成二维<code>张量</code>。</p>
+<p>注意这里为什么要<code>reshape</code>，主要原因是要进行<code>矩阵乘法</code>，需要将向量转化成二维<code>张量</code>。</p>
 </blockquote>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">train_x, train_y, test_x, test_y = gen_data(torch.tensor([1.0]).reshape(1,1), 1.0, 100)
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="2-建立模型"><a href="#2-建立模型" class="headerlink" title="2.建立模型"></a>2.建立模型</h2><p>拟合一次函数</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class model(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.hidden = nn.Linear(1, 1)
-
-    def forward(self, x):
-        x = self.hidden(x)
-        return x
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>train_x, train_y, test_x, test_y <span class="op">=</span> gen_data(torch.tensor([<span class="fl">1.0</span>]).reshape(<span class="dv">1</span>,<span class="dv">1</span>), <span class="fl">1.0</span>, <span class="dv">100</span>)</span></code></pre></div>
+<h2 id="建立模型">2.建立模型</h2>
+<p>拟合一次函数</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> model(nn.Module):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.hidden <span class="op">=</span> nn.Linear(<span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.hidden(x)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x</span></code></pre></div>
 <p>实现<code>forward</code>方法即可</p>
-<h2 id="3-训练模型"><a href="#3-训练模型" class="headerlink" title="3.训练模型"></a>3.训练模型</h2><p>输入参数很简单，不用解释了</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">def train(train_x, train_y, epochs, opt, loss_func, net):
-    for epoch in range(epochs):
-        pred = net(train_x)
-        loss = loss_func(pred, train_y)
-
-        opt.zero_grad()
-        loss.backward()
-        opt.step()
-
-        if epoch % 500 == 0:
-            print("loss: ", loss)
-    return list(net.parameters())
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="4-设置超参数"><a href="#4-设置超参数" class="headerlink" title="4.设置超参数"></a>4.设置超参数</h2><pre class="line-numbers language-lang-python"><code class="language-lang-python">loss_func = torch.nn.MSELoss()
-opt = torch.optim.SGD(net.parameters(), lr = 0.01)
-epochs = 10000
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="训练模型">3.训练模型</h2>
+<p>输入参数很简单，不用解释了</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train(train_x, train_y, epochs, opt, loss_func, net):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(epochs):</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        pred <span class="op">=</span> net(train_x)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> loss_func(pred, train_y)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        opt.zero_grad()</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        loss.backward()</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        opt.step()</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> epoch <span class="op">%</span> <span class="dv">500</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"loss: "</span>, loss)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">list</span>(net.parameters())</span></code></pre></div>
+<h2 id="设置超参数">4.设置超参数</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>loss_func <span class="op">=</span> torch.nn.MSELoss()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>opt <span class="op">=</span> torch.optim.SGD(net.parameters(), lr <span class="op">=</span> <span class="fl">0.01</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>epochs <span class="op">=</span> <span class="dv">10000</span></span></code></pre></div>
 <p>这里选择均方误差损失函数，优化器选择随机梯度下降法，训练轮次为10000</p>
-<h2 id="5-开始训练"><a href="#5-开始训练" class="headerlink" title="5.开始训练"></a>5.开始训练</h2><pre class="line-numbers language-lang-python"><code class="language-lang-python">net = model()
-train(train_x, train_y, epochs, opt, loss_func, net)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h2 id="6-预测结果"><a href="#6-预测结果" class="headerlink" title="6.预测结果"></a>6.预测结果</h2><pre class="line-numbers language-lang-python"><code class="language-lang-python">def prediction(test_x, test_y, net):
-    pred = net(test_x)
-    with torch.no_grad():
-        loss = loss_func(pred, test_y)
-    plt.plot(test_x.numpy(), test_y.numpy(), 'o')
-    plt.plot(test_x.numpy(), pred.detach().numpy())
-    plt.show()
-    print("pred_loss: ", loss)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">prediction(test_x, test_y, net)
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="/posts/5d68/image-20230110003011174.png" alt="线性函数预测结果"></p>
+<h2 id="开始训练">5.开始训练</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> model()</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>train(train_x, train_y, epochs, opt, loss_func, net)</span></code></pre></div>
+<h2 id="预测结果">6.预测结果</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prediction(test_x, test_y, net):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> net(test_x)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> loss_func(pred, test_y)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    plt.plot(test_x.numpy(), test_y.numpy(), <span class="st">'o'</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    plt.plot(test_x.numpy(), pred.detach().numpy())</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"pred_loss: "</span>, loss)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>prediction(test_x, test_y, net)</span></code></pre></div>
+<figure>
+<img src="/posts/5d68/image-20230110003011174.png" alt="线性函数预测结果">
+<figcaption aria-hidden="true">线性函数预测结果</figcaption>
+</figure>
 <p>上图可以看出，误差已经很小了</p>
-<h2 id="7-拟合三次多项式函数"><a href="#7-拟合三次多项式函数" class="headerlink" title="7.拟合三次多项式函数"></a>7.拟合三次多项式函数</h2><p>生成数据集</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">def gen_data(a, b, c, d, num):
-    x = torch.linspace(0, 1, num, dtype=torch.float32).reshape(-1, 1)
-    y = torch.matmul(x ** 3, a) + torch.matmul(x ** 2, b) + torch.matmul(x, c) + d
-    y += torch.normal(0, 0.01, y.shape)
-    plt.plot(x.numpy(), y.numpy(), 'o')
-    plt.show()
-
-    train_x = x[: num * 9 // 10]
-    train_y = y[: num * 9 // 10]
-
-    test_x = x[num * 9 // 10 :]
-    test_y = y[num * 9 // 10 :]
-
-    return train_x, train_y, test_x, test_y
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="拟合三次多项式函数">7.拟合三次多项式函数</h2>
+<p>生成数据集</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gen_data(a, b, c, d, num):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> torch.linspace(<span class="dv">0</span>, <span class="dv">1</span>, num, dtype<span class="op">=</span>torch.float32).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> torch.matmul(x <span class="op">**</span> <span class="dv">3</span>, a) <span class="op">+</span> torch.matmul(x <span class="op">**</span> <span class="dv">2</span>, b) <span class="op">+</span> torch.matmul(x, c) <span class="op">+</span> d</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    y <span class="op">+=</span> torch.normal(<span class="dv">0</span>, <span class="fl">0.01</span>, y.shape)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    plt.plot(x.numpy(), y.numpy(), <span class="st">'o'</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    train_x <span class="op">=</span> x[: num <span class="op">*</span> <span class="dv">9</span> <span class="op">//</span> <span class="dv">10</span>]</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    train_y <span class="op">=</span> y[: num <span class="op">*</span> <span class="dv">9</span> <span class="op">//</span> <span class="dv">10</span>]</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    test_x <span class="op">=</span> x[num <span class="op">*</span> <span class="dv">9</span> <span class="op">//</span> <span class="dv">10</span> :]</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    test_y <span class="op">=</span> y[num <span class="op">*</span> <span class="dv">9</span> <span class="op">//</span> <span class="dv">10</span> :]</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> train_x, train_y, test_x, test_y</span></code></pre></div>
 <p>可以利用<code>Sequential</code>创建神经网络</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">net = nn.Sequential(nn.Linear(1,5),
-                    nn.ReLU(),
-                    nn.Linear(5, 10),
-                    nn.ReLU(),
-                    nn.Linear(10, 5),
-                    nn.ReLU(),
-                    nn.Linear(5, 1)
-                   )
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> nn.Sequential(nn.Linear(<span class="dv">1</span>,<span class="dv">5</span>),</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                    nn.ReLU(),</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                    nn.Linear(<span class="dv">5</span>, <span class="dv">10</span>),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                    nn.ReLU(),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                    nn.Linear(<span class="dv">10</span>, <span class="dv">5</span>),</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                    nn.ReLU(),</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                    nn.Linear(<span class="dv">5</span>, <span class="dv">1</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>                   )</span></code></pre></div>
 <p>拟合结果如下，图一是对训练数据的拟合效果，图二是对测试数据的拟合效果</p>
-<p><img src="/posts/5d68/image-20230110153658056.png" alt="训练数据的拟合效果"></p>
-<p><img src="/posts/5d68/image-20230110153705079.png" alt="测试数据的拟合效果"></p>
+<figure>
+<img src="/posts/5d68/image-20230110153658056.png" alt="训练数据的拟合效果">
+<figcaption aria-hidden="true">训练数据的拟合效果</figcaption>
+</figure>
+<figure>
+<img src="/posts/5d68/image-20230110153705079.png" alt="测试数据的拟合效果">
+<figcaption aria-hidden="true">测试数据的拟合效果</figcaption>
+</figure>
 <p>可以看出，结果应该是有一些<code>过拟合</code>的，可以通过一些优化方法来减少过拟合的影响</p>
 
                 
