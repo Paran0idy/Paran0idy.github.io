@@ -6,7 +6,7 @@
   <link href="http://paran0idy.github.io/atom.xml" rel="self"/>
   
   <link href="http://paran0idy.github.io/"/>
-  <updated>2023-01-10T10:04:00.000Z</updated>
+  <updated>2023-03-02T03:53:49.609Z</updated>
   <id>http://paran0idy.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ANTLR4构建AST</title>
+    <link href="http://paran0idy.github.io/posts/b74f.html"/>
+    <id>http://paran0idy.github.io/posts/b74f.html</id>
+    <published>2023-03-02T03:52:10.000Z</published>
+    <updated>2023-03-02T03:53:49.609Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Challenge：使用ANTLR4构建AST&quot;&gt;&lt;a href=&quot;#Challenge：使用ANTLR4构建AST&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="ANTLR4" scheme="http://paran0idy.github.io/categories/ANTLR4/"/>
+    
+    
+    <category term="编译" scheme="http://paran0idy.github.io/tags/%E7%BC%96%E8%AF%91/"/>
+    
+  </entry>
   
   <entry>
     <title>猫狗大战</title>

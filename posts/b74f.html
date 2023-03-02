@@ -4,8 +4,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="猫狗大战, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="猫狗大战通过来自 kaggle 上的猫狗数据集，训练一个识别猫狗图片的分类器。要求 设计一个使用 ResNet18 作为主干的卷积神经网络，在迁移网络时采用固定值模 式，要求模型的准确率不低于 90%。猫狗大战数据集训练集有 25000 张">
+    <meta name="keywords" content="ANTLR4构建AST, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
+    <meta name="description" content="Challenge：使用ANTLR4构建AST1.定义语法规则编写Calculator.g4文件，如下
+grammar Calculator;
+
+prog    : stat+ ;
+
+stat    : expr NEWLINE      ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +24,7 @@
 
     
 
-    <title>猫狗大战 | Paranoid</title>
+    <title>ANTLR4构建AST | Paranoid</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -254,12 +259,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">猫狗大战</h1>
+                    <h1 class="description center-align post-title">ANTLR4构建AST</h1>
                 </div>
             </div>
         </div>
@@ -378,8 +383,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-                                <span class="chip bg-color">深度学习</span>
+                            <a href="/tags/%E7%BC%96%E8%AF%91/">
+                                <span class="chip bg-color">编译</span>
                             </a>
                         
                     </div>
@@ -390,12 +395,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                迁移学习
-                            </a>
-                        
-                            <a href="/categories/%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="post-category">
-                                卷积神经网络
+                            <a href="/categories/ANTLR4/" class="post-category">
+                                ANTLR4
                             </a>
                         
                     </div>
@@ -407,7 +408,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2023-01-10
+                    2023-03-02
                 </div>
                 
 
@@ -428,194 +429,101 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="猫狗大战"><a href="#猫狗大战" class="headerlink" title="猫狗大战"></a>猫狗大战</h1><p>通过来自 kaggle 上的猫狗数据集，训练一个识别猫狗图片的分类器。要求 设计一个使用 ResNet18 作为主干的卷积神经网络，在迁移网络时采用固定值模 式，要求模型的准确率不低于 90%。猫狗大战数据集训练集有 25000 张，猫狗各 占一半。测试集 12500 张。</p>
-<h2 id="1-准备数据"><a href="#1-准备数据" class="headerlink" title="1.准备数据"></a>1.准备数据</h2><pre class="line-numbers language-lang-python"><code class="language-lang-python">import torch
-import torch.nn as nn
-import torch. nn.functional as F
-from torch.utils.data import Dataset, DataLoader, TensorDataset
-import matplotlib.pyplot as plt
-import numpy as np
-import time
-from torch.utils.data.sampler import SubsetRandomSampler
-from torchvision import models, datasets, transforms
-from PIL import Image
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>由于给定的数据集，缺少label，故需要自定义数据集，并打上标签，因为数据集里的图片以cat_xx、dog_xx命名，那么就可以根据图片名称来打上label，例如cat:0、dog:1</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class MyDataset(Dataset):
-    def __init__(self, root_path, transform=None):
-        self.label_name = {"Cat": 0, "Dog": 1}
-        self.root_path = root_path
-        self.transform = transform
-        self.get_train_img_info()
+                <h1 id="Challenge：使用ANTLR4构建AST"><a href="#Challenge：使用ANTLR4构建AST" class="headerlink" title="Challenge：使用ANTLR4构建AST"></a>Challenge：使用ANTLR4构建AST</h1><h2 id="1-定义语法规则"><a href="#1-定义语法规则" class="headerlink" title="1.定义语法规则"></a>1.定义语法规则</h2><p>编写<code>Calculator.g4</code>文件，如下</p>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">grammar Calculator;
 
-    def __getitem__(self, index):
-        self.img = Image.open(os.path.join(self.root_path, self.train_img_name[index]))
-        if self.transform is not None:
-            self.img = self.transform(self.img)
-        self.label = self.train_img_label[index]
-        return self.img, self.label
+prog    : stat+ ;
 
-    def __len__(self):
-        return len(self.train_img_name)
+stat    : expr NEWLINE              # printExpr
+        ;
 
-    def get_train_img_info(self):
-        self.train_img_name = os.listdir(self.root_path)
-        self.train_img_label = [0 if 'cat' in imgname else 1 for imgname in self.train_img_name]
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>同样划分成训练集、验证集、测试集，并且对数据集进行数据增强，如随机翻转，改变尺寸等</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">def gen_data():
-    transform_train = transforms.Compose([
-                                          transforms.RandomHorizontalFlip(),
-                                          transforms.RandomGrayscale(),
-                                          transforms.Resize([224,224]),
-                                          transforms.ToTensor(),
-                                          transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-                                      ])                                
+expr    : expr '*' expr             # mul
+        | expr '/' expr             # div
+        | expr '+' expr             # add
+        | expr '-' expr             # sub
+        | '(' expr ')'              # bracket
+        | INT                       # int
+        ;
 
-    transform_test = transforms.Compose([
-                                          transforms.Resize([224,224]),
-                                          transforms.ToTensor(),
-                                          transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-                                      ])     
+NEWLINE :'\r'? '\n' ;
 
-    train_data = MyDataset(root_path=os.path.join(os.getcwd(), 'datasets/train'), transform=transform_train)
-    test_data = MyDataset(root_path=os.path.join(os.getcwd(), 'datasets/test'), transform=transform_test)
+INT     : [0-9]+ ;
+
+MUL     : '*' ;
+DIV     : '/' ;
+ADD     : '+' ;
+SUB     : '-' ;
+
+WS      : [ \t\r\n]+ -> skip ;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="2-定义对AST访问的动作"><a href="#2-定义对AST访问的动作" class="headerlink" title="2.定义对AST访问的动作"></a>2.定义对AST访问的动作</h2><p>输入</p>
+<pre class="line-numbers language-lang-bash"><code class="language-lang-bash">antlr4 -no-listener -visitor -Dlanguage=Python3 Calculator.g4
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>即可自动生成<code>lexer、parser、visitor</code>且均由<code>python</code>编写</p>
+<p><img src="/posts/b74f/image-20221120003913606.png" alt="image-20221120003913606"></p>
+<p>创建一个<code>myVisitor</code>类，继承自<code>CalculatorVisitor</code>，定义对<code>AST</code>的访问动作</p>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">from antlr4 import *
+from CalculatorLexer import CalculatorLexer
+from CalculatorParser import CalculatorParser
+from CalculatorVisitor import CalculatorVisitor
 
 
-    num_train = len(train_data)
-    indices = list(range(num_train))
-    np.random.shuffle(indices)
-    split = int(np.floor(0.2 * num_train))
-    train_idx, valid_idx = indices[split:], indices[:split]
+class myVisitor(CalculatorVisitor):
 
-    # define samplers for obtaining training and validation batches
-    train_sampler = SubsetRandomSampler(train_idx)
-    valid_sampler = SubsetRandomSampler(valid_idx)
+    def visitProg(self, ctx: CalculatorParser.ProgContext):
+        array = []
+        for i in range(ctx.getChildCount()):
+            array.append(self.visit(ctx.stat(i)))
+        return array
 
+    def visitPrintExpr(self, ctx: CalculatorParser.PrintExprContext):
+        val = self.visit(ctx.expr())
+        print(val)
+        return val;
 
-    train_loader = DataLoader(dataset=train_data, batch_size=64, sampler=train_sampler)
-    valid_loader = DataLoader(dataset=train_data, batch_size=64, sampler=valid_sampler)
+    def visitDiv(self, ctx: CalculatorParser.DivContext):
+        return self.visit(ctx.expr(0)) / self.visit(ctx.expr(1))
 
-    test_loader = DataLoader(dataset=test_data, batch_size=64)
+    def visitAdd(self, ctx: CalculatorParser.AddContext):
+        return self.visit(ctx.expr(0)) + self.visit(ctx.expr(1))
 
-    print(len(test_data))
-    img = test_data[10][0]
-    plt.imshow(img[0, :])
-    print(test_data[10][1])
+    def visitSub(self, ctx: CalculatorParser.SubContext):
+        return self.visit(ctx.expr(0)) - self.visit(ctx.expr(1))
 
-    return train_loader, valid_loader, test_loader
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>数据集图片如下图所示</p>
-<p><img src="/posts/eb14/image-20230110173807327.png" alt="数据集中的图片"></p>
-<h2 id="2-建立模型"><a href="#2-建立模型" class="headerlink" title="2.建立模型"></a>2.建立模型</h2><p>应用迁移学习，主干网络选用resnet18，从而只需将resnet18的最后一层全连接层改为输出只有2的全连接层</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python"># 加载resnet18作为预训练模型
-net = models.resnet18(pretrained=True)
+    def visitMul(self, ctx: CalculatorParser.MulContext):
+        return self.visit(ctx.expr(0)) * self.visit(ctx.expr(1))
 
-# 冻结参数
-for param in net.parameters():
-    param.requires_grad = False
+    def visitBracket(self, ctx: CalculatorParser.BracketContext):
+        return self.visit(ctx.expr())
 
-# 改造最后一层，输出改为两个神经元
-net.fc = nn.Linear(net.fc.in_features, 2)
+    def visitInt(self, ctx: CalculatorParser.IntContext):
+        return int(ctx.getText())
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="3-测试"><a href="#3-测试" class="headerlink" title="3.测试"></a>3.测试</h2><p>给定写好的代数表达式文件<code>expr.txt</code></p>
+<pre><code>(1 + 2) * 3
+1 + 2 * 3
+1 + 2 + 3
+</code></pre><p>在<code>main.py</code>定义函数<code>antlr</code></p>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">array = antlr()
+answer = [9, 7, 6]
 
-# 在GPU上训练
-if torch.cuda.is_available():
-    net = net.cuda()
-    net.fc = net.fc.cuda()
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="3-训练模型"><a href="#3-训练模型" class="headerlink" title="3.训练模型"></a>3.训练模型</h2><pre class="line-numbers language-lang-python"><code class="language-lang-python">def train(train_loader, valid_loader, net, loss_func, opt, epochs):
-    valid_loss_min = np.Inf    
-    start = time.time()
-    train_loss_list = []
-    valid_loss_list = []
-
-    for epoch in range(epochs):
-
-        train_loss = 0.0
-        valid_loss = 0.0
-
-        net.train()
-        for x, y in train_loader:
-
-            x = x.cuda()
-            y = y.cuda()
-
-            pred = net(x)
-            loss = loss_func(pred, y)
-
-            opt.zero_grad()
-            loss.backward()
-            opt.step()
-
-            train_loss += loss.item() * x.size(0)
-
-        net.eval()
-        for x, y in valid_loader:
-
-            x = x.cuda()
-            y = y.cuda()
-
-            pred = net(x)
-            loss = loss_func(pred, y)
-
-            valid_loss += loss.item() * x.size(0)
-
-        # 计算平均损失
-        train_loss = train_loss/len(train_loader.sampler)
-        valid_loss = valid_loss/len(valid_loader.sampler)
-
-        train_loss_list.append(train_loss)
-        valid_loss_list.append(valid_loss)
-
-        # 显示训练集与验证集的损失函数 
-        print('Epoch: {} \tTraining Loss: {:.6f} \tValidation Loss: {:.6f}'.format(
-            epoch + 1, train_loss, valid_loss))
-
-        # 如果验证集损失函数减少，就保存模型。
-        if valid_loss <= valid_loss_min:
-            print('Validation loss decreased ({:.6f} --> {:.6f}).  Saving model ...'.format(valid_loss_min,valid_loss))
-            torch.save(net.state_dict(), 'cat_vs_dog.pt')
-            valid_loss_min = valid_loss
-        print("spend times: ", time.time() - start)
-
-    plt.plot(np.arange(epochs), train_loss_list, 'r', label='train')
-    plt.plot(np.arange(epochs), valid_loss_list, 'b', label='valid')
-    plt.xlabel('epochs')
-    plt.ylabel('loss')
-    plt.legend()
-    plt.show()
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">train_loader, valid_loader, test_loader = gen_data()
-loss_func = nn.CrossEntropyLoss()
-opt = torch.optim.Adam(net.fc.parameters(), lr=0.001)
-epochs = 30
-train(train_loader, valid_loader, net, loss_func, opt, epochs)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="/posts/eb14/image-20230110180145989.png" alt="训练误差"></p>
-<h2 id="4-预测结果"><a href="#4-预测结果" class="headerlink" title="4.预测结果"></a>4.预测结果</h2><pre class="line-numbers language-lang-python"><code class="language-lang-python">def prediction(test_loader, net):
-    rights = 0
-    length = 0
-    for i, data in enumerate(test_loader):
-        x, y = data
-
-        x = x.cuda()
-        y = y.cuda()
-
-        pred = net(x)
-        rights += rightness(pred, y)[0]
-        length += rightness(pred, y)[1]
-
-    print(rights, length, 'acc: {:.6f}'.format(rights / length))
-
-def rightness (pred, labels):
-    pred = torch.max(pred.data, 1)[1]
-    rights = pred.eq(labels.data.view_as(pred)).sum()
-    return rights, len(labels)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">net.load_state_dict(torch.load('cat_vs_dog.pt'))
-prediction(test_loader, net)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p><img src="/posts/eb14/image-20230110180245252.png" alt="准确率"></p>
+def antlr():
+    input = FileStream("expr.txt")
+    lexer = CalculatorLexer(input)
+    stream = CommonTokenStream(lexer)
+    parser = CalculatorParser(stream)
+    tree = parser.prog()
+    visitor = myVisitor()
+    array = visitor.visitProg(tree)
+    return array
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在单元测试中加入</p>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">    def test_antlr(self):
+        for i in range(len(array)):
+            self.assertEqual(array[i], answer[i])
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>最终效果</p>
+<p><img src="/posts/b74f/image-20221120004523313.png" alt="image-20221120004523313"></p>
 
                 
             </div>
@@ -642,7 +550,7 @@ prediction(test_loader, net)
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://Paran0idy.github.io/posts/eb14.html">http://Paran0idy.github.io/posts/eb14.html</a>
+                    <a href="http://Paran0idy.github.io/posts/b74f.html">http://Paran0idy.github.io/posts/b74f.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -680,8 +588,8 @@ prediction(test_loader, net)
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-                                    <span class="chip bg-color">深度学习</span>
+                                <a href="/tags/%E7%BC%96%E8%AF%91/">
+                                    <span class="chip bg-color">编译</span>
                                 </a>
                             
                         </div>
@@ -1178,9 +1086,10 @@ prediction(test_loader, net)
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
                 <a href="/posts/b74f.html">
                     <div class="card-image">
@@ -1198,9 +1107,9 @@ prediction(test_loader, net)
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-03-02
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-02
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1213,6 +1122,7 @@ prediction(test_loader, net)
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -1231,13 +1141,13 @@ prediction(test_loader, net)
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/9233.html">
+                <a href="/posts/eb14.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="正弦函数预测">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="猫狗大战">
                         
-                        <span class="card-title">正弦函数预测</span>
+                        <span class="card-title">猫狗大战</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1254,8 +1164,12 @@ prediction(test_loader, net)
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/LSTM/" class="post-category">
-                                    LSTM
+                            <a href="/categories/%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    迁移学习
+                                </a>
+                            
+                            <a href="/categories/%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="post-category">
+                                    卷积神经网络
                                 </a>
                             
                             

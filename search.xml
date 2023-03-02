@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>ANTLR4构建AST</title>
+      <link href="/posts/b74f.html"/>
+      <url>/posts/b74f.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="Challenge：使用ANTLR4构建AST"><a href="#Challenge：使用ANTLR4构建AST" class="headerlink" title="Challenge：使用ANTLR4构建AST"></a>Challenge：使用ANTLR4构建AST</h1><h2 id="1-定义语法规则"><a href="#1-定义语法规则" class="headerlink" title="1.定义语法规则"></a>1.定义语法规则</h2><p>编写<code>Calculator.g4</code>文件，如下</p><pre class="line-numbers language-lang-python"><code class="language-lang-python">grammar Calculator;prog    : stat+ ;stat    : expr NEWLINE              # printExpr        ;expr    : expr '*' expr             # mul        | expr '/' expr             # div        | expr '+' expr             # add        | expr '-' expr             # sub        | '(' expr ')'              # bracket        | INT                       # int        ;NEWLINE :'\r'? '\n' ;INT     : [0-9]+ ;MUL     : '*' ;DIV     : '/' ;ADD     : '+' ;SUB     : '-' ;WS      : [ \t\r\n]+ -> skip ;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="2-定义对AST访问的动作"><a href="#2-定义对AST访问的动作" class="headerlink" title="2.定义对AST访问的动作"></a>2.定义对AST访问的动作</h2><p>输入</p><pre class="line-numbers language-lang-bash"><code class="language-lang-bash">antlr4 -no-listener -visitor -Dlanguage=Python3 Calculator.g4<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>即可自动生成<code>lexer、parser、visitor</code>且均由<code>python</code>编写</p><p><img src="/posts/b74f/image-20221120003913606.png" alt="image-20221120003913606"></p><p>创建一个<code>myVisitor</code>类，继承自<code>CalculatorVisitor</code>，定义对<code>AST</code>的访问动作</p><pre class="line-numbers language-lang-python"><code class="language-lang-python">from antlr4 import *from CalculatorLexer import CalculatorLexerfrom CalculatorParser import CalculatorParserfrom CalculatorVisitor import CalculatorVisitorclass myVisitor(CalculatorVisitor):    def visitProg(self, ctx: CalculatorParser.ProgContext):        array = []        for i in range(ctx.getChildCount()):            array.append(self.visit(ctx.stat(i)))        return array    def visitPrintExpr(self, ctx: CalculatorParser.PrintExprContext):        val = self.visit(ctx.expr())        print(val)        return val;    def visitDiv(self, ctx: CalculatorParser.DivContext):        return self.visit(ctx.expr(0)) / self.visit(ctx.expr(1))    def visitAdd(self, ctx: CalculatorParser.AddContext):        return self.visit(ctx.expr(0)) + self.visit(ctx.expr(1))    def visitSub(self, ctx: CalculatorParser.SubContext):        return self.visit(ctx.expr(0)) - self.visit(ctx.expr(1))    def visitMul(self, ctx: CalculatorParser.MulContext):        return self.visit(ctx.expr(0)) * self.visit(ctx.expr(1))    def visitBracket(self, ctx: CalculatorParser.BracketContext):        return self.visit(ctx.expr())    def visitInt(self, ctx: CalculatorParser.IntContext):        return int(ctx.getText())<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><h2 id="3-测试"><a href="#3-测试" class="headerlink" title="3.测试"></a>3.测试</h2><p>给定写好的代数表达式文件<code>expr.txt</code></p><pre><code>(1 + 2) * 31 + 2 * 31 + 2 + 3</code></pre><p>在<code>main.py</code>定义函数<code>antlr</code></p><pre class="line-numbers language-lang-python"><code class="language-lang-python">array = antlr()answer = [9, 7, 6]def antlr():    input = FileStream("expr.txt")    lexer = CalculatorLexer(input)    stream = CommonTokenStream(lexer)    parser = CalculatorParser(stream)    tree = parser.prog()    visitor = myVisitor()    array = visitor.visitProg(tree)    return array<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>在单元测试中加入</p><pre class="line-numbers language-lang-python"><code class="language-lang-python">    def test_antlr(self):        for i in range(len(array)):            self.assertEqual(array[i], answer[i])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><p>最终效果</p><p><img src="/posts/b74f/image-20221120004523313.png" alt="image-20221120004523313"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> ANTLR4 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 编译 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>猫狗大战</title>
       <link href="/posts/eb14.html"/>
       <url>/posts/eb14.html</url>
