@@ -426,6 +426,9 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -437,79 +440,79 @@
 式，要求模型的准确率不低于 90%。猫狗大战数据集训练集有 25000 张，猫狗各
 占一半。测试集 12500 张。</p>
 <h2 id="准备数据">1.准备数据</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch. nn.functional <span class="im">as</span> F</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.utils.data <span class="im">import</span> Dataset, DataLoader, TensorDataset</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.utils.data.sampler <span class="im">import</span> SubsetRandomSampler</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torchvision <span class="im">import</span> models, datasets, transforms</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span></code></pre></div>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+import torch.nn as nn
+import torch. nn.functional as F
+from torch.utils.data import Dataset, DataLoader, TensorDataset
+import matplotlib.pyplot as plt
+import numpy as np
+import time
+from torch.utils.data.sampler import SubsetRandomSampler
+from torchvision import models, datasets, transforms
+from PIL import Image<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>由于给定的数据集，缺少label，故需要自定义数据集，并打上标签，因为数据集里的图片以cat_xx、dog_xx命名，那么就可以根据图片名称来打上label，例如cat:0、dog:1</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MyDataset(Dataset):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, root_path, transform<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.label_name <span class="op">=</span> {<span class="st">"Cat"</span>: <span class="dv">0</span>, <span class="st">"Dog"</span>: <span class="dv">1</span>}</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.root_path <span class="op">=</span> root_path</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.transform <span class="op">=</span> transform</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.get_train_img_info()</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__getitem__</span>(<span class="va">self</span>, index):</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.img <span class="op">=</span> Image.<span class="bu">open</span>(os.path.join(<span class="va">self</span>.root_path, <span class="va">self</span>.train_img_name[index]))</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.transform <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.img <span class="op">=</span> <span class="va">self</span>.transform(<span class="va">self</span>.img)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.label <span class="op">=</span> <span class="va">self</span>.train_img_label[index]</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.img, <span class="va">self</span>.label</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__len__</span>(<span class="va">self</span>):</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">len</span>(<span class="va">self</span>.train_img_name)</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_train_img_info(<span class="va">self</span>):</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.train_img_name <span class="op">=</span> os.listdir(<span class="va">self</span>.root_path)</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.train_img_label <span class="op">=</span> [<span class="dv">0</span> <span class="cf">if</span> <span class="st">'cat'</span> <span class="kw">in</span> imgname <span class="cf">else</span> <span class="dv">1</span> <span class="cf">for</span> imgname <span class="kw">in</span> <span class="va">self</span>.train_img_name]</span></code></pre></div>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">class MyDataset(Dataset):
+    def __init__(self, root_path, transform=None):
+        self.label_name = {"Cat": 0, "Dog": 1}
+        self.root_path = root_path
+        self.transform = transform
+        self.get_train_img_info()
+
+    def __getitem__(self, index):
+        self.img = Image.open(os.path.join(self.root_path, self.train_img_name[index]))
+        if self.transform is not None:
+            self.img = self.transform(self.img)
+        self.label = self.train_img_label[index]
+        return self.img, self.label
+
+    def __len__(self):
+        return len(self.train_img_name)
+
+    def get_train_img_info(self):
+        self.train_img_name = os.listdir(self.root_path)
+        self.train_img_label = [0 if 'cat' in imgname else 1 for imgname in self.train_img_name]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>同样划分成训练集、验证集、测试集，并且对数据集进行数据增强，如随机翻转，改变尺寸等</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gen_data():</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    transform_train <span class="op">=</span> transforms.Compose([</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                                          transforms.RandomHorizontalFlip(),</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                                          transforms.RandomGrayscale(),</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                                          transforms.Resize([<span class="dv">224</span>,<span class="dv">224</span>]),</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                                          transforms.ToTensor(),</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                                          transforms.Normalize([<span class="fl">0.485</span>, <span class="fl">0.456</span>, <span class="fl">0.406</span>], [<span class="fl">0.229</span>, <span class="fl">0.224</span>, <span class="fl">0.225</span>])</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                                      ])                                </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    transform_test <span class="op">=</span> transforms.Compose([</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                                          transforms.Resize([<span class="dv">224</span>,<span class="dv">224</span>]),</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                                          transforms.ToTensor(),</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                                          transforms.Normalize([<span class="fl">0.485</span>, <span class="fl">0.456</span>, <span class="fl">0.406</span>], [<span class="fl">0.229</span>, <span class="fl">0.224</span>, <span class="fl">0.225</span>])</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>                                      ])     </span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    train_data <span class="op">=</span> MyDataset(root_path<span class="op">=</span>os.path.join(os.getcwd(), <span class="st">'datasets/train'</span>), transform<span class="op">=</span>transform_train)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    test_data <span class="op">=</span> MyDataset(root_path<span class="op">=</span>os.path.join(os.getcwd(), <span class="st">'datasets/test'</span>), transform<span class="op">=</span>transform_test)</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    num_train <span class="op">=</span> <span class="bu">len</span>(train_data)</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    indices <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(num_train))</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    np.random.shuffle(indices)</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    split <span class="op">=</span> <span class="bu">int</span>(np.floor(<span class="fl">0.2</span> <span class="op">*</span> num_train))</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    train_idx, valid_idx <span class="op">=</span> indices[split:], indices[:split]</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># define samplers for obtaining training and validation batches</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    train_sampler <span class="op">=</span> SubsetRandomSampler(train_idx)</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    valid_sampler <span class="op">=</span> SubsetRandomSampler(valid_idx)</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    train_loader <span class="op">=</span> DataLoader(dataset<span class="op">=</span>train_data, batch_size<span class="op">=</span><span class="dv">64</span>, sampler<span class="op">=</span>train_sampler)</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    valid_loader <span class="op">=</span> DataLoader(dataset<span class="op">=</span>train_data, batch_size<span class="op">=</span><span class="dv">64</span>, sampler<span class="op">=</span>valid_sampler)</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    test_loader <span class="op">=</span> DataLoader(dataset<span class="op">=</span>test_data, batch_size<span class="op">=</span><span class="dv">64</span>)</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">len</span>(test_data))</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    img <span class="op">=</span> test_data[<span class="dv">10</span>][<span class="dv">0</span>]</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    plt.imshow(img[<span class="dv">0</span>, :])</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(test_data[<span class="dv">10</span>][<span class="dv">1</span>])</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> train_loader, valid_loader, test_loader</span></code></pre></div>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">def gen_data():
+    transform_train = transforms.Compose([
+                                          transforms.RandomHorizontalFlip(),
+                                          transforms.RandomGrayscale(),
+                                          transforms.Resize([224,224]),
+                                          transforms.ToTensor(),
+                                          transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+                                      ])                                
+    
+    transform_test = transforms.Compose([
+                                          transforms.Resize([224,224]),
+                                          transforms.ToTensor(),
+                                          transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+                                      ])     
+    
+    train_data = MyDataset(root_path=os.path.join(os.getcwd(), 'datasets/train'), transform=transform_train)
+    test_data = MyDataset(root_path=os.path.join(os.getcwd(), 'datasets/test'), transform=transform_test)
+    
+    
+    num_train = len(train_data)
+    indices = list(range(num_train))
+    np.random.shuffle(indices)
+    split = int(np.floor(0.2 * num_train))
+    train_idx, valid_idx = indices[split:], indices[:split]
+
+    # define samplers for obtaining training and validation batches
+    train_sampler = SubsetRandomSampler(train_idx)
+    valid_sampler = SubsetRandomSampler(valid_idx)
+    
+    
+    train_loader = DataLoader(dataset=train_data, batch_size=64, sampler=train_sampler)
+    valid_loader = DataLoader(dataset=train_data, batch_size=64, sampler=valid_sampler)
+
+    test_loader = DataLoader(dataset=test_data, batch_size=64)
+    
+    print(len(test_data))
+    img = test_data[10][0]
+    plt.imshow(img[0, :])
+    print(test_data[10][1])
+    
+    return train_loader, valid_loader, test_loader<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>数据集图片如下图所示</p>
 <figure>
 <img src="/posts/eb14/image-20230110173807327.png" alt="数据集中的图片">
@@ -517,113 +520,113 @@
 </figure>
 <h2 id="建立模型">2.建立模型</h2>
 <p>应用迁移学习，主干网络选用resnet18，从而只需将resnet18的最后一层全连接层改为输出只有2的全连接层</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载resnet18作为预训练模型</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>net <span class="op">=</span> models.resnet18(pretrained<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 冻结参数</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> param <span class="kw">in</span> net.parameters():</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    param.requires_grad <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 改造最后一层，输出改为两个神经元</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>net.fc <span class="op">=</span> nn.Linear(net.fc.in_features, <span class="dv">2</span>)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 在GPU上训练</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> torch.cuda.is_available():</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    net <span class="op">=</span> net.cuda()</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    net.fc <span class="op">=</span> net.fc.cuda()</span></code></pre></div>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"># 加载resnet18作为预训练模型
+net = models.resnet18(pretrained=True)
+
+# 冻结参数
+for param in net.parameters():
+    param.requires_grad = False
+
+# 改造最后一层，输出改为两个神经元
+net.fc = nn.Linear(net.fc.in_features, 2)
+
+# 在GPU上训练
+if torch.cuda.is_available():
+    net = net.cuda()
+    net.fc = net.fc.cuda()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="训练模型">3.训练模型</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train(train_loader, valid_loader, net, loss_func, opt, epochs):</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    valid_loss_min <span class="op">=</span> np.Inf    </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> time.time()</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    train_loss_list <span class="op">=</span> []</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    valid_loss_list <span class="op">=</span> []</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(epochs):</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        train_loss <span class="op">=</span> <span class="fl">0.0</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        valid_loss <span class="op">=</span> <span class="fl">0.0</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        net.train()</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> x, y <span class="kw">in</span> train_loader:</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> x.cuda()</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>            y <span class="op">=</span> y.cuda()</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>            pred <span class="op">=</span> net(x)</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>            loss <span class="op">=</span> loss_func(pred, y)</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>            opt.zero_grad()</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>            loss.backward()</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>            opt.step()</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>            train_loss <span class="op">+=</span> loss.item() <span class="op">*</span> x.size(<span class="dv">0</span>)</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>        net.<span class="bu">eval</span>()</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> x, y <span class="kw">in</span> valid_loader:</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> x.cuda()</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>            y <span class="op">=</span> y.cuda()</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>            pred <span class="op">=</span> net(x)</span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>            loss <span class="op">=</span> loss_func(pred, y)</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>            valid_loss <span class="op">+=</span> loss.item() <span class="op">*</span> x.size(<span class="dv">0</span>)</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 计算平均损失</span></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>        train_loss <span class="op">=</span> train_loss<span class="op">/</span><span class="bu">len</span>(train_loader.sampler)</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>        valid_loss <span class="op">=</span> valid_loss<span class="op">/</span><span class="bu">len</span>(valid_loader.sampler)</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>        train_loss_list.append(train_loss)</span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>        valid_loss_list.append(valid_loss)</span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 显示训练集与验证集的损失函数 </span></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Epoch: </span><span class="sc">{}</span><span class="st"> </span><span class="ch">\t</span><span class="st">Training Loss: </span><span class="sc">{:.6f}</span><span class="st"> </span><span class="ch">\t</span><span class="st">Validation Loss: </span><span class="sc">{:.6f}</span><span class="st">'</span>.<span class="bu">format</span>(</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>            epoch <span class="op">+</span> <span class="dv">1</span>, train_loss, valid_loss))</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 如果验证集损失函数减少，就保存模型。</span></span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> valid_loss <span class="op">&lt;=</span> valid_loss_min:</span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">'Validation loss decreased (</span><span class="sc">{:.6f}</span><span class="st"> --&gt; </span><span class="sc">{:.6f}</span><span class="st">).  Saving model ...'</span>.<span class="bu">format</span>(valid_loss_min,valid_loss))</span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>            torch.save(net.state_dict(), <span class="st">'cat_vs_dog.pt'</span>)</span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>            valid_loss_min <span class="op">=</span> valid_loss</span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"spend times: "</span>, time.time() <span class="op">-</span> start)</span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>    plt.plot(np.arange(epochs), train_loss_list, <span class="st">'r'</span>, label<span class="op">=</span><span class="st">'train'</span>)</span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>    plt.plot(np.arange(epochs), valid_loss_list, <span class="st">'b'</span>, label<span class="op">=</span><span class="st">'valid'</span>)</span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'epochs'</span>)</span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'loss'</span>)</span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>train_loader, valid_loader, test_loader <span class="op">=</span> gen_data()</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>loss_func <span class="op">=</span> nn.CrossEntropyLoss()</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>opt <span class="op">=</span> torch.optim.Adam(net.fc.parameters(), lr<span class="op">=</span><span class="fl">0.001</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>epochs <span class="op">=</span> <span class="dv">30</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>train(train_loader, valid_loader, net, loss_func, opt, epochs)</span></code></pre></div>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">def train(train_loader, valid_loader, net, loss_func, opt, epochs):
+    valid_loss_min = np.Inf    
+    start = time.time()
+    train_loss_list = []
+    valid_loss_list = []
+    
+    for epoch in range(epochs):
+        
+        train_loss = 0.0
+        valid_loss = 0.0
+        
+        net.train()
+        for x, y in train_loader:
+            
+            x = x.cuda()
+            y = y.cuda()
+            
+            pred = net(x)
+            loss = loss_func(pred, y)
+            
+            opt.zero_grad()
+            loss.backward()
+            opt.step()
+            
+            train_loss += loss.item() * x.size(0)
+        
+        net.eval()
+        for x, y in valid_loader:
+            
+            x = x.cuda()
+            y = y.cuda()
+            
+            pred = net(x)
+            loss = loss_func(pred, y)
+            
+            valid_loss += loss.item() * x.size(0)
+
+        # 计算平均损失
+        train_loss = train_loss/len(train_loader.sampler)
+        valid_loss = valid_loss/len(valid_loader.sampler)
+        
+        train_loss_list.append(train_loss)
+        valid_loss_list.append(valid_loss)
+
+        # 显示训练集与验证集的损失函数 
+        print('Epoch: {} \tTraining Loss: {:.6f} \tValidation Loss: {:.6f}'.format(
+            epoch + 1, train_loss, valid_loss))
+
+        # 如果验证集损失函数减少，就保存模型。
+        if valid_loss &lt;= valid_loss_min:
+            print('Validation loss decreased ({:.6f} --&gt; {:.6f}).  Saving model ...'.format(valid_loss_min,valid_loss))
+            torch.save(net.state_dict(), 'cat_vs_dog.pt')
+            valid_loss_min = valid_loss
+        print("spend times: ", time.time() - start)
+        
+    plt.plot(np.arange(epochs), train_loss_list, 'r', label='train')
+    plt.plot(np.arange(epochs), valid_loss_list, 'b', label='valid')
+    plt.xlabel('epochs')
+    plt.ylabel('loss')
+    plt.legend()
+    plt.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">train_loader, valid_loader, test_loader = gen_data()
+loss_func = nn.CrossEntropyLoss()
+opt = torch.optim.Adam(net.fc.parameters(), lr=0.001)
+epochs = 30
+train(train_loader, valid_loader, net, loss_func, opt, epochs)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <figure>
 <img src="/posts/eb14/image-20230110180145989.png" alt="训练误差">
 <figcaption aria-hidden="true">训练误差</figcaption>
 </figure>
 <h2 id="预测结果">4.预测结果</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prediction(test_loader, net):</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    rights <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    length <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, data <span class="kw">in</span> <span class="bu">enumerate</span>(test_loader):</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        x, y <span class="op">=</span> data</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> x.cuda()</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> y.cuda()</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        pred <span class="op">=</span> net(x)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        rights <span class="op">+=</span> rightness(pred, y)[<span class="dv">0</span>]</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        length <span class="op">+=</span> rightness(pred, y)[<span class="dv">1</span>]</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(rights, length, <span class="st">'acc: </span><span class="sc">{:.6f}</span><span class="st">'</span>.<span class="bu">format</span>(rights <span class="op">/</span> length))</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rightness (pred, labels):</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> torch.<span class="bu">max</span>(pred.data, <span class="dv">1</span>)[<span class="dv">1</span>]</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    rights <span class="op">=</span> pred.eq(labels.data.view_as(pred)).<span class="bu">sum</span>()</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> rights, <span class="bu">len</span>(labels)       </span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>net.load_state_dict(torch.load(<span class="st">'cat_vs_dog.pt'</span>))</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>prediction(test_loader, net)</span></code></pre></div>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">def prediction(test_loader, net):
+    rights = 0
+    length = 0
+    for i, data in enumerate(test_loader):
+        x, y = data
+        
+        x = x.cuda()
+        y = y.cuda()
+        
+        pred = net(x)
+        rights += rightness(pred, y)[0]
+        length += rightness(pred, y)[1]
+        
+    print(rights, length, 'acc: {:.6f}'.format(rights / length))
+
+def rightness (pred, labels):
+    pred = torch.max(pred.data, 1)[1]
+    rights = pred.eq(labels.data.view_as(pred)).sum()
+    return rights, len(labels)       <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">net.load_state_dict(torch.load('cat_vs_dog.pt'))
+prediction(test_loader, net)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <figure>
 <img src="/posts/eb14/image-20230110180245252.png" alt="准确率">
 <figcaption aria-hidden="true">准确率</figcaption>

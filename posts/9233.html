@@ -424,6 +424,9 @@ import torchvision.datasets as datasets">
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -433,114 +436,114 @@ import torchvision.datasets as datasets">
 <p>通过已知的样本数据对正弦函数进行预测，并绘制出图形。设计
 LSTM网络进行预测，记录预测准确率并绘制图形。</p>
 <h2 id="准备数据">1.准备数据</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchvision.datasets <span class="im">as</span> datasets</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch. nn.functional <span class="im">as</span> F</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.utils.data <span class="im">import</span> Dataset, DataLoader, TensorDataset</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> getSeq(start, n):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> [np.sin(x <span class="op">/</span> <span class="dv">10</span>) <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(start, start <span class="op">+</span> n)]</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gen_data():</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> []</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">200</span>):</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        data.append(getSeq(i, <span class="dv">11</span>))</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> torch.from_numpy(np.array(data))</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> data[:, : <span class="op">-</span><span class="dv">1</span>].<span class="bu">type</span>(torch.FloatTensor)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    target <span class="op">=</span> data[:, <span class="op">-</span><span class="dv">1</span> :].<span class="bu">type</span>(torch.FloatTensor)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    train_x <span class="op">=</span> data[: <span class="dv">150</span>]</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    train_y <span class="op">=</span> target[: <span class="dv">150</span>]</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    test_x <span class="op">=</span> data[<span class="dv">150</span> :]</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    test_y <span class="op">=</span> target[<span class="dv">150</span> :]</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    train_dataset <span class="op">=</span> TensorDataset(train_x, train_y)</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    test_dataset <span class="op">=</span> TensorDataset(test_x, test_y)</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    train_loader <span class="op">=</span> DataLoader(dataset<span class="op">=</span>train_dataset, batch_size<span class="op">=</span><span class="dv">5</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    test_loader <span class="op">=</span> DataLoader(dataset<span class="op">=</span>test_dataset, batch_size<span class="op">=</span><span class="dv">5</span>, shuffle<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> train_y, train_loader, test_loader</span></code></pre></div>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+import torchvision.datasets as datasets
+import torch.nn as nn
+import torch. nn.functional as F
+from torch.utils.data import Dataset, DataLoader, TensorDataset
+import matplotlib.pyplot as plt
+import numpy as np
+import time<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">def getSeq(start, n):
+    x = [np.sin(x / 10) for x in range(start, start + n)]
+    return x
+
+def gen_data():
+    data = []
+    for i in range(200):
+        data.append(getSeq(i, 11))
+    
+    data = torch.from_numpy(np.array(data))
+    
+    data = data[:, : -1].type(torch.FloatTensor)
+    target = data[:, -1 :].type(torch.FloatTensor)
+    
+    train_x = data[: 150]
+    train_y = target[: 150]
+    
+    test_x = data[150 :]
+    test_y = target[150 :]
+    
+    train_dataset = TensorDataset(train_x, train_y)
+    test_dataset = TensorDataset(test_x, test_y)
+    
+    train_loader = DataLoader(dataset=train_dataset, batch_size=5, shuffle=True)
+    test_loader = DataLoader(dataset=test_dataset, batch_size=5, shuffle=False)
+    
+    return train_y, train_loader, test_loader<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="构建模型">2.构建模型</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> LSTM(nn.Module):</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.lstm <span class="op">=</span> nn.LSTM(<span class="dv">1</span>, <span class="dv">10</span>, batch_first<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fc <span class="op">=</span> nn.Linear(<span class="dv">10</span>, <span class="dv">1</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x, hidden):</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        output, hidden <span class="op">=</span> <span class="va">self</span>.lstm(x, hidden)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> output[:, <span class="op">-</span><span class="dv">1</span>, :]</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> <span class="va">self</span>.fc(output)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> output</span></code></pre></div>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">class LSTM(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.lstm = nn.LSTM(1, 10, batch_first=True)
+        self.fc = nn.Linear(10, 1)
+        
+    def forward(self, x, hidden):
+        output, hidden = self.lstm(x, hidden)
+        output = output[:, -1, :]
+        output = self.fc(output)
+        
+        return output<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="训练模型">3.训练模型</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train(train_loader, lstm, loss_func, opt, epochs):        </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    h0 <span class="op">=</span> torch.zeros(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    c0 <span class="op">=</span> torch.zeros(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    train_loss_list <span class="op">=</span> []</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(epochs):</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i, data <span class="kw">in</span> <span class="bu">enumerate</span>(train_loader):</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>            x, y <span class="op">=</span> data</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> x.view(<span class="op">-</span><span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>            pred <span class="op">=</span> lstm(x, (h0, c0))</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>            loss <span class="op">=</span> loss_func(pred, y)</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>            opt.zero_grad()</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>            loss.backward()</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>            opt.step()</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        train_loss_list.append(loss.detach().numpy())</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> epoch <span class="op">%</span> <span class="dv">100</span> <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">"LSTM_loss: "</span>, loss)</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    plt.plot(np.arange(epochs), train_loss_list, <span class="st">'r'</span>, label<span class="op">=</span><span class="st">'train'</span>)</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'epochs'</span>)</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'loss'</span>)</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lstm <span class="op">=</span> LSTM()</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>loss_func <span class="op">=</span> nn.MSELoss()</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>opt <span class="op">=</span> torch.optim.Adam(lstm.parameters(), lr<span class="op">=</span><span class="fl">0.001</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>epochs <span class="op">=</span> <span class="dv">500</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>train_y, train_loader, test_loader <span class="op">=</span> gen_data()</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>train(train_loader, lstm, loss_func, opt, epochs)</span></code></pre></div>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">def train(train_loader, lstm, loss_func, opt, epochs):        
+    h0 = torch.zeros(1, 5, 10)
+    c0 = torch.zeros(1, 5, 10)
+    train_loss_list = []
+    
+    for epoch in range(epochs):
+        for i, data in enumerate(train_loader):
+            x, y = data
+            x = x.view(-1, 10, 1)
+            pred = lstm(x, (h0, c0))
+            loss = loss_func(pred, y)
+            
+            opt.zero_grad()
+            loss.backward()
+            opt.step()
+        
+        train_loss_list.append(loss.detach().numpy())
+
+            
+        if epoch % 100 == 0:
+            print("LSTM_loss: ", loss)
+    
+    plt.plot(np.arange(epochs), train_loss_list, 'r', label='train')
+    plt.xlabel('epochs')
+    plt.ylabel('loss')
+    plt.legend()
+    plt.show()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">lstm = LSTM()
+loss_func = nn.MSELoss()
+opt = torch.optim.Adam(lstm.parameters(), lr=0.001)
+epochs = 500
+train_y, train_loader, test_loader = gen_data()
+train(train_loader, lstm, loss_func, opt, epochs)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <figure>
 <img src="/posts/9233/image-20230110173005210.png" alt="训练损失">
 <figcaption aria-hidden="true">训练损失</figcaption>
 </figure>
 <h2 id="预测结果">4.预测结果</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prediction(test_loader, lstm):</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    h0 <span class="op">=</span> torch.zeros(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    c0 <span class="op">=</span> torch.zeros(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    preds <span class="op">=</span> []</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, data <span class="kw">in</span> <span class="bu">enumerate</span>(test_loader):</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        x, y <span class="op">=</span> data</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> x.view(<span class="op">-</span><span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        pred <span class="op">=</span> lstm(x, (h0, c0))</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        preds.append(pred.detach().numpy())</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">#         print(y.view(1, -1))</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#         print(pred.view(1, -1))</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    true <span class="op">=</span> plt.scatter(<span class="bu">range</span>(<span class="bu">len</span>(train_y)), train_y.detach().numpy(), marker<span class="op">=</span><span class="st">'o'</span>)</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    lstm_pred <span class="op">=</span> plt.scatter(<span class="bu">range</span>(<span class="dv">150</span>, <span class="dv">200</span>), preds, marker<span class="op">=</span><span class="st">'s'</span>)</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    plt.legend((true, lstm_pred),(<span class="st">'true'</span>,<span class="st">'lstm_pred'</span>) ,loc <span class="op">=</span> <span class="st">'best'</span>)</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'x'</span>)</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'y'</span>)</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>prediction(test_loader, lstm)</span></code></pre></div>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">def prediction(test_loader, lstm):
+    h0 = torch.zeros(1, 5, 10)
+    c0 = torch.zeros(1, 5, 10)
+    preds = []
+
+    for i, data in enumerate(test_loader):
+        x, y = data
+        x = x.view(-1, 10, 1)
+        pred = lstm(x, (h0, c0))
+        preds.append(pred.detach().numpy())
+#         print(y.view(1, -1))
+#         print(pred.view(1, -1))
+
+    true = plt.scatter(range(len(train_y)), train_y.detach().numpy(), marker='o')
+    lstm_pred = plt.scatter(range(150, 200), preds, marker='s')
+    plt.legend((true, lstm_pred),('true','lstm_pred') ,loc = 'best')
+   	plt.xlabel('x')
+    plt.ylabel('y')
+    plt.show()
+    
+prediction(test_loader, lstm)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <figure>
 <img src="/posts/9233/image-20230110173238553.png" alt="预测结果">
 <figcaption aria-hidden="true">预测结果</figcaption>

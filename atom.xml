@@ -6,7 +6,7 @@
   <link href="http://paran0idy.github.io/atom.xml" rel="self"/>
   
   <link href="http://paran0idy.github.io/"/>
-  <updated>2023-03-02T03:54:03.229Z</updated>
+  <updated>2023-03-05T16:33:05.786Z</updated>
   <id>http://paran0idy.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>git提交冲突问题</title>
+    <link href="http://paran0idy.github.io/posts/aa5e.html"/>
+    <id>http://paran0idy.github.io/posts/aa5e.html</id>
+    <published>2023-03-05T11:25:33.000Z</published>
+    <updated>2023-03-05T16:33:05.786Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;git提交冲突问题&quot;&gt;git提交冲突问题&lt;/h1&gt;
+&lt;p&gt;远程仓库和本地仓库同时有修改时，此时&lt;code&gt;git push&lt;/code&gt;会产生冲突。例如下图&lt;/p&gt;
+&lt;p&gt;执行&lt;code&gt;git push origin</summary>
+        
+      
+    
+    
+    
+    <category term="工具" scheme="http://paran0idy.github.io/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="git" scheme="http://paran0idy.github.io/tags/git/"/>
+    
+  </entry>
   
   <entry>
     <title>ANTLR4构建AST</title>
@@ -31,7 +58,7 @@
     <summary type="html">&lt;h1 id=&quot;challenge使用antlr4构建ast&quot;&gt;Challenge：使用ANTLR4构建AST&lt;/h1&gt;
 &lt;h2 id=&quot;定义语法规则&quot;&gt;1.定义语法规则&lt;/h2&gt;
 &lt;p&gt;编写&lt;code&gt;Calculator.g4&lt;/code&gt;文件，如下&lt;/p&gt;
-&lt;div</summary>
+&lt;pre</summary>
         
       
     
@@ -90,7 +117,7 @@
 &lt;p&gt;通过已知的样本数据对正弦函数进行预测，并绘制出图形。设计
 LSTM网络进行预测，记录预测准确率并绘制图形。&lt;/p&gt;
 &lt;h2 id=&quot;准备数据&quot;&gt;1.准备数据&lt;/h2&gt;
-&lt;div class=&quot;sourceCode&quot;</summary>
+&lt;pre class=&quot;line-numbers</summary>
         
       
     
@@ -226,7 +253,7 @@ bikes.csv 中，请按 11:1</summary>
     <summary type="html">&lt;h1 id=&quot;神经网络拟合函数&quot;&gt;神经网络拟合函数&lt;/h1&gt;
 &lt;h2 id=&quot;准备数据&quot;&gt;1.准备数据&lt;/h2&gt;
 &lt;p&gt;导入需要使用的第三方库&lt;/p&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb1&quot;&gt;&lt;pre class=&quot;sourceCode</summary>
+&lt;pre class=&quot;line-numbers language-python&quot;</summary>
         
       
     
@@ -353,7 +380,7 @@ bikes.csv 中，请按 11:1</summary>
         
     <summary type="html">&lt;h1 id=&quot;s0811.关于fork的思考&quot;&gt;6.S081：1.关于fork()的思考&lt;/h1&gt;
 &lt;h2 id=&quot;fork&quot;&gt;1.fork&lt;/h2&gt;
-&lt;div class=&quot;sourceCode&quot; id=&quot;cb1&quot;&gt;&lt;pre class=&quot;sourceCode</summary>
+&lt;pre class=&quot;line-numbers language-c&quot; data-language=&quot;c&quot;&gt;&lt;code</summary>
         
       
     
@@ -394,32 +421,6 @@ bikes.csv 中，请按 11:1</summary>
   </entry>
   
   <entry>
-    <title>Sysprog：2. mini Network-Analyzer</title>
-    <link href="http://paran0idy.github.io/posts/asfdh.html"/>
-    <id>http://paran0idy.github.io/posts/asfdh.html</id>
-    <published>2022-10-27T15:48:39.000Z</published>
-    <updated>2022-10-28T16:25:00.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;mini-network-analyzer&quot;&gt;mini Network-Analyzer&lt;/h1&gt;
-&lt;h2 id=&quot;part-dpacket-spoofing&quot;&gt;Part D：packet</summary>
-        
-      
-    
-    
-    
-    <category term="Linux" scheme="http://paran0idy.github.io/categories/Linux/"/>
-    
-    
-    <category term="Sysprog" scheme="http://paran0idy.github.io/tags/Sysprog/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Sysprog：3. A Minimal Debugger</title>
     <link href="http://paran0idy.github.io/posts/1234.html"/>
     <id>http://paran0idy.github.io/posts/1234.html</id>
@@ -434,6 +435,32 @@ bikes.csv 中，请按 11:1</summary>
     <summary type="html">&lt;h1 id=&quot;lab3-a-minimal-debugger&quot;&gt;lab3 ：A Minimal Debugger&lt;/h1&gt;
 &lt;h2 id=&quot;exercise-1&quot;&gt;Exercise 1:&lt;/h2&gt;
 &lt;p&gt;Now read the source file and answer</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="http://paran0idy.github.io/categories/Linux/"/>
+    
+    
+    <category term="Sysprog" scheme="http://paran0idy.github.io/tags/Sysprog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Sysprog：2. mini Network-Analyzer</title>
+    <link href="http://paran0idy.github.io/posts/asfdh.html"/>
+    <id>http://paran0idy.github.io/posts/asfdh.html</id>
+    <published>2022-10-27T15:48:39.000Z</published>
+    <updated>2022-10-28T16:25:00.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;mini-network-analyzer&quot;&gt;mini Network-Analyzer&lt;/h1&gt;
+&lt;h2 id=&quot;part-dpacket-spoofing&quot;&gt;Part D：packet</summary>
         
       
     

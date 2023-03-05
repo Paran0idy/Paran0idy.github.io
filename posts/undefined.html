@@ -423,6 +423,9 @@ int pid = fork();  //创建一个进程，返回子进程的PID
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -430,28 +433,28 @@ int pid = fork();  //创建一个进程，返回子进程的PID
             <div id="articleContent">
                 <h1 id="s0811.关于fork的思考">6.S081：1.关于fork()的思考</h1>
 <h2 id="fork">1.fork</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> pid <span class="op">=</span> fork<span class="op">();</span>  <span class="co">//创建一个进程，返回子进程的PID</span></span></code></pre></div>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">int pid = fork();  //创建一个进程，返回子进程的PID<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h3 id="fork用法">1.1fork用法</h3>
 <p>一个进程可以使用<code>fork()</code>系统调用创建一个新的进程(称为子进程)，fork()创建了一个<code>新的进程</code>，其<code>内存</code>与父进程完全一样，fork在子进程中返回<code>0</code>，父进程中返回<code>子进程的PID</code>。</p>
 <h3 id="fork疑云">1.2fork疑云</h3>
 <p>且看一个例子：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(){</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> count <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> pid <span class="op">=</span> fork<span class="op">();</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>pid <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"fork error</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span><span class="op">(</span>pid <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        count<span class="op">++,</span> printf<span class="op">(</span><span class="st">"pid = </span><span class="sc">%d</span><span class="st"> count_ad = </span><span class="sc">%p</span><span class="st"> : </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> getpid<span class="op">(),</span> <span class="op">&amp;</span>count<span class="op">,</span> count<span class="op">);</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        count<span class="op">++,</span> printf<span class="op">(</span><span class="st">"pid = </span><span class="sc">%d</span><span class="st"> count_ad = </span><span class="sc">%p</span><span class="st"> : </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> getpid<span class="op">(),</span> <span class="op">&amp;</span>count<span class="op">,</span> count<span class="op">);</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">#include &lt;unistd.h&gt;
+#include &lt;stdio.h&gt;
+
+int main(){
+    int count = 0;
+    int pid = fork();
+    if (pid &lt; 0)
+        printf("fork error\n");
+    else if(pid == 0)
+        count++, printf("pid = %d count_ad = %p : %d\n", getpid(), &amp;count, count);
+    else
+        count++, printf("pid = %d count_ad = %p : %d\n", getpid(), &amp;count, count);
+    return 0;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>输出如下：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pid <span class="op">=</span> <span class="dv">240</span> count_ad <span class="op">=</span> <span class="bn">0x7ffdb7979330</span> <span class="op">:</span> <span class="dv">1</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>pid <span class="op">=</span> <span class="dv">241</span> count_ad <span class="op">=</span> <span class="bn">0x7ffdb7979330</span> <span class="op">:</span> <span class="dv">1</span></span></code></pre></div>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">pid = 240 count_ad = 0x7ffdb7979330 : 1
+pid = 241 count_ad = 0x7ffdb7979330 : 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>这里会产生一个疑问，既然两个进程并<code>未共享count</code>变量，那么对count自增操作自然是分别<code>独立</code>进行，也就是最终结果都是count
 =
 1，但count的<code>地址</code>却相同，纠结的点在于如果变量的地址相同，那第二次执行自增的count

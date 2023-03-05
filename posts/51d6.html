@@ -413,6 +413,9 @@ in a directory tre">
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -440,101 +443,101 @@ instead.</li>
 </blockquote>
 <p>Your solution is correct if produces the following output (when the
 file system contains the files <code>b</code> and <code>a/b</code>):</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> make qemu</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">init:</span> starting sh</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="op">&gt;</span> b</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mkdir a</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="op">&gt;</span> a/b</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> find . b</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">./b</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">./a/b</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">$</span> </span></code></pre></div>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ make qemu
+...
+init: starting sh
+$ echo &gt; b
+$ mkdir a
+$ echo &gt; a/b
+$ find . b
+./b
+./a/b
+    $ <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="思考">思考</h2>
 <p>在一个特定目录下根据文件名查找，查看<code>user/ls.c</code>源码可知，需要先打开文件/目录，显然目录里面又包含文件，这样一来，这个查找显然是需要递归的，当查找到目录时，递归查找该目录下的文件，当遇到文件时返回即可。</p>
 <p>特别注意的是，不能查找<code>.</code>和<code>..</code>这两个目录，不然废了。</p>
 <p>在xv6中定义了三种类型：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define T_DIR     </span><span class="dv">1</span><span class="pp">   </span><span class="co">// Directory</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define T_FILE    </span><span class="dv">2</span><span class="pp">   </span><span class="co">// File</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define T_DEVICE  </span><span class="dv">3</span><span class="pp">   </span><span class="co">// Device</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> stat <span class="op">{</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span> dev<span class="op">;</span>     <span class="co">// File system's disk device</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  uint ino<span class="op">;</span>    <span class="co">// Inode number</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">short</span> type<span class="op">;</span>  <span class="co">// Type of file</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">short</span> nlink<span class="op">;</span> <span class="co">// Number of links to file</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  uint64 size<span class="op">;</span> <span class="co">// Size of file in bytes</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">#define T_DIR     1   // Directory
+#define T_FILE    2   // File
+#define T_DEVICE  3   // Device
+
+struct stat {
+  int dev;     // File system's disk device
+  uint ino;    // Inode number
+  short type;  // Type of file
+  short nlink; // Number of links to file
+  uint64 size; // Size of file in bytes
+};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>分别是目录、文件、设备，当xv6打开一个文件时，就要去申请一个<code>stat</code>数据结构，它包含了文件的信息</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">((</span>fd <span class="op">=</span> open<span class="op">(</span>path<span class="op">,</span> <span class="dv">0</span><span class="op">))</span> <span class="op">&lt;</span> <span class="dv">0</span><span class="op">){</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    fprintf<span class="op">(</span><span class="dv">2</span><span class="op">,</span> <span class="st">"find cannot open </span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span> path<span class="op">);</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span><span class="op">(</span>fstat<span class="op">(</span>fd<span class="op">,</span> <span class="op">&amp;</span>st<span class="op">)</span> <span class="op">&lt;</span> <span class="dv">0</span><span class="op">){</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    fprintf<span class="op">(</span><span class="dv">2</span><span class="op">,</span> <span class="st">"find: cannot stat </span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span> path<span class="op">);</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    close<span class="op">(</span>fd<span class="op">);</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">if((fd = open(path, 0)) &lt; 0){
+    fprintf(2, "find cannot open %s\n", path);
+    return ;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">if(fstat(fd, &amp;st) &lt; 0){
+    fprintf(2, "find: cannot stat %s\n", path);
+    close(fd);
+    return;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>要读取当前目录的每个条目，需要</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>read<span class="op">(</span>fd<span class="op">,</span> <span class="op">&amp;</span>de<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>de<span class="op">))</span> <span class="op">==</span> <span class="kw">sizeof</span><span class="op">(</span>de<span class="op">)</span></span></code></pre></div>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">read(fd, &amp;de, sizeof(de)) == sizeof(de)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p><code>de</code>保存了文件名，可以通过<code>de.name</code>访问，之后与目标文件名称对比即可，可以用<code>strcmp</code></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>strcmp<span class="op">(</span>de<span class="op">.</span>name<span class="op">,</span> target<span class="op">);</span></span></code></pre></div>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">strcmp(de.name, target);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>做出本实验的关键是看懂xv6如何读取文件目录</p>
 <h2 id="code">Code</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"kernel/types.h"</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"kernel/stat.h"</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"user/user.h"</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"kernel/fs.h"</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> find<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>path<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>target<span class="op">){</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> buf<span class="op">[</span><span class="dv">512</span><span class="op">],</span> <span class="op">*</span>p<span class="op">;</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> fd<span class="op">;</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> dirent de<span class="op">;</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> stat st<span class="op">;</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">((</span>fd <span class="op">=</span> open<span class="op">(</span>path<span class="op">,</span> <span class="dv">0</span><span class="op">))</span> <span class="op">&lt;</span> <span class="dv">0</span><span class="op">){</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span><span class="dv">2</span><span class="op">,</span> <span class="st">"find cannot open </span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span> path<span class="op">);</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">;</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>fstat<span class="op">(</span>fd<span class="op">,</span> <span class="op">&amp;</span>st<span class="op">)</span> <span class="op">&lt;</span> <span class="dv">0</span><span class="op">){</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span><span class="dv">2</span><span class="op">,</span> <span class="st">"find: cannot stat </span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span> path<span class="op">);</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        close<span class="op">(</span>fd<span class="op">);</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span><span class="op">;</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>strlen<span class="op">(</span>path<span class="op">)</span> <span class="op">+</span> <span class="dv">1</span> <span class="op">+</span> DIRSIZ <span class="op">+</span> <span class="dv">1</span> <span class="op">&gt;</span> <span class="kw">sizeof</span> buf<span class="op">){</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"ls: path too long</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>        close<span class="op">(</span>fd<span class="op">);</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">;</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>st<span class="op">.</span>type <span class="op">!=</span> T_DIR<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>        close<span class="op">(</span>fd<span class="op">);</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">;</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    strcpy<span class="op">(</span>buf<span class="op">,</span> path<span class="op">);</span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> buf <span class="op">+</span> strlen<span class="op">(</span>buf<span class="op">);</span></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>p<span class="op">++</span> <span class="op">=</span> <span class="ch">'/'</span><span class="op">;</span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span><span class="op">(</span>read<span class="op">(</span>fd<span class="op">,</span> <span class="op">&amp;</span>de<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>de<span class="op">))</span> <span class="op">==</span> <span class="kw">sizeof</span><span class="op">(</span>de<span class="op">)){</span></span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span><span class="op">(</span>de<span class="op">.</span>inum <span class="op">==</span> <span class="dv">0</span> <span class="op">||</span> strcmp<span class="op">(</span><span class="st">"."</span><span class="op">,</span> de<span class="op">.</span>name<span class="op">)</span> <span class="op">==</span> <span class="dv">0</span> <span class="op">||</span> strcmp<span class="op">(</span><span class="st">".."</span><span class="op">,</span> de<span class="op">.</span>name<span class="op">)</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> </span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span><span class="op">;</span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> flag <span class="op">=</span> strcmp<span class="op">(</span>de<span class="op">.</span>name<span class="op">,</span> target<span class="op">);</span></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>        memmove<span class="op">(</span>p<span class="op">,</span> de<span class="op">.</span>name<span class="op">,</span> DIRSIZ<span class="op">);</span></span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>        p<span class="op">[</span>DIRSIZ<span class="op">]</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>        <span class="co">//printf("%d %d\n", strlen(p), sizeof(p));</span></span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span><span class="op">(</span>flag <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> fprintf<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="st">"</span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span> buf<span class="op">);</span></span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>        find<span class="op">(</span>buf<span class="op">,</span> target<span class="op">);</span></span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>    close<span class="op">(</span>fd<span class="op">);</span></span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[]){</span></span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>argc <span class="op">&lt;</span> <span class="dv">3</span><span class="op">){</span></span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span><span class="dv">2</span><span class="op">,</span> <span class="st">"argument counts error</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>        exit<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>    find<span class="op">(</span>argv<span class="op">[</span><span class="dv">1</span><span class="op">],</span> argv<span class="op">[</span><span class="dv">2</span><span class="op">]);</span></span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>    exit<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">#include "kernel/types.h"
+#include "kernel/stat.h"
+#include "user/user.h"
+#include "kernel/fs.h"
+
+
+void find(char *path, char *target){
+    char buf[512], *p;
+    int fd;
+    struct dirent de;
+    struct stat st;
+
+    if((fd = open(path, 0)) &lt; 0){
+        fprintf(2, "find cannot open %s\n", path);
+        return ;
+    }
+    if(fstat(fd, &amp;st) &lt; 0){
+        fprintf(2, "find: cannot stat %s\n", path);
+        close(fd);
+        return;
+    }
+    if(strlen(path) + 1 + DIRSIZ + 1 &gt; sizeof buf){
+        printf("ls: path too long\n");
+        close(fd);
+        return ;
+    }
+    if(st.type != T_DIR) {
+        close(fd);
+        return ;
+    }
+    strcpy(buf, path);
+    p = buf + strlen(buf);
+    *p++ = '/';
+    while(read(fd, &amp;de, sizeof(de)) == sizeof(de)){
+        if(de.inum == 0 || strcmp(".", de.name) == 0 || strcmp("..", de.name) == 0) 
+            continue;
+        int flag = strcmp(de.name, target);
+        memmove(p, de.name, DIRSIZ);
+        p[DIRSIZ] = 0;
+        //printf("%d %d\n", strlen(p), sizeof(p));
+        if(flag == 0) fprintf(1, "%s\n", buf);
+        find(buf, target);
+    }
+    close(fd);
+}
+
+int main(int argc, char *argv[]){
+    if(argc &lt; 3){
+        fprintf(2, "argument counts error\n");
+        exit(0);
+    }
+    find(argv[1], argv[2]);
+    exit(0);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
