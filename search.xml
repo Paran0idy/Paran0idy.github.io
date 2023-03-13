@@ -242,14 +242,14 @@
       
       <categories>
           
-          <category> 线性回归 </category>
+          <category> Deep Learning </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> 深度学习 </tag>
+            <tag> 线性回归 </tag>
             
         </tags>
       
@@ -367,9 +367,9 @@
       
       <categories>
           
-          <category> 编译 </category>
-          
           <category> 操作系统 </category>
+          
+          <category> 编译 </category>
           
       </categories>
       
