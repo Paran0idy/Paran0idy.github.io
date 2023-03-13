@@ -5,14 +5,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Sysprog：2. mini Network-Analyzer, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="mini Network-AnalyzerPart D：packet spoofing实验结果：前8个包
+    <meta name="description" content="mini Network-Analyzer
+Part D：packet spoofing
+实验结果：前8个包
+
+
+Forge
 
 文件结构
 |-- Forge
 	|-- method.h
 	|-- method.c
-	|-- UDP_forge.h
-	|-- U">
+	|-- UDP_forg">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -397,11 +401,11 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Linux/" class="post-category">
-                                Linux
+                            <a href="/categories/Operating-System/" class="post-category">
+                                Operating System
                             </a>
                         
-                            <a href="/categories/Linux/Network/" class="post-category">
+                            <a href="/categories/Operating-System/Network/" class="post-category">
                                 Network
                             </a>
                         
@@ -438,8 +442,13 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="mini-Network-Analyzer"><a href="#mini-Network-Analyzer" class="headerlink" title="mini Network-Analyzer"></a>mini Network-Analyzer</h1><h2 id="Part-D：packet-spoofing"><a href="#Part-D：packet-spoofing" class="headerlink" title="Part D：packet spoofing"></a>Part D：packet spoofing</h2><p>实验结果：前8个包</p>
-<p><img src="/posts/asfdh/image-20221027235610817.png" alt="Forge"></p>
+                <h1 id="mini-network-analyzer">mini Network-Analyzer</h1>
+<h2 id="part-dpacket-spoofing">Part D：packet spoofing</h2>
+<p>实验结果：前8个包</p>
+<figure>
+<img src="/posts/asfdh/image-20221027235610817.png" alt="Forge">
+<figcaption aria-hidden="true">Forge</figcaption>
+</figure>
 <p>文件结构</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">|-- Forge
 	|-- method.h
@@ -453,7 +462,8 @@
 	|-- ICMP_forge.h
 	|-- ICMP_forge.c
 	|-- main<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>利用Raw Socket可以实现发送用户自定义的数据包,在实现各种forgery之前，先定义一个工具文件<code>method.h/method.c</code>，实现公共部分，定义的接口如下</p>
+<p>利用Raw
+Socket可以实现发送用户自定义的数据包,在实现各种forgery之前，先定义一个工具文件<code>method.h/method.c</code>，实现公共部分，定义的接口如下</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">void get_eth_index(int sock_raw);
 void get_mac(int sock_raw, uint16_t protocol, int *total_len);
 
@@ -499,7 +509,8 @@ void send_ip(void(*func)(int *total_len), int sock_raw, uint8_t protocol, int *t
     }
     close(sock_raw);
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="1-UDP-packet-forgery"><a href="#1-UDP-packet-forgery" class="headerlink" title="1.UDP packet forgery"></a>1.UDP packet forgery</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">void send_udp(int *total_len){
+<h3 id="udp-packet-forgery">1.UDP packet forgery</h3>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">void send_udp(int *total_len){
     printf("udp packaging start ... \n");
     struct udphdr *uh = (struct udphdr *)(send_buff + sizeof(struct iphdr) + sizeof(struct ethhdr));
 
@@ -511,7 +522,8 @@ void send_ip(void(*func)(int *total_len), int sock_raw, uint8_t protocol, int *t
     uh-&gt;len		= htons((*total_len - sizeof(struct iphdr) - sizeof(struct ethhdr)));
     printf("udp packaging start ... \n");
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="2-TCP-packet-forgery"><a href="#2-TCP-packet-forgery" class="headerlink" title="2.TCP packet forgery"></a>2.TCP packet forgery</h3><p>由于TCP的checksum需要添加伪首部才能计算正确，故在头文件定义伪首部</p>
+<h3 id="tcp-packet-forgery">2.TCP packet forgery</h3>
+<p>由于TCP的checksum需要添加伪首部才能计算正确，故在头文件定义伪首部</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">struct psd_hdr{
     unsigned int src_ipaddr;
     unsigned int dst_ipaddr;
@@ -550,7 +562,8 @@ void send_ip(void(*func)(int *total_len), int sock_raw, uint8_t protocol, int *t
     *total_len += sizeof(struct tcphdr);
     printf("tcp packaging done ... \n");
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="3-ICMP-packet-forgery"><a href="#3-ICMP-packet-forgery" class="headerlink" title="3.ICMP packet forgery"></a>3.ICMP packet forgery</h3><p>由于struct icmp中含有union，为了方便起见，定义宏</p>
+<h3 id="icmp-packet-forgery">3.ICMP packet forgery</h3>
+<p>由于struct icmp中含有union，为了方便起见，定义宏</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">// define icmp union
 #define icmp_id         icmp_hun.ih_idseq.icd_id
 #define icmp_seq        icmp_hun.ih_idseq.icd_seq<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
@@ -568,8 +581,10 @@ void send_ip(void(*func)(int *total_len), int sock_raw, uint8_t protocol, int *t
     *total_len += sizeof(struct icmp);
     printf("icmp packaging done ... \n");
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="4-ARP-packet-forgery"><a href="#4-ARP-packet-forgery" class="headerlink" title="4.ARP packet forgery"></a>4.ARP packet forgery</h3><p>由于<code>ARP</code>与<code>IP</code>一样都是网络层协议，故在<code>MAC</code>层需要将<code>protocol</code>改为<code>ETH_P_ARP</code>。</p>
-<p>并且ARP协议的头部定义需要在 <code>&lt;netinet/if_ether.h&gt;</code>头文件下找，而非<code>&lt;net/if_arp.h&gt;</code></p>
+<h3 id="arp-packet-forgery">4.ARP packet forgery</h3>
+<p>由于<code>ARP</code>与<code>IP</code>一样都是网络层协议，故在<code>MAC</code>层需要将<code>protocol</code>改为<code>ETH_P_ARP</code>。</p>
+<p>并且ARP协议的头部定义需要在
+<code>&lt;netinet/if_ether.h&gt;</code>头文件下找，而非<code>&lt;net/if_arp.h&gt;</code></p>
 <p><code>ARP_forge.c</code>定义如下</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">void send_arp(int *total_len){
     printf("arp packaging start ... \n");
@@ -592,7 +607,9 @@ void send_ip(void(*func)(int *total_len), int sock_raw, uint8_t protocol, int *t
     *total_len += sizeof (struct ether_arp);
     printf("arp packaging done ... \n");
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="Part-E：Design-your-own-MAC-layer-protocol"><a href="#Part-E：Design-your-own-MAC-layer-protocol" class="headerlink" title="Part E：Design your own MAC layer protocol"></a>Part E：Design your own MAC layer protocol</h2><p>文件结构：两个主机源代码大部分相同</p>
+<h2 id="part-edesign-your-own-mac-layer-protocol">Part E：Design your
+own MAC layer protocol</h2>
+<p>文件结构：两个主机源代码大部分相同</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">|-- final
 	|-- protocol.h    // define struct own_hdr and interface for send or receive
 	|-- send.c
@@ -615,8 +632,12 @@ void own_mac_header(unsigned char *buffer);
 bool filterByMacAddress(unsigned char *buffer, unsigned char mac_addr[], int type);
 bool equal(unsigned char *dst, unsigned char *src);
 void get_data(unsigned char *buffer);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>在主函数中，创建两个raw socket分别用来发送和接收数据包，主机A先发送，未收到主机B的回复之前不会再次发送，主机B同理。运行结果如下</p>
-<p><img src="/posts/asfdh/image-20221021181821595.png" alt="own protocol"></p>
+<p>在主函数中，创建两个raw
+socket分别用来发送和接收数据包，主机A先发送，未收到主机B的回复之前不会再次发送，主机B同理。运行结果如下</p>
+<figure>
+<img src="/posts/asfdh/image-20221021181821595.png" alt="own protocol">
+<figcaption aria-hidden="true">own protocol</figcaption>
+</figure>
 
                 
             </div>
@@ -1206,8 +1227,8 @@ void get_data(unsigned char *buffer);<span aria-hidden="true" class="line-number
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category">
-                                    Linux
+                            <a href="/categories/Operating-System/" class="post-category">
+                                    Operating System
                                 </a>
                             
                             
@@ -1255,8 +1276,8 @@ void get_data(unsigned char *buffer);<span aria-hidden="true" class="line-number
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category">
-                                    Linux
+                            <a href="/categories/Operating-System/" class="post-category">
+                                    Operating System
                                 </a>
                             
                             

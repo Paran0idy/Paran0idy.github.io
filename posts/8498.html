@@ -5,7 +5,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="CSAPP：lab0, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="C Programming Lab: Assessing Your C Programming SkillsProgramming TaskYour task is to modify the code in queue.h and que">
+    <meta name="description" content="C
+Programming Lab: Assessing Your C Programming Skills
+Programming Task
+Your task is to modify the code in queue.h and q">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -390,8 +393,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Linux/" class="post-category">
-                                Linux
+                            <a href="/categories/Operating-System/" class="post-category">
+                                Operating System
                             </a>
                         
                     </div>
@@ -427,33 +430,55 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="C-Programming-Lab-Assessing-Your-C-Programming-Skills"><a href="#C-Programming-Lab-Assessing-Your-C-Programming-Skills" class="headerlink" title="C Programming Lab: Assessing Your C Programming Skills"></a>C Programming Lab: Assessing Your C Programming Skills</h1><h2 id="Programming-Task"><a href="#Programming-Task" class="headerlink" title="Programming Task"></a>Programming Task</h2><p>Your task is to modify the code in queue.h and queue.c to fully implement the following functions.</p>
+                <h1 id="c-programming-lab-assessing-your-c-programming-skills">C
+Programming Lab: Assessing Your C Programming Skills</h1>
+<h2 id="programming-task">Programming Task</h2>
+<p>Your task is to modify the code in queue.h and queue.c to fully
+implement the following functions.</p>
 <ul>
 <li><code>queue_new</code>: Create a new, empty queue.</li>
 <li><code>queue_free</code>: Free all storage used by a queue.</li>
-<li><code>queue_insert_head</code>: Attempt to insert a new element at the head of the queue (LIFO discipline).</li>
-<li><code>queue_insert_head</code>: Attempt to insert a new element at the head of the queue (LIFO discipline).</li>
-<li><code>queue_remove_head</code>: Attempt to remove the element at the head of the queue.</li>
-<li><code>queue_size</code>: Compute the number of elements in the queue.</li>
-<li><code>queue_reverse</code>: Reorder the list so that the queue elements are reversed in order. This function should not allocate or free any list elements (either directly or via calls to other functions that allocate or free list elements.) Instead, it should rearrange the existing elements.</li>
+<li><code>queue_insert_head</code>: Attempt to insert a new element at
+the head of the queue (LIFO discipline).</li>
+<li><code>queue_insert_head</code>: Attempt to insert a new element at
+the head of the queue (LIFO discipline).</li>
+<li><code>queue_remove_head</code>: Attempt to remove the element at the
+head of the queue.</li>
+<li><code>queue_size</code>: Compute the number of elements in the
+queue.</li>
+<li><code>queue_reverse</code>: Reorder the list so that the queue
+elements are reversed in order. This function should not allocate or
+free any list elements (either directly or via calls to other functions
+that allocate or free list elements.) Instead, it should rearrange the
+existing elements.</li>
 </ul>
-<h2 id="Testing"><a href="#Testing" class="headerlink" title="Testing"></a>Testing</h2><h3 id="make"><a href="#make" class="headerlink" title="make"></a>make</h3><p>在shell里输入</p>
+<h2 id="testing">Testing</h2>
+<h3 id="make">make</h3>
+<p>在shell里输入</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">make<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>会根据<code>makefile</code>自动编译源文件，特别注意，修改源文件后，别忘了执行make</p>
-<h3 id="qtest"><a href="#qtest" class="headerlink" title="qtest"></a>qtest</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./qtest<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="qtest">qtest</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./qtest<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>可进入交互式命令行界面，输入<code>help</code>，可以显示<code>qtest</code>命令的用法</p>
-<p><img src="/posts/8498/image-20230313212941652.png" alt="image-20230313212941652"></p>
+<figure>
+<img src="/posts/8498/image-20230313212941652.png" alt="image-20230313212941652">
+<figcaption aria-hidden="true">image-20230313212941652</figcaption>
+</figure>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">./qtest -f traces/xxx.cmd<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>可测试某一样例，并显示哪一步有问题</p>
-<h3 id="make-test"><a href="#make-test" class="headerlink" title="make test"></a>make test</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">make test<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="make-test">make test</h3>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">make test<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>会运行<code>./traces</code>目录下所有的测试样例，最终输出得分</p>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><h3 id="queue-t"><a href="#queue-t" class="headerlink" title="queue_t"></a>queue_t</h3><p>修改queue.h头文件，便于尾插和计算队列长度</p>
+<h2 id="solution">Solution</h2>
+<h3 id="queue_t">queue_t</h3>
+<p>修改queue.h头文件，便于尾插和计算队列长度</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">typedef struct {
     list_ele_t *head;
     list_ele_t *tail;
     size_t length;
 } queue_t;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="queue-t-queue-new-void"><a href="#queue-t-queue-new-void" class="headerlink" title="queue_t *queue_new(void)"></a>queue_t *queue_new(void)</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">/**
+<h3 id="queue_t-queue_newvoid">queue_t *queue_new(void)</h3>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">/**
  * @brief Allocates a new queue
  * @return The new queue, or NULL if memory allocation failed
  */
@@ -466,7 +491,8 @@ queue_t *queue_new(void) {
     q-&gt;length = 0;
     return q;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="void-queue-free-queue-t-q"><a href="#void-queue-free-queue-t-q" class="headerlink" title="void queue_free(queue_t *q)"></a>void queue_free(queue_t *q)</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">/**
+<h3 id="void-queue_freequeue_t-q">void queue_free(queue_t *q)</h3>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">/**
  * @brief Frees all memory used by a queue
  * @param[in] q The queue to free
  */
@@ -487,7 +513,9 @@ void queue_free(queue_t *q) {
     }
     free(q);
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="bool-queue-insert-head-queue-t-q-const-char-s"><a href="#bool-queue-insert-head-queue-t-q-const-char-s" class="headerlink" title="bool queue_insert_head(queue_t q, const char s)"></a>bool queue_insert_head(queue_t <em>q, </em>const<em> char </em>s)</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">/**
+<h3 id="bool-queue_insert_headqueue_t-q-const-char-s">bool
+queue_insert_head(queue_t <em>q, </em>const* char *s)</h3>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">/**
  * @brief Attempts to insert an element at head of a queue
  *
  * This function explicitly allocates space to create a copy of `s`.
@@ -527,7 +555,9 @@ bool queue_insert_head(queue_t *q, const char *s) {
     q-&gt;length++;
     return true;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="bool-queue-insert-tail-queue-t-q-const-char-s"><a href="#bool-queue-insert-tail-queue-t-q-const-char-s" class="headerlink" title="bool queue_insert_tail(queue_t q, const char s)"></a>bool queue_insert_tail(queue_t <em>q, </em>const<em> char </em>s)</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">/**
+<h3 id="bool-queue_insert_tailqueue_t-q-const-char-s">bool
+queue_insert_tail(queue_t <em>q, </em>const* char *s)</h3>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">/**
  * @brief Attempts to insert an element at tail of a queue
  *
  * This function explicitly allocates space to create a copy of `s`.
@@ -565,7 +595,9 @@ bool queue_insert_tail(queue_t *q, const char *s) {
     q-&gt;length++;
     return true;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="bool-queue-remove-head-queue-t-q-char-buf-size-t-bufsize"><a href="#bool-queue-remove-head-queue-t-q-char-buf-size-t-bufsize" class="headerlink" title="bool queue_remove_head(queue_t q, char buf, size_t bufsize)"></a>bool queue_remove_head(queue_t <em>q, char </em>buf, size_t bufsize)</h3><p>这里重点在于<code>buf == NULL</code></p>
+<h3 id="bool-queue_remove_headqueue_t-q-char-buf-size_t-bufsize">bool
+queue_remove_head(queue_t <em>q, char </em>buf, size_t bufsize)</h3>
+<p>这里重点在于<code>buf == NULL</code></p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">/**
  * @brief Attempts to remove an element from head of a queue
  *
@@ -598,7 +630,8 @@ bool queue_remove_head(queue_t *q, char *buf, size_t bufsize) {
     if (q-&gt;length == 0) q-&gt;tail = NULL;
     return true;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="size-t-queue-size-queue-t-q"><a href="#size-t-queue-size-queue-t-q" class="headerlink" title="size_t queue_size(queue_t *q)"></a>size_t queue_size(queue_t *q)</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">/**
+<h3 id="size_t-queue_sizequeue_t-q">size_t queue_size(queue_t *q)</h3>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">/**
  * @brief Returns the number of elements in a queue
  *
  * This function runs in O(1) time.
@@ -613,7 +646,8 @@ size_t queue_size(queue_t *q) {
     /* Remember: It should operate in O(1) time */
     return q == NULL ? 0 : q-&gt;length;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="void-queue-reverse-queue-t-q"><a href="#void-queue-reverse-queue-t-q" class="headerlink" title="void queue_reverse(queue_t *q)"></a>void queue_reverse(queue_t *q)</h3><p>头插法</p>
+<h3 id="void-queue_reversequeue_t-q">void queue_reverse(queue_t *q)</h3>
+<p>头插法</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">/**
  * @brief Reverse the elements in a queue
  *
@@ -1228,8 +1262,8 @@ void queue_reverse(queue_t *q) {
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category">
-                                    Linux
+                            <a href="/categories/Operating-System/" class="post-category">
+                                    Operating System
                                 </a>
                             
                             
@@ -1278,8 +1312,8 @@ void queue_reverse(queue_t *q) {
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BC%96%E8%AF%91/" class="post-category">
-                                    编译
+                            <a href="/categories/Compile/" class="post-category">
+                                    Compile
                                 </a>
                             
                             <a href="/categories/Deep-Learning/" class="post-category">

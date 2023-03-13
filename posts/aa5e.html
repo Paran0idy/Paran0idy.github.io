@@ -5,8 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="git提交冲突问题, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="git提交冲突问题远程仓库和本地仓库同时有修改时，此时git push会产生冲突。例如下图
-执行git push origin master后显示冲突。这个错误是因为远程仓库包含了本地仓库没有的提交，通常是由于其他人在同一个分支上推送了代码">
+    <meta name="description" content="git提交冲突问题
+远程仓库和本地仓库同时有修改时，此时git push会产生冲突。例如下图
+执行git push origin master后显示冲突。这个错误是因为远程仓库包含了本地仓库没有的提交，通常是由于其他人在同一个分支上推送了代">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -379,8 +380,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/git/">
-                                <span class="chip bg-color">git</span>
+                            <a href="/tags/Git/">
+                                <span class="chip bg-color">Git</span>
                             </a>
                         
                     </div>
@@ -391,8 +392,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/tools/" class="post-category">
-                                tools
+                            <a href="/categories/Tools/" class="post-category">
+                                Tools
                             </a>
                         
                     </div>
@@ -428,26 +429,40 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="git提交冲突问题"><a href="#git提交冲突问题" class="headerlink" title="git提交冲突问题"></a>git提交冲突问题</h1><p>远程仓库和本地仓库同时有修改时，此时<code>git push</code>会产生冲突。例如下图</p>
+                <h1 id="git提交冲突问题">git提交冲突问题</h1>
+<p>远程仓库和本地仓库同时有修改时，此时<code>git push</code>会产生冲突。例如下图</p>
 <p>执行<code>git push origin master</code>后显示冲突。这个错误是因为远程仓库包含了本地仓库没有的提交，通常是由于其他人在同一个分支上推送了代码导致的。</p>
-<p><img src="/posts/aa5e/image-20230305192749974.png" alt></p>
+<p><img src="/posts/aa5e/image-20230305192749974.png"></p>
 <p>此时执行</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">git pull origin master --rebase<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><code>git pull origin master --rebase</code> 的作用是将远程主分支 <code>master</code> 上的提交拉取到本地，并且使用 rebase 的方式将本地分支的提交和远程分支的提交合并成一条线性提交。具体来说，它的执行过程包括：</p>
-<ol>
-<li>从远程仓库 <code>origin</code> 中拉取 <code>master</code> 分支的最新代码（也就是 <code>git fetch origin master</code>）；</li>
-<li>将本地分支 <code>master</code> 的提交基点移动到远程 <code>master</code> 分支的最新提交（也就是 <code>git rebase origin/master</code>）；</li>
-<li>将本地未推送的提交应用于移动后的基点上，合并成一条线性提交（也就是 <code>git cherry-pick</code> 或者 <code>git rebase --continue</code>）；</li>
+<p><code>git pull origin master --rebase</code> 的作用是将远程主分支
+<code>master</code> 上的提交拉取到本地，并且使用 rebase
+的方式将本地分支的提交和远程分支的提交合并成一条线性提交。具体来说，它的执行过程包括：</p>
+<ol type="1">
+<li>从远程仓库 <code>origin</code> 中拉取 <code>master</code>
+分支的最新代码（也就是 <code>git fetch origin master</code>）；</li>
+<li>将本地分支 <code>master</code> 的提交基点移动到远程
+<code>master</code> 分支的最新提交（也就是
+<code>git rebase origin/master</code>）；</li>
+<li>将本地未推送的提交应用于移动后的基点上，合并成一条线性提交（也就是
+<code>git cherry-pick</code> 或者
+<code>git rebase --continue</code>）；</li>
 <li>最后将本地分支 <code>master</code> 推送到远程仓库中。</li>
 </ol>
-<p>使用 <code>--rebase</code> 参数的目的是为了避免在本地分支和远程分支合并时产生额外的合并提交，保持提交历史的整洁和简单。</p>
-<p><img src="/posts/aa5e/image-20230305193211354.png" alt></p>
+<p>使用 <code>--rebase</code>
+参数的目的是为了避免在本地分支和远程分支合并时产生额外的合并提交，保持提交历史的整洁和简单。</p>
+<p><img src="/posts/aa5e/image-20230305193211354.png"></p>
 <p>接着会报错，但是给了提示显示<code>test</code>发生冲突，解决的办法是手动解决冲突，并将其标记为已解决</p>
 <p>具体来说</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">git add ./test<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">git rebase --continue<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>使用 <code>git add</code> 命令将已经解决冲突的文件标记为已解决，再执行 <code>git rebase --continue</code> 命令继续 rebase 过程，直到 rebase 完成。<code>git rebase --skip</code> 命令可以用于跳过发生冲突的 commit，<code>git rebase --abort</code> 命令可以用于终止 rebase 过程并回到 rebase 前的状态。</p>
-<p><img src="/posts/aa5e/image-20230305193704950.png" alt></p>
+<p>使用 <code>git add</code>
+命令将已经解决冲突的文件标记为已解决，再执行
+<code>git rebase --continue</code> 命令继续 rebase 过程，直到 rebase
+完成。<code>git rebase --skip</code> 命令可以用于跳过发生冲突的
+commit，<code>git rebase --abort</code> 命令可以用于终止 rebase
+过程并回到 rebase 前的状态。</p>
+<p><img src="/posts/aa5e/image-20230305193704950.png"></p>
 <p>此时再提交没有报错。</p>
 
                 
@@ -513,8 +528,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/git/">
-                                    <span class="chip bg-color">git</span>
+                                <a href="/tags/Git/">
+                                    <span class="chip bg-color">Git</span>
                                 </a>
                             
                         </div>
@@ -1038,8 +1053,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BC%96%E8%AF%91/" class="post-category">
-                                    编译
+                            <a href="/categories/Compile/" class="post-category">
+                                    Compile
                                 </a>
                             
                             <a href="/categories/Deep-Learning/" class="post-category">
@@ -1091,8 +1106,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BC%96%E8%AF%91/" class="post-category">
-                                    编译
+                            <a href="/categories/Compile/" class="post-category">
+                                    Compile
                                 </a>
                             
                             

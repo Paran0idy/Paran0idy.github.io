@@ -5,7 +5,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="鸢尾花分类, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="鸢尾花分类iris 数据集包含 150 个样本，对应数据集的每行数据。每行数据包含每个 样本的四个特征和样本的类别信息，iris 数据集是用来给鸢尾花做分类的数据集， 每个样本包含了花萼长度、花萼宽度、花瓣长度、花瓣宽度四个特征，请用神经 ">
+    <meta name="description" content="鸢尾花分类
+iris 数据集包含 150 个样本，对应数据集的每行数据。每行数据包含每个
+样本的四个特征和样本的类别信息，iris
+数据集是用来给鸢尾花做分类的数据集，
+每个样本包含了花萼长度、花萼宽度、花瓣长度、花瓣宽度四个特征，请用神经">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -378,8 +382,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/softmax%E5%9B%9E%E5%BD%92/">
-                                <span class="chip bg-color">softmax回归</span>
+                            <a href="/tags/Softmax-Regression/">
+                                <span class="chip bg-color">Softmax Regression</span>
                             </a>
                         
                     </div>
@@ -427,8 +431,16 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="鸢尾花分类"><a href="#鸢尾花分类" class="headerlink" title="鸢尾花分类"></a>鸢尾花分类</h1><p>iris 数据集包含 150 个样本，对应数据集的每行数据。每行数据包含每个 样本的四个特征和样本的类别信息，iris 数据集是用来给鸢尾花做分类的数据集， 每个样本包含了花萼长度、花萼宽度、花瓣长度、花瓣宽度四个特征，请用神经 网络训练一个分类器，分类器可以通过样本的四个特征来判断样本属于山鸢尾、 变色鸢尾还是维吉尼亚鸢尾。数据集文件 iris.csv。要求模型准确率不低于 99%。</p>
-<h2 id="1-准备数据"><a href="#1-准备数据" class="headerlink" title="1.准备数据"></a>1.准备数据</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+                <h1 id="鸢尾花分类">鸢尾花分类</h1>
+<p>iris 数据集包含 150 个样本，对应数据集的每行数据。每行数据包含每个
+样本的四个特征和样本的类别信息，iris
+数据集是用来给鸢尾花做分类的数据集，
+每个样本包含了花萼长度、花萼宽度、花瓣长度、花瓣宽度四个特征，请用神经
+网络训练一个分类器，分类器可以通过样本的四个特征来判断样本属于山鸢尾、
+变色鸢尾还是维吉尼亚鸢尾。数据集文件 iris.csv。要求模型准确率不低于
+99%。</p>
+<h2 id="准备数据">1.准备数据</h2>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -477,7 +489,8 @@ from sklearn.utils import shuffle<span aria-hidden="true" class="line-numbers-ro
     test_loader = DataLoader(dataset=test_dataset, batch_size=16, shuffle=True)
     
     return train_loader, test_loader  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="2-构建模型"><a href="#2-构建模型" class="headerlink" title="2.构建模型"></a>2.构建模型</h2><p>因为鸢尾花有四个特征，三个类别，所以构造模型如下</p>
+<h2 id="构建模型">2.构建模型</h2>
+<p>因为鸢尾花有四个特征，三个类别，所以构造模型如下</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">class model(torch.nn.Module):
     def __init__(self):
         super().__init__()
@@ -489,7 +502,8 @@ from sklearn.utils import shuffle<span aria-hidden="true" class="line-numbers-ro
         x = F.relu(x)
         x = self.out(x)
         return x  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="3-训练模型"><a href="#3-训练模型" class="headerlink" title="3.训练模型"></a>3.训练模型</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">def train(net, loss_func, opt, epochs, train_loader):
+<h2 id="训练模型">3.训练模型</h2>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">def train(net, loss_func, opt, epochs, train_loader):
     losses = []
     
     for epoch in range(epochs):
@@ -520,8 +534,12 @@ train(net, loss_func, opt, epochs, train_loader)<span aria-hidden="true" class="
 <blockquote>
 <p>这里的损失函数，选择的是交叉熵损失函数，其自带sofmax层，可以串接在最后一层全连接输出后，达到分类效果</p>
 </blockquote>
-<p><img src="/posts/a174/image-20230110161720711.png" alt="训练损失"></p>
-<h2 id="4-预测结果"><a href="#4-预测结果" class="headerlink" title="4.预测结果"></a>4.预测结果</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">def prediction(net, test_loader):
+<figure>
+<img src="/posts/a174/image-20230110161720711.png" alt="训练损失">
+<figcaption aria-hidden="true">训练损失</figcaption>
+</figure>
+<h2 id="预测结果">4.预测结果</h2>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">def prediction(net, test_loader):
     rights = 0
     length = 0
     
@@ -542,7 +560,10 @@ def rightness(pred, labels):
     return rights, len(labels)
 
 prediction(net, test_loader)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="/posts/a174/image-20230110161742790.png" alt="预测结果"></p>
+<figure>
+<img src="/posts/a174/image-20230110161742790.png" alt="预测结果">
+<figcaption aria-hidden="true">预测结果</figcaption>
+</figure>
 
                 
             </div>
@@ -607,8 +628,8 @@ prediction(net, test_loader)<span aria-hidden="true" class="line-numbers-rows"><
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/softmax%E5%9B%9E%E5%BD%92/">
-                                    <span class="chip bg-color">softmax回归</span>
+                                <a href="/tags/Softmax-Regression/">
+                                    <span class="chip bg-color">Softmax Regression</span>
                                 </a>
                             
                         </div>
@@ -1192,8 +1213,8 @@ prediction(net, test_loader)<span aria-hidden="true" class="line-numbers-rows"><
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">
-                        <span class="chip bg-color">线性回归</span>
+                    <a href="/tags/Linear-Regression/">
+                        <span class="chip bg-color">Linear Regression</span>
                     </a>
                     
                 </div>

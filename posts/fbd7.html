@@ -5,8 +5,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="6.S081：3.素数筛Primes实验, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="6.S081：3.素数筛Primes实验Problem：primes (moderate)/(hard)
-Write a concurrent version of prime sieve using pipes. This idea is">
+    <meta name="description" content="6.S081：3.素数筛Primes实验
+Problem：primes (moderate)/(hard)
+
+Write a concurrent version of prime sieve using pipes. This idea ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -391,8 +393,8 @@ Write a concurrent version of prime sieve using pipes. This idea is">
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="post-category">
-                                操作系统
+                            <a href="/categories/Operating-System/" class="post-category">
+                                Operating System
                             </a>
                         
                     </div>
@@ -428,23 +430,45 @@ Write a concurrent version of prime sieve using pipes. This idea is">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="6-S081：3-素数筛Primes实验"><a href="#6-S081：3-素数筛Primes实验" class="headerlink" title="6.S081：3.素数筛Primes实验"></a>6.S081：3.素数筛Primes实验</h1><h2 id="Problem：primes-moderate-hard"><a href="#Problem：primes-moderate-hard" class="headerlink" title="Problem：primes (moderate)/(hard)"></a>Problem：primes (<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2021/labs/guidance.html">moderate</a>)/(<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2021/labs/guidance.html">hard</a>)</h2><blockquote>
-<p>Write a concurrent version of prime sieve using pipes. This idea is due to Doug McIlroy, inventor of Unix pipes. The picture halfway down <a target="_blank" rel="noopener" href="http://swtch.com/~rsc/thread/">this page</a> and the surrounding text explain how to do it. Your solution should be in the file <code>user/primes.c</code>.</p>
+                <h1 id="s0813.素数筛primes实验">6.S081：3.素数筛Primes实验</h1>
+<h2 id="problemprimes-moderatehard">Problem：primes (<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2021/labs/guidance.html">moderate</a>)/(<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2021/labs/guidance.html">hard</a>)</h2>
+<blockquote>
+<p>Write a concurrent version of prime sieve using pipes. This idea is
+due to Doug McIlroy, inventor of Unix pipes. The picture halfway down <a target="_blank" rel="noopener" href="http://swtch.com/~rsc/thread/">this page</a> and the surrounding
+text explain how to do it. Your solution should be in the file
+<code>user/primes.c</code>.</p>
 </blockquote>
-<p>Your goal is to use <code>pipe</code> and <code>fork</code> to set up the pipeline. The first process feeds the numbers 2 through 35 into the pipeline. For each prime number, you will arrange to create one process that reads from its left neighbor over a pipe and writes to its right neighbor over another pipe. Since xv6 has limited number of file descriptors and processes, the first process can stop at 35.</p>
-<p><img src="/posts/fbd7/image-20220816184206364.png" alt="primes"></p>
-<p>Some hints: </p>
+<p>Your goal is to use <code>pipe</code> and <code>fork</code> to set up
+the pipeline. The first process feeds the numbers 2 through 35 into the
+pipeline. For each prime number, you will arrange to create one process
+that reads from its left neighbor over a pipe and writes to its right
+neighbor over another pipe. Since xv6 has limited number of file
+descriptors and processes, the first process can stop at 35.</p>
+<figure>
+<img src="/posts/fbd7/image-20220816184206364.png" alt="primes">
+<figcaption aria-hidden="true">primes</figcaption>
+</figure>
+<p>Some hints:</p>
 <blockquote>
 <ul>
-<li>Be careful to close file descriptors that a process doesn’t need, because otherwise your program will run xv6 out of resources before the first process reaches 35.</li>
-<li>Once the first process reaches 35, it should wait until the entire pipeline terminates, including all children, grandchildren, &amp;c. Thus the main primes process should only exit after all the output has been printed, and after all the other primes processes have exited.</li>
-<li>Hint: <code>read</code> returns zero when the write-side of a pipe is closed.</li>
-<li>It’s simplest to directly write 32-bit (4-byte) <code>int</code>s to the pipes, rather than using formatted ASCII I/O.</li>
-<li>You should create the processes in the pipeline only as they are needed.</li>
+<li>Be careful to close file descriptors that a process doesn't need,
+because otherwise your program will run xv6 out of resources before the
+first process reaches 35.</li>
+<li>Once the first process reaches 35, it should wait until the entire
+pipeline terminates, including all children, grandchildren, &amp;c. Thus
+the main primes process should only exit after all the output has been
+printed, and after all the other primes processes have exited.</li>
+<li>Hint: <code>read</code> returns zero when the write-side of a pipe
+is closed.</li>
+<li>It's simplest to directly write 32-bit (4-byte) <code>int</code>s to
+the pipes, rather than using formatted ASCII I/O.</li>
+<li>You should create the processes in the pipeline only as they are
+needed.</li>
 <li>Add the program to <code>UPROGS</code> in Makefile.</li>
 </ul>
 </blockquote>
-<p>Your solution is correct if it implements a pipe-based sieve and produces the following output:</p>
+<p>Your solution is correct if it implements a pipe-based sieve and
+produces the following output:</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ make qemu
 ...
 init: starting sh
@@ -461,7 +485,8 @@ prime 23
 prime 29
 prime 31
 $<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>解决这道题的关键是让管道连续流动，父进程写数据，子进程读数据即可。那势必需要多次fork()，因为没遇到一个素数就需要创建一个新进程，管道流动起来。</p>
+<h2 id="思考">思考</h2>
+<p>解决这道题的关键是让管道连续流动，父进程写数据，子进程读数据即可。那势必需要多次fork()，因为没遇到一个素数就需要创建一个新进程，管道流动起来。</p>
 <p>首先明确，父进程的职能是将素数写入管道，子进程负责从管道读出素数，接着进行一次筛选，再创建新进程，此时子进程变成了父进程，重复上述操作即可，上述操作的伪代码可以这样描述。</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">while(condition){
     if(fork() == 0){
@@ -474,7 +499,10 @@ $<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><s
     }
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>只有fork()出来的父子进程才能通过一个管道通信，为了完成父进程写，子进程读，需要我们关闭父进程的读端和子进程的写端，管道通信的示意图如下</p>
-<p><img src="/posts/fbd7/image-20220816193304351.png" alt="pipe"></p>
+<figure>
+<img src="/posts/fbd7/image-20220816193304351.png" alt="pipe">
+<figcaption aria-hidden="true">pipe</figcaption>
+</figure>
 <p>由于管道通信仅涉及父子进程，那么一个想法是在每一次创建进程之前，都先进行pipe(fd)，这样父子进程的fd都指向同一管道。</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">while(condition){
     int fd[2];
@@ -500,7 +528,8 @@ $<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><s
 <li>while停止的条件，可以记录每次传送数据的个数，当数据个数为0时，认为素数筛选完毕，此时退出循环，程序结束。</li>
 <li>值得注意的是，由于每次循环都执行fork()操作，会导致进程指数级增长(多叉树)，我们期望的是这棵树长成一个单链表，那就需要wait()机制，<code>wait可以让父进程等待子进程的退出</code>，在父进程的代码里，加上wait()则会让父进程阻塞在这里，从而不会执行循环，也就不会形成多叉树。</li>
 </ul>
-<h2 id="彩蛋"><a href="#彩蛋" class="headerlink" title="彩蛋"></a>彩蛋</h2><p>其实没有wait()，让父进程直接退出也能达到不产生多叉树的效果，但是如果注释掉wait()，会发现一个意想不到的结果。</p>
+<h2 id="彩蛋">彩蛋</h2>
+<p>其实没有wait()，让父进程直接退出也能达到不产生多叉树的效果，但是如果注释掉wait()，会发现一个意想不到的结果。</p>
 <p>会发现，<code>命令提示符$</code>被打印了出来？这里的原因需要追溯到shell的运行机制，实际上shell也是一个c程序，中间也是一段fork()，子进程执行命令，父进程等待子进程的退出(显示命令提示符$)，由于cpu调度时，一次性让primes.c的主进程(shell的子进程)执行完了，进程退出后，会回到shell程序，接着打印出$，从而有了上述的结果。</p>
 
                 
@@ -1091,8 +1120,8 @@ $<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><s
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="post-category">
-                                    操作系统
+                            <a href="/categories/Operating-System/" class="post-category">
+                                    Operating System
                                 </a>
                             
                             
@@ -1140,12 +1169,12 @@ $<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><s
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="post-category">
-                                    操作系统
+                            <a href="/categories/Operating-System/" class="post-category">
+                                    Operating System
                                 </a>
                             
-                            <a href="/categories/%E7%BC%96%E8%AF%91/" class="post-category">
-                                    编译
+                            <a href="/categories/Compile/" class="post-category">
+                                    Compile
                                 </a>
                             
                             
