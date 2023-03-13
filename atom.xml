@@ -6,7 +6,7 @@
   <link href="http://paran0idy.github.io/atom.xml" rel="self"/>
   
   <link href="http://paran0idy.github.io/"/>
-  <updated>2023-03-05T16:33:05.786Z</updated>
+  <updated>2023-03-13T14:01:41.917Z</updated>
   <id>http://paran0idy.github.io/</id>
   
   <author>
@@ -17,26 +17,76 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>CSAPP：lab0</title>
+    <link href="http://paran0idy.github.io/posts/8498.html"/>
+    <id>http://paran0idy.github.io/posts/8498.html</id>
+    <published>2023-03-13T13:22:07.000Z</published>
+    <updated>2023-03-13T14:01:41.917Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;C-Programming-Lab-Assessing-Your-C-Programming-Skills&quot;&gt;&lt;a href=&quot;#C-Programming-Lab-Assessing-Your-C-Programming-Skills&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="http://paran0idy.github.io/categories/Linux/"/>
+    
+    
+    <category term="CSAPP" scheme="http://paran0idy.github.io/tags/CSAPP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基于docker开发TVM</title>
+    <link href="http://paran0idy.github.io/posts/b31c.html"/>
+    <id>http://paran0idy.github.io/posts/b31c.html</id>
+    <published>2023-03-10T15:47:35.000Z</published>
+    <updated>2023-03-13T14:14:22.232Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;基于docker开发TVM&quot;&gt;&lt;a href=&quot;#基于docker开发TVM&quot; class=&quot;headerlink&quot; title=&quot;基于docker开发TVM&quot;&gt;&lt;/a&gt;基于docker开发TVM&lt;/h1&gt;&lt;h3 id=&quot;1-拉取TVM镜像&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="编译" scheme="http://paran0idy.github.io/categories/%E7%BC%96%E8%AF%91/"/>
+    
+    <category term="Deep Learning" scheme="http://paran0idy.github.io/categories/%E7%BC%96%E8%AF%91/Deep-Learning/"/>
+    
+    
+    <category term="TVM" scheme="http://paran0idy.github.io/tags/TVM/"/>
+    
+  </entry>
+  
+  <entry>
     <title>git提交冲突问题</title>
     <link href="http://paran0idy.github.io/posts/aa5e.html"/>
     <id>http://paran0idy.github.io/posts/aa5e.html</id>
     <published>2023-03-05T11:25:33.000Z</published>
-    <updated>2023-03-05T16:33:05.786Z</updated>
+    <updated>2023-03-13T14:15:29.009Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;git提交冲突问题&quot;&gt;git提交冲突问题&lt;/h1&gt;
-&lt;p&gt;远程仓库和本地仓库同时有修改时，此时&lt;code&gt;git push&lt;/code&gt;会产生冲突。例如下图&lt;/p&gt;
-&lt;p&gt;执行&lt;code&gt;git push origin</summary>
+    <summary type="html">&lt;h1 id=&quot;git提交冲突问题&quot;&gt;&lt;a href=&quot;#git提交冲突问题&quot; class=&quot;headerlink&quot; title=&quot;git提交冲突问题&quot;&gt;&lt;/a&gt;git提交冲突问题&lt;/h1&gt;&lt;p&gt;远程仓库和本地仓库同时有修改时，此时&lt;code&gt;git</summary>
         
       
     
     
     
-    <category term="工具" scheme="http://paran0idy.github.io/categories/%E5%B7%A5%E5%85%B7/"/>
+    <category term="tools" scheme="http://paran0idy.github.io/categories/tools/"/>
     
     
     <category term="git" scheme="http://paran0idy.github.io/tags/git/"/>
@@ -48,26 +98,23 @@
     <link href="http://paran0idy.github.io/posts/b74f.html"/>
     <id>http://paran0idy.github.io/posts/b74f.html</id>
     <published>2023-03-02T03:52:10.000Z</published>
-    <updated>2023-03-02T03:54:03.229Z</updated>
+    <updated>2023-03-13T14:10:18.120Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;challenge使用antlr4构建ast&quot;&gt;Challenge：使用ANTLR4构建AST&lt;/h1&gt;
-&lt;h2 id=&quot;定义语法规则&quot;&gt;1.定义语法规则&lt;/h2&gt;
-&lt;p&gt;编写&lt;code&gt;Calculator.g4&lt;/code&gt;文件，如下&lt;/p&gt;
-&lt;pre</summary>
+    <summary type="html">&lt;h1 id=&quot;Challenge：使用ANTLR4构建AST&quot;&gt;&lt;a href=&quot;#Challenge：使用ANTLR4构建AST&quot; class=&quot;headerlink&quot;</summary>
         
       
     
     
     
-    <category term="ANTLR4" scheme="http://paran0idy.github.io/categories/ANTLR4/"/>
+    <category term="编译" scheme="http://paran0idy.github.io/categories/%E7%BC%96%E8%AF%91/"/>
     
     
-    <category term="编译" scheme="http://paran0idy.github.io/tags/%E7%BC%96%E8%AF%91/"/>
+    <category term="ANTLR4" scheme="http://paran0idy.github.io/tags/ANTLR4/"/>
     
   </entry>
   
@@ -76,28 +123,25 @@
     <link href="http://paran0idy.github.io/posts/eb14.html"/>
     <id>http://paran0idy.github.io/posts/eb14.html</id>
     <published>2023-01-10T09:33:27.000Z</published>
-    <updated>2023-01-10T10:04:00.000Z</updated>
+    <updated>2023-03-13T14:12:05.380Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;猫狗大战&quot;&gt;猫狗大战&lt;/h1&gt;
-&lt;p&gt;通过来自 kaggle 上的猫狗数据集，训练一个识别猫狗图片的分类器。要求
-设计一个使用 ResNet18 作为主干的卷积神经网络，在迁移网络时采用固定值模
-式，要求模型的准确率不低于 90%。猫狗大战数据集训练集有</summary>
+    <summary type="html">&lt;h1 id=&quot;猫狗大战&quot;&gt;&lt;a href=&quot;#猫狗大战&quot; class=&quot;headerlink&quot; title=&quot;猫狗大战&quot;&gt;&lt;/a&gt;猫狗大战&lt;/h1&gt;&lt;p&gt;通过来自 kaggle 上的猫狗数据集，训练一个识别猫狗图片的分类器。要求 设计一个使用 ResNet18</summary>
         
       
     
     
     
-    <category term="迁移学习" scheme="http://paran0idy.github.io/categories/%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0/"/>
+    <category term="Deep Learning" scheme="http://paran0idy.github.io/categories/Deep-Learning/"/>
     
-    <category term="卷积神经网络" scheme="http://paran0idy.github.io/categories/%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
+    <category term="Transfer Learning" scheme="http://paran0idy.github.io/categories/Deep-Learning/Transfer-Learning/"/>
     
     
-    <category term="深度学习" scheme="http://paran0idy.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <category term="CNN" scheme="http://paran0idy.github.io/tags/CNN/"/>
     
   </entry>
   
@@ -106,27 +150,23 @@
     <link href="http://paran0idy.github.io/posts/9233.html"/>
     <id>http://paran0idy.github.io/posts/9233.html</id>
     <published>2023-01-10T09:18:45.000Z</published>
-    <updated>2023-01-10T10:04:00.000Z</updated>
+    <updated>2023-03-13T14:13:39.823Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;正弦函数预测&quot;&gt;正弦函数预测&lt;/h1&gt;
-&lt;p&gt;通过已知的样本数据对正弦函数进行预测，并绘制出图形。设计
-LSTM网络进行预测，记录预测准确率并绘制图形。&lt;/p&gt;
-&lt;h2 id=&quot;准备数据&quot;&gt;1.准备数据&lt;/h2&gt;
-&lt;pre class=&quot;line-numbers</summary>
+    <summary type="html">&lt;h1 id=&quot;正弦函数预测&quot;&gt;&lt;a href=&quot;#正弦函数预测&quot; class=&quot;headerlink&quot; title=&quot;正弦函数预测&quot;&gt;&lt;/a&gt;正弦函数预测&lt;/h1&gt;&lt;p&gt;通过已知的样本数据对正弦函数进行预测，并绘制出图形。设计</summary>
         
       
     
     
     
-    <category term="LSTM" scheme="http://paran0idy.github.io/categories/LSTM/"/>
+    <category term="Deep Learning" scheme="http://paran0idy.github.io/categories/Deep-Learning/"/>
     
     
-    <category term="深度学习" scheme="http://paran0idy.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <category term="LSTM" scheme="http://paran0idy.github.io/tags/LSTM/"/>
     
   </entry>
   
@@ -135,25 +175,23 @@ LSTM网络进行预测，记录预测准确率并绘制图形。&lt;/p&gt;
     <link href="http://paran0idy.github.io/posts/8865.html"/>
     <id>http://paran0idy.github.io/posts/8865.html</id>
     <published>2023-01-10T09:03:53.000Z</published>
-    <updated>2023-02-28T16:22:50.690Z</updated>
+    <updated>2023-03-13T14:10:49.604Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;cifar-10分类网络&quot;&gt;CIFAR-10分类网络&lt;/h1&gt;
-&lt;p&gt;通过 CIFAR-10 数据集训练得到一个彩色图像分类网络。要求设计一
-个至少包含 5 个卷积层和池化层的卷积神经网络。卷积核的尺寸统一采用</summary>
+    <summary type="html">&lt;h1 id=&quot;CIFAR-10分类网络&quot;&gt;&lt;a href=&quot;#CIFAR-10分类网络&quot; class=&quot;headerlink&quot; title=&quot;CIFAR-10分类网络&quot;&gt;&lt;/a&gt;CIFAR-10分类网络&lt;/h1&gt;&lt;p&gt;通过 CIFAR-10</summary>
         
       
     
     
     
-    <category term="卷积神经网络" scheme="http://paran0idy.github.io/categories/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
+    <category term="Deep Learning" scheme="http://paran0idy.github.io/categories/Deep-Learning/"/>
     
     
-    <category term="深度学习" scheme="http://paran0idy.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <category term="CNN" scheme="http://paran0idy.github.io/tags/CNN/"/>
     
   </entry>
   
@@ -162,26 +200,23 @@ LSTM网络进行预测，记录预测准确率并绘制图形。&lt;/p&gt;
     <link href="http://paran0idy.github.io/posts/b31.html"/>
     <id>http://paran0idy.github.io/posts/b31.html</id>
     <published>2023-01-10T08:21:02.000Z</published>
-    <updated>2023-01-10T09:15:10.000Z</updated>
+    <updated>2023-03-13T14:13:16.985Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;手写数字识别器&quot;&gt;手写数字识别器&lt;/h1&gt;
-&lt;p&gt;通过 MNIST 数据集训练得到一个手写数字分类器。要求设计一个至 少包含 2
-个卷积层和池化层的卷积神经网络。卷积核的尺寸不小于 5*5，要求训
-后的得到的网络在测试集确率不低于 96%（要求在网络中使用</summary>
+    <summary type="html">&lt;h1 id=&quot;手写数字识别器&quot;&gt;&lt;a href=&quot;#手写数字识别器&quot; class=&quot;headerlink&quot; title=&quot;手写数字识别器&quot;&gt;&lt;/a&gt;手写数字识别器&lt;/h1&gt;&lt;p&gt;通过 MNIST 数据集训练得到一个手写数字分类器。要求设计一个至 少包含 2</summary>
         
       
     
     
     
-    <category term="卷积神经网络" scheme="http://paran0idy.github.io/categories/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"/>
+    <category term="Deep Learning" scheme="http://paran0idy.github.io/categories/Deep-Learning/"/>
     
     
-    <category term="深度学习" scheme="http://paran0idy.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <category term="CNN" scheme="http://paran0idy.github.io/tags/CNN/"/>
     
   </entry>
   
@@ -190,24 +225,23 @@ LSTM网络进行预测，记录预测准确率并绘制图形。&lt;/p&gt;
     <link href="http://paran0idy.github.io/posts/a174.html"/>
     <id>http://paran0idy.github.io/posts/a174.html</id>
     <published>2023-01-10T08:04:11.000Z</published>
-    <updated>2023-01-10T10:12:44.000Z</updated>
+    <updated>2023-03-13T14:13:29.860Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;鸢尾花分类&quot;&gt;鸢尾花分类&lt;/h1&gt;
-&lt;p&gt;iris 数据集包含 150</summary>
+    <summary type="html">&lt;h1 id=&quot;鸢尾花分类&quot;&gt;&lt;a href=&quot;#鸢尾花分类&quot; class=&quot;headerlink&quot; title=&quot;鸢尾花分类&quot;&gt;&lt;/a&gt;鸢尾花分类&lt;/h1&gt;&lt;p&gt;iris 数据集包含 150 个样本，对应数据集的每行数据。每行数据包含每个</summary>
         
       
     
     
     
-    <category term="softmax回归" scheme="http://paran0idy.github.io/categories/softmax%E5%9B%9E%E5%BD%92/"/>
+    <category term="Deep Learning" scheme="http://paran0idy.github.io/categories/Deep-Learning/"/>
     
     
-    <category term="深度学习" scheme="http://paran0idy.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <category term="softmax回归" scheme="http://paran0idy.github.io/tags/softmax%E5%9B%9E%E5%BD%92/"/>
     
   </entry>
   
@@ -223,9 +257,7 @@ LSTM网络进行预测，记录预测准确率并绘制图形。&lt;/p&gt;
       
         
         
-    <summary type="html">&lt;h1 id=&quot;共享单车预测&quot;&gt;共享单车预测&lt;/h1&gt;
-&lt;p&gt;通过历史数据预测某一地区接下来一段时间内的共享单车的数量。数据保存在文件
-bikes.csv 中，请按 11:1</summary>
+    <summary type="html">&lt;h1 id=&quot;共享单车预测&quot;&gt;&lt;a href=&quot;#共享单车预测&quot; class=&quot;headerlink&quot; title=&quot;共享单车预测&quot;&gt;&lt;/a&gt;共享单车预测&lt;/h1&gt;&lt;p&gt;通过历史数据预测某一地区接下来一段时间内的共享单车的数量。数据保存在文件 bikes.csv 中，请按</summary>
         
       
     
@@ -243,26 +275,23 @@ bikes.csv 中，请按 11:1</summary>
     <link href="http://paran0idy.github.io/posts/5d68.html"/>
     <id>http://paran0idy.github.io/posts/5d68.html</id>
     <published>2023-01-09T16:16:12.000Z</published>
-    <updated>2023-01-10T07:37:32.000Z</updated>
+    <updated>2023-03-13T14:13:02.364Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;神经网络拟合函数&quot;&gt;神经网络拟合函数&lt;/h1&gt;
-&lt;h2 id=&quot;准备数据&quot;&gt;1.准备数据&lt;/h2&gt;
-&lt;p&gt;导入需要使用的第三方库&lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-python&quot;</summary>
+    <summary type="html">&lt;h1 id=&quot;神经网络拟合函数&quot;&gt;&lt;a href=&quot;#神经网络拟合函数&quot; class=&quot;headerlink&quot; title=&quot;神经网络拟合函数&quot;&gt;&lt;/a&gt;神经网络拟合函数&lt;/h1&gt;&lt;h2 id=&quot;1-准备数据&quot;&gt;&lt;a href=&quot;#1-准备数据&quot;</summary>
         
       
     
     
     
-    <category term="线性回归" scheme="http://paran0idy.github.io/categories/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/"/>
+    <category term="Deep Learning" scheme="http://paran0idy.github.io/categories/Deep-Learning/"/>
     
     
-    <category term="深度学习" scheme="http://paran0idy.github.io/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <category term="线性回归" scheme="http://paran0idy.github.io/tags/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/"/>
     
   </entry>
   
@@ -271,19 +300,20 @@ bikes.csv 中，请按 11:1</summary>
     <link href="http://paran0idy.github.io/posts/852f.html"/>
     <id>http://paran0idy.github.io/posts/852f.html</id>
     <published>2022-12-24T09:00:32.000Z</published>
-    <updated>2023-02-28T16:14:02.023Z</updated>
+    <updated>2023-03-13T14:10:04.156Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;s0815.xargs命令实现&quot;&gt;6.S081：5.xargs命令实现&lt;/h1&gt;
-&lt;h2 id=&quot;xargs-moderate&quot;&gt;xargs (&lt;a</summary>
+    <summary type="html">&lt;h1 id=&quot;6-S081：5-xargs命令实现&quot;&gt;&lt;a href=&quot;#6-S081：5-xargs命令实现&quot; class=&quot;headerlink&quot; title=&quot;6.S081：5.xargs命令实现&quot;&gt;&lt;/a&gt;6.S081：5.xargs命令实现&lt;/h1&gt;&lt;h2</summary>
         
       
     
     
+    
+    <category term="操作系统" scheme="http://paran0idy.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
     <category term="6.S081" scheme="http://paran0idy.github.io/tags/6-S081/"/>
@@ -295,19 +325,20 @@ bikes.csv 中，请按 11:1</summary>
     <link href="http://paran0idy.github.io/posts/51d6.html"/>
     <id>http://paran0idy.github.io/posts/51d6.html</id>
     <published>2022-12-20T08:32:10.000Z</published>
-    <updated>2023-02-28T15:51:49.577Z</updated>
+    <updated>2023-03-13T14:09:55.633Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;s0814.find功能实现&quot;&gt;6.S081：4.find功能实现&lt;/h1&gt;
-&lt;h2 id=&quot;find-moderate&quot;&gt;find (&lt;a</summary>
+    <summary type="html">&lt;h1 id=&quot;6-S081：4-find功能实现&quot;&gt;&lt;a href=&quot;#6-S081：4-find功能实现&quot; class=&quot;headerlink&quot; title=&quot;6.S081：4.find功能实现&quot;&gt;&lt;/a&gt;6.S081：4.find功能实现&lt;/h1&gt;&lt;h2</summary>
         
       
     
     
+    
+    <category term="操作系统" scheme="http://paran0idy.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
     <category term="6.S081" scheme="http://paran0idy.github.io/tags/6-S081/"/>
@@ -316,18 +347,17 @@ bikes.csv 中，请按 11:1</summary>
   
   <entry>
     <title>6.S081：3.素数筛Primes实验</title>
-    <link href="http://paran0idy.github.io/posts/ac84.html"/>
-    <id>http://paran0idy.github.io/posts/ac84.html</id>
+    <link href="http://paran0idy.github.io/posts/fbd7.html"/>
+    <id>http://paran0idy.github.io/posts/fbd7.html</id>
     <published>2022-12-11T09:06:49.000Z</published>
-    <updated>2023-02-28T15:51:42.292Z</updated>
+    <updated>2023-03-13T14:04:27.036Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;s0813.素数筛primes实验&quot;&gt;6.S081：3.素数筛Primes实验&lt;/h1&gt;
-&lt;h2 id=&quot;problemprimes-moderatehard&quot;&gt;Problem：primes (&lt;a</summary>
+    <summary type="html">&lt;h1 id=&quot;6-S081：3-素数筛Primes实验&quot;&gt;&lt;a href=&quot;#6-S081：3-素数筛Primes实验&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -342,24 +372,25 @@ bikes.csv 中，请按 11:1</summary>
   
   <entry>
     <title>6.S081：2.makefile初体验</title>
-    <link href="http://paran0idy.github.io/posts/ab96.html"/>
-    <id>http://paran0idy.github.io/posts/ab96.html</id>
+    <link href="http://paran0idy.github.io/posts/44d8.html"/>
+    <id>http://paran0idy.github.io/posts/44d8.html</id>
     <published>2022-12-09T16:41:42.000Z</published>
-    <updated>2023-02-28T15:51:35.809Z</updated>
+    <updated>2023-03-13T14:09:27.083Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;s0812.makefile初体验&quot;&gt;6.S081：2.makefile初体验&lt;/h1&gt;
-&lt;h2</summary>
+    <summary type="html">&lt;h1 id=&quot;6-S081：2-makefile初体验&quot;&gt;&lt;a href=&quot;#6-S081：2-makefile初体验&quot; class=&quot;headerlink&quot;</summary>
         
       
     
     
     
     <category term="编译" scheme="http://paran0idy.github.io/categories/%E7%BC%96%E8%AF%91/"/>
+    
+    <category term="操作系统" scheme="http://paran0idy.github.io/categories/%E7%BC%96%E8%AF%91/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
     <category term="6.S081" scheme="http://paran0idy.github.io/tags/6-S081/"/>
@@ -368,19 +399,17 @@ bikes.csv 中，请按 11:1</summary>
   
   <entry>
     <title>6.S081：1.关于fork()的思考</title>
-    <link href="http://paran0idy.github.io/posts/undefined.html"/>
-    <id>http://paran0idy.github.io/posts/undefined.html</id>
+    <link href="http://paran0idy.github.io/posts/17de.html"/>
+    <id>http://paran0idy.github.io/posts/17de.html</id>
     <published>2022-12-05T09:39:47.000Z</published>
-    <updated>2023-02-28T15:51:21.603Z</updated>
+    <updated>2023-03-13T14:04:27.031Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;s0811.关于fork的思考&quot;&gt;6.S081：1.关于fork()的思考&lt;/h1&gt;
-&lt;h2 id=&quot;fork&quot;&gt;1.fork&lt;/h2&gt;
-&lt;pre class=&quot;line-numbers language-c&quot; data-language=&quot;c&quot;&gt;&lt;code</summary>
+    <summary type="html">&lt;h1 id=&quot;6-S081：1-关于fork-的思考&quot;&gt;&lt;a href=&quot;#6-S081：1-关于fork-的思考&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -405,15 +434,40 @@ bikes.csv 中，请按 11:1</summary>
       
         
         
-    <summary type="html">&lt;h1 id=&quot;lab1shell&quot;&gt;lab1：Shell&lt;/h1&gt;
-&lt;h2 id=&quot;question-1&quot;&gt;&lt;strong&gt;Question 1&lt;/strong&gt;:&lt;/h2&gt;
-&lt;p&gt;If you add a background command after the</summary>
+    <summary type="html">&lt;h1 id=&quot;lab1：Shell&quot;&gt;&lt;a href=&quot;#lab1：Shell&quot; class=&quot;headerlink&quot; title=&quot;lab1：Shell&quot;&gt;&lt;/a&gt;lab1：Shell&lt;/h1&gt;&lt;h2 id=&quot;Question-1&quot;&gt;&lt;a</summary>
         
       
     
     
     
     <category term="Linux" scheme="http://paran0idy.github.io/categories/Linux/"/>
+    
+    
+    <category term="Sysprog" scheme="http://paran0idy.github.io/tags/Sysprog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Sysprog：2. mini Network-Analyzer</title>
+    <link href="http://paran0idy.github.io/posts/asfdh.html"/>
+    <id>http://paran0idy.github.io/posts/asfdh.html</id>
+    <published>2022-10-27T15:48:39.000Z</published>
+    <updated>2023-03-13T14:15:13.798Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;mini-Network-Analyzer&quot;&gt;&lt;a href=&quot;#mini-Network-Analyzer&quot; class=&quot;headerlink&quot; title=&quot;mini Network-Analyzer&quot;&gt;&lt;/a&gt;mini</summary>
+        
+      
+    
+    
+    
+    <category term="Linux" scheme="http://paran0idy.github.io/categories/Linux/"/>
+    
+    <category term="Network" scheme="http://paran0idy.github.io/categories/Linux/Network/"/>
     
     
     <category term="Sysprog" scheme="http://paran0idy.github.io/tags/Sysprog/"/>
@@ -432,35 +486,7 @@ bikes.csv 中，请按 11:1</summary>
       
         
         
-    <summary type="html">&lt;h1 id=&quot;lab3-a-minimal-debugger&quot;&gt;lab3 ：A Minimal Debugger&lt;/h1&gt;
-&lt;h2 id=&quot;exercise-1&quot;&gt;Exercise 1:&lt;/h2&gt;
-&lt;p&gt;Now read the source file and answer</summary>
-        
-      
-    
-    
-    
-    <category term="Linux" scheme="http://paran0idy.github.io/categories/Linux/"/>
-    
-    
-    <category term="Sysprog" scheme="http://paran0idy.github.io/tags/Sysprog/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Sysprog：2. mini Network-Analyzer</title>
-    <link href="http://paran0idy.github.io/posts/asfdh.html"/>
-    <id>http://paran0idy.github.io/posts/asfdh.html</id>
-    <published>2022-10-27T15:48:39.000Z</published>
-    <updated>2022-10-28T16:25:00.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;mini-network-analyzer&quot;&gt;mini Network-Analyzer&lt;/h1&gt;
-&lt;h2 id=&quot;part-dpacket-spoofing&quot;&gt;Part D：packet</summary>
+    <summary type="html">&lt;h1 id=&quot;lab3-：A-Minimal-Debugger&quot;&gt;&lt;a href=&quot;#lab3-：A-Minimal-Debugger&quot; class=&quot;headerlink&quot; title=&quot;lab3 ：A Minimal Debugger&quot;&gt;&lt;/a&gt;lab3 ：A</summary>
         
       
     
@@ -478,56 +504,23 @@ bikes.csv 中，请按 11:1</summary>
     <link href="http://paran0idy.github.io/posts/a5ca.html"/>
     <id>http://paran0idy.github.io/posts/a5ca.html</id>
     <published>2022-07-14T06:59:39.000Z</published>
-    <updated>2022-07-14T10:01:16.000Z</updated>
+    <updated>2023-03-13T14:15:35.482Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;github创建仓库并使用git上传本地代码&quot;&gt;github创建仓库并使用git上传本地代码&lt;/h1&gt;
-&lt;h2 id=&quot;创建本地仓库和github仓库&quot;&gt;创建本地仓库和github仓库&lt;/h2&gt;
-&lt;figure&gt;
-&lt;img</summary>
+    <summary type="html">&lt;h1 id=&quot;github创建仓库并使用git上传本地代码&quot;&gt;&lt;a href=&quot;#github创建仓库并使用git上传本地代码&quot; class=&quot;headerlink&quot;</summary>
         
       
     
     
     
-    <category term="工具" scheme="http://paran0idy.github.io/categories/%E5%B7%A5%E5%85%B7/"/>
+    <category term="tools" scheme="http://paran0idy.github.io/categories/tools/"/>
     
     
     <category term="git" scheme="http://paran0idy.github.io/tags/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>WSL2下配置Anaconda、Pytorch、Jupyter Notebook</title>
-    <link href="http://paran0idy.github.io/posts/869.html"/>
-    <id>http://paran0idy.github.io/posts/869.html</id>
-    <published>2022-06-28T08:39:27.000Z</published>
-    <updated>2022-07-14T07:02:44.000Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;wsl2下配置anacondapytorchjupyter-notebook&quot;&gt;WSL2下配置Anaconda、Pytorch、Jupyter
-Notebook&lt;/h1&gt;
-&lt;p&gt;和原生Linux下配置环境基本一致&lt;/p&gt;
-&lt;h2</summary>
-        
-      
-    
-    
-    
-    <category term="深度学习" scheme="http://paran0idy.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-    <category term="Linux" scheme="http://paran0idy.github.io/tags/Linux/"/>
-    
-    <category term="Pytorch" scheme="http://paran0idy.github.io/tags/Pytorch/"/>
     
   </entry>
   

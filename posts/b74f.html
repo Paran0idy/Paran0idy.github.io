@@ -5,14 +5,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="ANTLR4构建AST, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="Challenge：使用ANTLR4构建AST
-1.定义语法规则
-编写Calculator.g4文件，如下
+    <meta name="description" content="Challenge：使用ANTLR4构建AST1.定义语法规则编写Calculator.g4文件，如下
 grammar Calculator;
 
 prog    : stat+ ;
 
-stat    : expr NEWLINE    ">
+stat    : expr NEWLINE      ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -385,8 +383,8 @@ stat    : expr NEWLINE    ">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E7%BC%96%E8%AF%91/">
-                                <span class="chip bg-color">编译</span>
+                            <a href="/tags/ANTLR4/">
+                                <span class="chip bg-color">ANTLR4</span>
                             </a>
                         
                     </div>
@@ -397,8 +395,8 @@ stat    : expr NEWLINE    ">
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/ANTLR4/" class="post-category">
-                                ANTLR4
+                            <a href="/categories/%E7%BC%96%E8%AF%91/" class="post-category">
+                                编译
                             </a>
                         
                     </div>
@@ -434,9 +432,7 @@ stat    : expr NEWLINE    ">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="challenge使用antlr4构建ast">Challenge：使用ANTLR4构建AST</h1>
-<h2 id="定义语法规则">1.定义语法规则</h2>
-<p>编写<code>Calculator.g4</code>文件，如下</p>
+                <h1 id="Challenge：使用ANTLR4构建AST"><a href="#Challenge：使用ANTLR4构建AST" class="headerlink" title="Challenge：使用ANTLR4构建AST"></a>Challenge：使用ANTLR4构建AST</h1><h2 id="1-定义语法规则"><a href="#1-定义语法规则" class="headerlink" title="1.定义语法规则"></a>1.定义语法规则</h2><p>编写<code>Calculator.g4</code>文件，如下</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">grammar Calculator;
 
 prog    : stat+ ;
@@ -462,14 +458,10 @@ ADD     : '+' ;
 SUB     : '-' ;
 
 WS      : [ \t\r\n]+ -&gt; skip ;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="定义对ast访问的动作">2.定义对AST访问的动作</h2>
-<p>输入</p>
+<h2 id="2-定义对AST访问的动作"><a href="#2-定义对AST访问的动作" class="headerlink" title="2.定义对AST访问的动作"></a>2.定义对AST访问的动作</h2><p>输入</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">antlr4 -no-listener -visitor -Dlanguage=Python3 Calculator.g4<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>即可自动生成<code>lexer、parser、visitor</code>且均由<code>python</code>编写</p>
-<figure>
-<img src="/posts/b74f/image-20221120003913606.png" alt="image-20221120003913606">
-<figcaption aria-hidden="true">image-20221120003913606</figcaption>
-</figure>
+<p><img src="/posts/b74f/image-20221120003913606.png" alt="image-20221120003913606"></p>
 <p>创建一个<code>myVisitor</code>类，继承自<code>CalculatorVisitor</code>，定义对<code>AST</code>的访问动作</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">from antlr4 import *
 from CalculatorLexer import CalculatorLexer
@@ -507,8 +499,7 @@ class myVisitor(CalculatorVisitor):
 
     def visitInt(self, ctx: CalculatorParser.IntContext):
         return int(ctx.getText())<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="测试">3.测试</h2>
-<p>给定写好的代数表达式文件<code>expr.txt</code></p>
+<h2 id="3-测试"><a href="#3-测试" class="headerlink" title="3.测试"></a>3.测试</h2><p>给定写好的代数表达式文件<code>expr.txt</code></p>
 <pre class="line-numbers language-none"><code class="language-none">(1 + 2) * 3
 1 + 2 * 3
 1 + 2 + 3
@@ -531,10 +522,7 @@ def antlr():
     for i in range(len(array)):
         self.assertEqual(array[i], answer[i])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>最终效果</p>
-<figure>
-<img src="/posts/b74f/image-20221120004523313.png" alt="image-20221120004523313">
-<figcaption aria-hidden="true">image-20221120004523313</figcaption>
-</figure>
+<p><img src="/posts/b74f/image-20221120004523313.png" alt="image-20221120004523313"></p>
 
                 
             </div>
@@ -599,8 +587,8 @@ def antlr():
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E7%BC%96%E8%AF%91/">
-                                    <span class="chip bg-color">编译</span>
+                                <a href="/tags/ANTLR4/">
+                                    <span class="chip bg-color">ANTLR4</span>
                                 </a>
                             
                         </div>
@@ -1124,8 +1112,8 @@ def antlr():
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%B7%A5%E5%85%B7/" class="post-category">
-                                    工具
+                            <a href="/categories/tools/" class="post-category">
+                                    tools
                                 </a>
                             
                             
@@ -1173,12 +1161,12 @@ def antlr():
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0/" class="post-category">
-                                    迁移学习
+                            <a href="/categories/Deep-Learning/" class="post-category">
+                                    Deep Learning
                                 </a>
                             
-                            <a href="/categories/%E8%BF%81%E7%A7%BB%E5%AD%A6%E4%B9%A0/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="post-category">
-                                    卷积神经网络
+                            <a href="/categories/Deep-Learning/Transfer-Learning/" class="post-category">
+                                    Transfer Learning
                                 </a>
                             
                             
@@ -1188,8 +1176,8 @@ def antlr():
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-                        <span class="chip bg-color">深度学习</span>
+                    <a href="/tags/CNN/">
+                        <span class="chip bg-color">CNN</span>
                     </a>
                     
                 </div>

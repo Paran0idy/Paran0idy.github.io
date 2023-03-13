@@ -5,15 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Sysprog：1. Shell, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="lab1：Shell
-Question 1:
-If you add a background command after the pipeline command, can the
-pipeline work?
+    <meta name="description" content="lab1：ShellQuestion 1:If you add a background command after the pipeline command, can the pipeline work?
 Solution
-
-
-Q1
-">
+由上图可知，b">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -435,18 +429,9 @@ Q1
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="lab1shell">lab1：Shell</h1>
-<h2 id="question-1"><strong>Question 1</strong>:</h2>
-<p>If you add a background command after the pipeline command, can the
-pipeline work?</p>
-<h3 id="solution">Solution</h3>
-<figure>
-<img src="/posts/sfaaf/image-20221004234233382.png" alt="Q1">
-<figcaption aria-hidden="true">Q1</figcaption>
-</figure>
-<p>由上图可知，background
-command会导致pipeline不能正常工作，shell提前打印出了<code>ccs-lab@</code>字样，并且在执行完background
-command后依然在等待用户输入，我实现的background如下</p>
+                <h1 id="lab1：Shell"><a href="#lab1：Shell" class="headerlink" title="lab1：Shell"></a>lab1：Shell</h1><h2 id="Question-1"><a href="#Question-1" class="headerlink" title="Question 1:"></a><strong>Question 1</strong>:</h2><p>If you add a background command after the pipeline command, can the pipeline work?</p>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p><img src="/posts/sfaaf/image-20221004234233382.png" alt="Q1"></p>
+<p>由上图可知，background command会导致pipeline不能正常工作，shell提前打印出了<code>ccs-lab@</code>字样，并且在执行完background command后依然在等待用户输入，我实现的background如下</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">case CMD_BACK: {
 	struct Cmd_Back *t = (struct Cmd_Back *) cmd;
 	Cmd_t back = t-&gt;back;
@@ -486,17 +471,11 @@ command后依然在等待用户输入，我实现的background如下</p>
     wait(0);
     break;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>分析其原因，执行right节点命令时，fork出子进程来执行<code>grep</code>，由于此时执行的是background
-command，父进程并未等待子进程退出(<code>grep程序还在运行</code>)，可以直接返回到父进程，最终返回到main函数中，此时进入新一轮循环，<code>css-lab@</code>被打印出来了，但此时cpu又调度了grep进程，grep执行完后，又返回到main里，这时shell会等待用户输入命令，所以出现了一个空行，等待命令输入</p>
-<h2 id="question-2"><strong>Question 2</strong>:</h2>
-<p>Why <code>fork</code> and <code>exec</code> are not combined in a
-single call?</p>
-<h3 id="solution-1">Solution</h3>
-<p><code>fork</code>和<code>exec</code>分离，可以使得在fork后exec前，设置一些必要的参数，如设置argv[]参数、打开或关闭文件描述符</p>
+<p>分析其原因，执行right节点命令时，fork出子进程来执行<code>grep</code>，由于此时执行的是background command，父进程并未等待子进程退出(<code>grep程序还在运行</code>)，可以直接返回到父进程，最终返回到main函数中，此时进入新一轮循环，<code>css-lab@</code>被打印出来了，但此时cpu又调度了grep进程，grep执行完后，又返回到main里，这时shell会等待用户输入命令，所以出现了一个空行，等待命令输入</p>
+<h2 id="Question-2"><a href="#Question-2" class="headerlink" title="Question 2:"></a><strong>Question 2</strong>:</h2><p>Why <code>fork</code> and <code>exec</code> are not combined in a single call?</p>
+<h3 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h3><p><code>fork</code>和<code>exec</code>分离，可以使得在fork后exec前，设置一些必要的参数，如设置argv[]参数、打开或关闭文件描述符</p>
 <p>例如在实现<code>redirect</code>过程中，执行<code>left节点</code>命令之前，先关闭<code>stdout/stdin</code>，再打开要重定向的文件，然后直接left节点命令，即可实现重定向</p>
-<h2 id="question-3"><strong>Question 3</strong>:</h2>
-<p>What are the advantages of pipes over temporary files in this
-situation?</p>
+<h2 id="Question-3"><a href="#Question-3" class="headerlink" title="Question 3:"></a><strong>Question 3</strong>:</h2><p>What are the advantages of pipes over temporary files in this situation?</p>
 <ul>
 <li>use pipe</li>
 </ul>
@@ -505,17 +484,13 @@ situation?</p>
 <li>without pipe</li>
 </ul>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">echo hello world &gt; /tmp/xyz ; wc &lt; /tmp/xyz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="solution-2">Solution</h3>
-<p>代码简洁明了，不需要暂时文件来存储中间信息，便于编写组合命令，实现复杂命令</p>
-<h2 id="exercise-1"><strong>Exercise 1</strong>:</h2>
-<p>Please complete the corresponding part in:</p>
+<h3 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h3><p>代码简洁明了，不需要暂时文件来存储中间信息，便于编写组合命令，实现复杂命令</p>
+<h2 id="Exercise-1"><a href="#Exercise-1" class="headerlink" title="Exercise 1:"></a><strong>Exercise 1</strong>:</h2><p>Please complete the corresponding part in:</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">Cmd_t Cmd_Back_new(Cmd_t back);
 Cmd_t Cmd_Pipe_new(Cmd_t left, Cmd_t right);
 Cmd_t Cmd_Redir_new(Cmd_t left, Cmd_t right, int fd);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>Hint: you can refer to the data structure defined in the
-<code>ast.h</code>.</p>
-<h3 id="soution">Soution</h3>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">Cmd_t Cmd_Back_new(Cmd_t back){
+<p>Hint: you can refer to the data structure defined in the <code>ast.h</code>.</p>
+<h3 id="Soution"><a href="#Soution" class="headerlink" title="Soution"></a>Soution</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">Cmd_t Cmd_Back_new(Cmd_t back){
     Cmd_Back cmd;
     NEW(cmd);
     cmd-&gt;type = CMD_BACK;
@@ -541,26 +516,15 @@ Cmd_t Cmd_Redir_new(Cmd_t left, Cmd_t right, int fd){
     cmd-&gt;fd = fd;
     return (Cmd_t)cmd;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="exercise-2"><strong>Exercise 2</strong>:</h2>
-<p>Please complete the <code>void Cmd_print(Cmd_t cmd)</code>. Then call
-<code>void Cmd_print(Cmd_t cmd)</code> in <code>main.c</code> and
-comment out <code>Cmd_run(root)</code>.</p>
-<p>Finally, compile and run the project in Clion and use the following
-test cases to check whether your answer is correct.</p>
+<h2 id="Exercise-2"><a href="#Exercise-2" class="headerlink" title="Exercise 2:"></a><strong>Exercise 2</strong>:</h2><p>Please complete the <code>void Cmd_print(Cmd_t cmd)</code>. Then call <code>void Cmd_print(Cmd_t cmd)</code> in <code>main.c</code> and comment out <code>Cmd_run(root)</code>.</p>
+<p>Finally, compile and run the project in Clion and use the following test cases to check whether your answer is correct.</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat hello.txt | grep -n hello &gt; c.txt ; ls -l <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>The result will be as shown in the figure below.</p>
-<figure>
-<img src="/posts/sfaaf/print1.PNG" alt="img">
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<p></p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sleep 10 &amp;    <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p></p>
+<p><img src="/posts/sfaaf/print1.PNG" alt="img"></p>
+ <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sleep 10 &amp;    <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>The result will be as shown in the figure below.</p>
-<figure>
-<img src="/posts/sfaaf/image-20220924143217317.png" alt="img">
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<h3 id="solution-3">Solution</h3>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">case CMD_BACK: {
+<p><img src="/posts/sfaaf/image-20220924143217317.png" alt="img"></p>
+<h3 id="Solution-3"><a href="#Solution-3" class="headerlink" title="Solution"></a>Solution</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">case CMD_BACK: {
     struct Cmd_Back *t = (struct Cmd_Back *) cmd;
     Cmd_t back = t-&gt;back;
 
@@ -591,43 +555,20 @@ case CMD_REDIR: {
     break;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>运行效果如下：</p>
-<figure>
-<img src="/posts/sfaaf/image-20221004233932251.png" alt="Q2">
-<figcaption aria-hidden="true">Q2</figcaption>
-</figure>
-<h2 id="exercise-3"><strong>Exercise 3</strong>:</h2>
-<p>Please complete the <code>void Cmd_run(Cmd_t cmd)</code>. Regarding
-redirection commands, you only need to implement output redirection.
-Commands like this:</p>
+<p><img src="/posts/sfaaf/image-20221004233932251.png" alt="Q2"></p>
+<h2 id="Exercise-3"><a href="#Exercise-3" class="headerlink" title="Exercise 3:"></a><strong>Exercise 3</strong>:</h2><p>Please complete the <code>void Cmd_run(Cmd_t cmd)</code>. Regarding redirection commands, you only need to implement output redirection. Commands like this:</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat hello.txt &gt; c.txt <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Then call <code>void Cmd_run(Cmd_t cmd)</code> in <code>main.c</code>
-and comment out <code>Cmd_print(root)</code>.</p>
-<p>Finally, compile and run the project in Clion and use the following
-test cases to check whether your answer is correct.</p>
+<p>Then call <code>void Cmd_run(Cmd_t cmd)</code> in <code>main.c</code> and comment out <code>Cmd_print(root)</code>.</p>
+<p>Finally, compile and run the project in Clion and use the following test cases to check whether your answer is correct.</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat hello.txt | grep -n hello &gt; c.txt ; cat c.txt ; ls<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Before entering the command, create a file called
-<code>hello.txt</code> in the current working directory. The content of
-the file is as follows:</p>
-<figure>
-<img src="/posts/sfaaf/contents.PNG" alt="img">
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
+<p>Before entering the command, create a file called <code>hello.txt</code> in the current working directory. The content of the file is as follows:</p>
+<p><img src="/posts/sfaaf/contents.PNG" alt="img"></p>
 <p>The result will be as shown in the figure below.</p>
-<figure>
-<img src="https://csslab-ustc.github.io/courses/sysprog/labs/lab1/figures/test1.PNG" alt="img">
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
+<p><img src="https://csslab-ustc.github.io/courses/sysprog/labs/lab1/figures/test1.PNG" alt="img"></p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sleep 10 &amp;  <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>If you enter the command <code>sleep 10</code>, you cannot use the
-shell for ten seconds. However, when you add an extra <code>&amp;</code>
-to your command, you'll be able to use the shell immediately. The result
-will be as shown in the figure below.</p>
-<figure>
-<img src="/posts/sfaaf/test2.PNG" alt="img">
-<figcaption aria-hidden="true">img</figcaption>
-</figure>
-<h3 id="thinking">Thinking</h3>
-<p>BACK设计思路：</p>
+<p>If you enter the command <code>sleep 10</code>, you cannot use the shell for ten seconds. However, when you add an extra <code>&amp;</code> to your command, you’ll be able to use the shell immediately. The result will be as shown in the figure below.</p>
+<p><img src="/posts/sfaaf/test2.PNG" alt="img"></p>
+<h3 id="Thinking"><a href="#Thinking" class="headerlink" title="Thinking"></a>Thinking</h3><p>BACK设计思路：</p>
 <ul>
 <li>父进程不等候子进程的退出</li>
 </ul>
@@ -639,8 +580,7 @@ will be as shown in the figure below.</p>
 <ul>
 <li>获取right的文件名，关闭文件描述符0/1，然后再打开right文件，运行left即可</li>
 </ul>
-<h3 id="solution-4">Solution</h3>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">case CMD_BACK: {
+<h3 id="Solution-4"><a href="#Solution-4" class="headerlink" title="Solution"></a>Solution</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">case CMD_BACK: {
     struct Cmd_Back *t = (struct Cmd_Back *) cmd;
     Cmd_t back = t-&gt;back;
     if(fork() == 0){
@@ -695,14 +635,9 @@ case CMD_REDIR: {
     break;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>运行结果如下：</p>
-<figure>
-<img src="/posts/sfaaf/image-20221004234347458.png" alt="Q3">
-<figcaption aria-hidden="true">Q3</figcaption>
-</figure>
-<h2 id="challenge">Challenge:</h2>
-<p>Implement the input redirection.</p>
-<h3 id="solution-5">Solution</h3>
-<ul>
+<p><img src="/posts/sfaaf/image-20221004234347458.png" alt="Q3"></p>
+<h2 id="Challenge"><a href="#Challenge" class="headerlink" title="Challenge:"></a>Challenge:</h2><p>Implement the input redirection.</p>
+<h3 id="Solution-5"><a href="#Solution-5" class="headerlink" title="Solution"></a>Solution</h3><ul>
 <li>修改<code>parser.y</code></li>
 </ul>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">%left '|' ';'
@@ -740,10 +675,7 @@ command	        :  basic_command		    { $$ = $1;}
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">(yyval.cmd) = Cmd_Redir_new((yyvsp[-2].cmd), (yyvsp[0].cmd), 1);
 (yyval.cmd) = Cmd_Redir_new((yyvsp[-2].cmd), (yyvsp[0].cmd), 0);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>编译运行即可，效果如下：</p>
-<figure>
-<img src="/posts/sfaaf/image-20221004234434766-16669737783612.png" alt="challenge">
-<figcaption aria-hidden="true">challenge</figcaption>
-</figure>
+<p><img src="/posts/sfaaf/image-20221004234434766-16669737783612.png" alt="challenge"></p>
 
                 
             </div>
@@ -1310,7 +1242,7 @@ command	        :  basic_command		    { $$ = $1;}
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/posts/undefined.html">
+                <a href="/posts/17de.html">
                     <div class="card-image">
                         
                         
@@ -1359,13 +1291,13 @@ command	        :  basic_command		    { $$ = $1;}
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/1234.html">
+                <a href="/posts/asfdh.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Sysprog：3. A Minimal Debugger">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Sysprog：2. mini Network-Analyzer">
                         
-                        <span class="card-title">Sysprog：3. A Minimal Debugger</span>
+                        <span class="card-title">Sysprog：2. mini Network-Analyzer</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1384,6 +1316,10 @@ command	        :  basic_command		    { $$ = $1;}
                             
                             <a href="/categories/Linux/" class="post-category">
                                     Linux
+                                </a>
+                            
+                            <a href="/categories/Linux/Network/" class="post-category">
+                                    Network
                                 </a>
                             
                             

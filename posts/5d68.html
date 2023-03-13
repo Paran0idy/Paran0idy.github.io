@@ -5,14 +5,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="神经网络拟合函数, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="神经网络拟合函数
-1.准备数据
-导入需要使用的第三方库
+    <meta name="description" content="神经网络拟合函数1.准备数据导入需要使用的第三方库
 import torch
 import numpy as np
 import random
 import matplotlib.pyplot as plt
-import torch.n">
+import torch.nn ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -385,8 +383,8 @@ import torch.n">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-                                <span class="chip bg-color">深度学习</span>
+                            <a href="/tags/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">
+                                <span class="chip bg-color">线性回归</span>
                             </a>
                         
                     </div>
@@ -397,8 +395,8 @@ import torch.n">
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" class="post-category">
-                                线性回归
+                            <a href="/categories/Deep-Learning/" class="post-category">
+                                Deep Learning
                             </a>
                         
                     </div>
@@ -434,9 +432,7 @@ import torch.n">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="神经网络拟合函数">神经网络拟合函数</h1>
-<h2 id="准备数据">1.准备数据</h2>
-<p>导入需要使用的第三方库</p>
+                <h1 id="神经网络拟合函数"><a href="#神经网络拟合函数" class="headerlink" title="神经网络拟合函数"></a>神经网络拟合函数</h1><h2 id="1-准备数据"><a href="#1-准备数据" class="headerlink" title="1.准备数据"></a>1.准备数据</h2><p>导入需要使用的第三方库</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
 import numpy as np
 import random
@@ -459,11 +455,10 @@ import torch.functional as func<span aria-hidden="true" class="line-numbers-rows
     
     return train_x, train_y, test_x, test_y<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <blockquote>
-<p>注意这里为什么要<code>reshape</code>，主要原因是要进行<code>矩阵乘法</code>，需要将向量转化成二维<code>张量</code>。</p>
+<p> 注意这里为什么要<code>reshape</code>，主要原因是要进行<code>矩阵乘法</code>，需要将向量转化成二维<code>张量</code>。</p>
 </blockquote>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">train_x, train_y, test_x, test_y = gen_data(torch.tensor([1.0]).reshape(1,1), 1.0, 100)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="建立模型">2.建立模型</h2>
-<p>拟合一次函数</p>
+<h2 id="2-建立模型"><a href="#2-建立模型" class="headerlink" title="2.建立模型"></a>2.建立模型</h2><p>拟合一次函数</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">class model(nn.Module):
     def __init__(self):
         super().__init__()
@@ -473,8 +468,7 @@ import torch.functional as func<span aria-hidden="true" class="line-numbers-rows
         x = self.hidden(x)
         return x<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>实现<code>forward</code>方法即可</p>
-<h2 id="训练模型">3.训练模型</h2>
-<p>输入参数很简单，不用解释了</p>
+<h2 id="3-训练模型"><a href="#3-训练模型" class="headerlink" title="3.训练模型"></a>3.训练模型</h2><p>输入参数很简单，不用解释了</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">def train(train_x, train_y, epochs, opt, loss_func, net):
     for epoch in range(epochs):
         pred = net(train_x)
@@ -487,16 +481,13 @@ import torch.functional as func<span aria-hidden="true" class="line-numbers-rows
         if epoch % 500 == 0:
             print("loss: ", loss)
     return list(net.parameters())<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="设置超参数">4.设置超参数</h2>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">loss_func = torch.nn.MSELoss()
+<h2 id="4-设置超参数"><a href="#4-设置超参数" class="headerlink" title="4.设置超参数"></a>4.设置超参数</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">loss_func = torch.nn.MSELoss()
 opt = torch.optim.SGD(net.parameters(), lr = 0.01)
 epochs = 10000<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>这里选择均方误差损失函数，优化器选择随机梯度下降法，训练轮次为10000</p>
-<h2 id="开始训练">5.开始训练</h2>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">net = model()
+<h2 id="5-开始训练"><a href="#5-开始训练" class="headerlink" title="5.开始训练"></a>5.开始训练</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">net = model()
 train(train_x, train_y, epochs, opt, loss_func, net)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h2 id="预测结果">6.预测结果</h2>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">def prediction(test_x, test_y, net):
+<h2 id="6-预测结果"><a href="#6-预测结果" class="headerlink" title="6.预测结果"></a>6.预测结果</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">def prediction(test_x, test_y, net):
     pred = net(test_x)
     with torch.no_grad():
         loss = loss_func(pred, test_y)
@@ -505,13 +496,9 @@ train(train_x, train_y, epochs, opt, loss_func, net)<span aria-hidden="true" cla
     plt.show()
     print("pred_loss: ", loss)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">prediction(test_x, test_y, net)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<figure>
-<img src="/posts/5d68/image-20230110003011174.png" alt="线性函数预测结果">
-<figcaption aria-hidden="true">线性函数预测结果</figcaption>
-</figure>
+<p><img src="/posts/5d68/image-20230110003011174.png" alt="线性函数预测结果"></p>
 <p>上图可以看出，误差已经很小了</p>
-<h2 id="拟合三次多项式函数">7.拟合三次多项式函数</h2>
-<p>生成数据集</p>
+<h2 id="7-拟合三次多项式函数"><a href="#7-拟合三次多项式函数" class="headerlink" title="7.拟合三次多项式函数"></a>7.拟合三次多项式函数</h2><p>生成数据集</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">def gen_data(a, b, c, d, num):
     x = torch.linspace(0, 1, num, dtype=torch.float32).reshape(-1, 1)
     y = torch.matmul(x ** 3, a) + torch.matmul(x ** 2, b) + torch.matmul(x, c) + d
@@ -536,14 +523,8 @@ train(train_x, train_y, epochs, opt, loss_func, net)<span aria-hidden="true" cla
                     nn.Linear(5, 1)
                    )<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>拟合结果如下，图一是对训练数据的拟合效果，图二是对测试数据的拟合效果</p>
-<figure>
-<img src="/posts/5d68/image-20230110153658056.png" alt="训练数据的拟合效果">
-<figcaption aria-hidden="true">训练数据的拟合效果</figcaption>
-</figure>
-<figure>
-<img src="/posts/5d68/image-20230110153705079.png" alt="测试数据的拟合效果">
-<figcaption aria-hidden="true">测试数据的拟合效果</figcaption>
-</figure>
+<p><img src="/posts/5d68/image-20230110153658056.png" alt="训练数据的拟合效果"></p>
+<p><img src="/posts/5d68/image-20230110153705079.png" alt="测试数据的拟合效果"></p>
 <p>可以看出，结果应该是有一些<code>过拟合</code>的，可以通过一些优化方法来减少过拟合的影响</p>
 
                 
@@ -609,8 +590,8 @@ train(train_x, train_y, epochs, opt, loss_func, net)<span aria-hidden="true" cla
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
-                                    <span class="chip bg-color">深度学习</span>
+                                <a href="/tags/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">
+                                    <span class="chip bg-color">线性回归</span>
                                 </a>
                             
                         </div>
@@ -1181,8 +1162,12 @@ train(train_x, train_y, epochs, opt, loss_func, net)<span aria-hidden="true" cla
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Paranoid
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="post-category">
+                                    操作系统
+                                </a>
+                            
                             
                         </span>
                     </div>
