@@ -528,6 +528,51 @@ $<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><s
 <li>while停止的条件，可以记录每次传送数据的个数，当数据个数为0时，认为素数筛选完毕，此时退出循环，程序结束。</li>
 <li>值得注意的是，由于每次循环都执行fork()操作，会导致进程指数级增长(多叉树)，我们期望的是这棵树长成一个单链表，那就需要wait()机制，<code>wait可以让父进程等待子进程的退出</code>，在父进程的代码里，加上wait()则会让父进程阻塞在这里，从而不会执行循环，也就不会形成多叉树。</li>
 </ul>
+<pre class="line-numbers language-c" data-language="c"><code class="language-c">#include "kernel/types.h"
+#include "user/user.h"
+#define MAX 34
+
+
+int main(){
+    int num[MAX];
+    for(int i = 0; i &lt; MAX; i++)
+        num[i] = i + 2;
+    int len = MAX;
+    while(len != 0){
+        int fd[2];
+        if(pipe(fd) &lt; 0){
+            printf("pipe error!\n");
+            exit(-1);
+        }
+        int pid = fork();
+        if(pid &lt; 0){
+            printf("fork error\n");
+            exit(-2);
+        }
+        else if(pid &gt; 0){
+            close(fd[0]);
+            for(int i = 0 ; i &lt; len; i++)
+                write(fd[1], &amp;num[i], sizeof(int));
+            close(fd[1]);
+            wait(0);	// d
+            exit(0);
+        }
+        else{
+            close(fd[1]);
+            len = 0;
+            while(read(fd[0], &amp;num[len++], sizeof(int)) != 0);
+            len--;
+            int prime = num[0];
+            printf("prime %d\n", prime);
+            int index = 0;
+            for(int i = 0; i &lt; len; i++)
+                if(num[i] % prime != 0)
+                    num[index++] = num[i];
+            len = index;
+        }
+    }
+    exit(0);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="彩蛋">彩蛋</h2>
 <p>其实没有wait()，让父进程直接退出也能达到不产生多叉树的效果，但是如果注释掉wait()，会发现一个意想不到的结果。</p>
 <p>会发现，<code>命令提示符$</code>被打印了出来？这里的原因需要追溯到shell的运行机制，实际上shell也是一个c程序，中间也是一段fork()，子进程执行命令，父进程等待子进程的退出(显示命令提示符$)，由于cpu调度时，一次性让primes.c的主进程(shell的子进程)执行完了，进程退出后，会回到shell程序，接着打印出$，从而有了上述的结果。</p>
