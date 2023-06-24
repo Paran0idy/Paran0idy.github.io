@@ -6,7 +6,7 @@
   <link href="http://paran0idy.github.io/atom.xml" rel="self"/>
   
   <link href="http://paran0idy.github.io/"/>
-  <updated>2023-03-13T14:29:09.805Z</updated>
+  <updated>2023-06-24T16:17:28.887Z</updated>
   <id>http://paran0idy.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>6.S081：COW-fork</title>
+    <link href="http://paran0idy.github.io/posts/shfa.html"/>
+    <id>http://paran0idy.github.io/posts/shfa.html</id>
+    <published>2023-06-24T15:11:45.000Z</published>
+    <updated>2023-06-24T16:17:28.887Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;cow-fork&quot;&gt;COW-fork&lt;/h1&gt;
+&lt;h2 id=&quot;implement-copy-on-write-forkhard&quot;&gt;Implement copy-on-write
+fork(&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="Operating System" scheme="http://paran0idy.github.io/categories/Operating-System/"/>
+    
+    
+    <category term="6.s081" scheme="http://paran0idy.github.io/tags/6-s081/"/>
+    
+  </entry>
   
   <entry>
     <title>CSAPP：lab0</title>
@@ -456,33 +483,6 @@ bikes.csv 中，请按 11:1</summary>
   </entry>
   
   <entry>
-    <title>Sysprog：1. Shell</title>
-    <link href="http://paran0idy.github.io/posts/sfaaf.html"/>
-    <id>http://paran0idy.github.io/posts/sfaaf.html</id>
-    <published>2022-10-27T15:48:39.000Z</published>
-    <updated>2023-03-13T14:28:39.026Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;lab1shell&quot;&gt;lab1：Shell&lt;/h1&gt;
-&lt;h2 id=&quot;question-1&quot;&gt;&lt;strong&gt;Question 1&lt;/strong&gt;:&lt;/h2&gt;
-&lt;p&gt;If you add a background command after the</summary>
-        
-      
-    
-    
-    
-    <category term="Operating System" scheme="http://paran0idy.github.io/categories/Operating-System/"/>
-    
-    
-    <category term="Sysprog" scheme="http://paran0idy.github.io/tags/Sysprog/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Sysprog：2. mini Network-Analyzer</title>
     <link href="http://paran0idy.github.io/posts/asfdh.html"/>
     <id>http://paran0idy.github.io/posts/asfdh.html</id>
@@ -504,6 +504,33 @@ bikes.csv 中，请按 11:1</summary>
     <category term="Operating System" scheme="http://paran0idy.github.io/categories/Operating-System/"/>
     
     <category term="Network" scheme="http://paran0idy.github.io/categories/Operating-System/Network/"/>
+    
+    
+    <category term="Sysprog" scheme="http://paran0idy.github.io/tags/Sysprog/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Sysprog：1. Shell</title>
+    <link href="http://paran0idy.github.io/posts/sfaaf.html"/>
+    <id>http://paran0idy.github.io/posts/sfaaf.html</id>
+    <published>2022-10-27T15:48:39.000Z</published>
+    <updated>2023-03-13T14:28:39.026Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;lab1shell&quot;&gt;lab1：Shell&lt;/h1&gt;
+&lt;h2 id=&quot;question-1&quot;&gt;&lt;strong&gt;Question 1&lt;/strong&gt;:&lt;/h2&gt;
+&lt;p&gt;If you add a background command after the</summary>
+        
+      
+    
+    
+    
+    <category term="Operating System" scheme="http://paran0idy.github.io/categories/Operating-System/"/>
     
     
     <category term="Sysprog" scheme="http://paran0idy.github.io/tags/Sysprog/"/>
@@ -534,34 +561,6 @@ bikes.csv 中，请按 11:1</summary>
     
     
     <category term="Sysprog" scheme="http://paran0idy.github.io/tags/Sysprog/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>github创建仓库并使用git上传本地代码</title>
-    <link href="http://paran0idy.github.io/posts/a5ca.html"/>
-    <id>http://paran0idy.github.io/posts/a5ca.html</id>
-    <published>2022-07-14T06:59:39.000Z</published>
-    <updated>2023-03-13T14:29:56.800Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;github创建仓库并使用git上传本地代码&quot;&gt;github创建仓库并使用git上传本地代码&lt;/h1&gt;
-&lt;h2 id=&quot;创建本地仓库和github仓库&quot;&gt;创建本地仓库和github仓库&lt;/h2&gt;
-&lt;figure&gt;
-&lt;img</summary>
-        
-      
-    
-    
-    
-    <category term="Tools" scheme="http://paran0idy.github.io/categories/Tools/"/>
-    
-    
-    <category term="Git" scheme="http://paran0idy.github.io/tags/Git/"/>
     
   </entry>
   
