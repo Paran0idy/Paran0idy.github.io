@@ -5,7 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="6.S081：2.makefile初体验, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="6.S081：2.makefile初体验1.什么是makefile?makefile能实现自动编译，对多文件的大工程项目，使用makefile可以事半功倍，可以省去许多编译、链接命令，在许多IDE中，通常不需要程序员使用命令行来编译源文件，">
+    <meta name="description" content="6.S081：2.makefile初体验
+1.什么是makefile?
+makefile能实现自动编译，对多文件的大工程项目，使用makefile可以事半功倍，可以省去许多编译、链接命令，在许多IDE中，通常不需要程序员使用命令行来编译源文">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -431,8 +433,11 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="6-S081：2-makefile初体验"><a href="#6-S081：2-makefile初体验" class="headerlink" title="6.S081：2.makefile初体验"></a>6.S081：2.makefile初体验</h1><h2 id="1-什么是makefile"><a href="#1-什么是makefile" class="headerlink" title="1.什么是makefile?"></a>1.什么是makefile?</h2><p>makefile能实现<code>自动编译</code>，对<code>多文件</code>的大工程项目，使用makefile可以事半功倍，可以省去许多<code>编译、链接</code>命令，在许多<code>IDE</code>中，通常不需要程序员使用命令行来编译源文件，而是点击一个编译运行按钮即可生成可执行文件，原因就是使用了makefile来进行自动编译</p>
-<h2 id="2-一个简单的例子"><a href="#2-一个简单的例子" class="headerlink" title="2.一个简单的例子"></a>2.一个简单的例子</h2><p>对于一个C语言源程序<code>hello.c</code></p>
+                <h1 id="s0812.makefile初体验">6.S081：2.makefile初体验</h1>
+<h2 id="什么是makefile">1.什么是makefile?</h2>
+<p>makefile能实现<code>自动编译</code>，对<code>多文件</code>的大工程项目，使用makefile可以事半功倍，可以省去许多<code>编译、链接</code>命令，在许多<code>IDE</code>中，通常不需要程序员使用命令行来编译源文件，而是点击一个编译运行按钮即可生成可执行文件，原因就是使用了makefile来进行自动编译</p>
+<h2 id="一个简单的例子">2.一个简单的例子</h2>
+<p>对于一个C语言源程序<code>hello.c</code></p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;
 
 int main(){
@@ -440,7 +445,10 @@ int main(){
     return 0;
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>要想让这段程序能运行起来，需要经过以下几个步骤：</p>
-<p><img src="/posts/44d8/image-20220722005008191.png" alt="编译"></p>
+<figure>
+<img src="/posts/44d8/image-20220722005008191.png" alt="编译">
+<figcaption aria-hidden="true">编译</figcaption>
+</figure>
 <ul>
 <li>预处理</li>
 <li>编译</li>
@@ -449,7 +457,8 @@ int main(){
 </ul>
 <p>对于单个C语言源文件可以以下编译命令来生成一个hello.out的可执行文件</p>
 <pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">gcc -chello.c -o hello<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h2 id="3-一个复杂的例子"><a href="#3-一个复杂的例子" class="headerlink" title="3.一个复杂的例子"></a>3.一个复杂的例子</h2><p>对于多个C语言源程序</p>
+<h2 id="一个复杂的例子">3.一个复杂的例子</h2>
+<p>对于多个C语言源程序</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">//----------f1.h------------
 #ifndef F1_H
 #define F1_H
@@ -497,7 +506,8 @@ gcc -c f2.c -o f2.o
 gcc -c main.c -o main.o
 gcc main.o f1.o f2.o -o twoballs<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这样即可生成可执行文件twoballs，看着好像也不复杂，但是如果对f1.c进行修改，那么下次要运行twoballs程序时就要重新编译，再输入这四条命令，这样十分低效。</p>
-<h2 id="4-编写一个简单的makefile"><a href="#4-编写一个简单的makefile" class="headerlink" title="4.编写一个简单的makefile"></a>4.编写一个简单的makefile</h2><p>makefile的语法格式如下：</p>
+<h2 id="编写一个简单的makefile">4.编写一个简单的makefile</h2>
+<p>makefile的语法格式如下：</p>
 <pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">target: code code code 
 	command<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>上一小节的例子写成makefile格式如下：</p>
@@ -512,7 +522,8 @@ f2.o: f2.c
 clean:
 	rm twoballs main.o f1.o f2.o -rf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>输入<code>make</code>，即可生成twoballs</p>
-<h2 id="5-编写一个有逼格的makefile"><a href="#5-编写一个有逼格的makefile" class="headerlink" title="5.编写一个有逼格的makefile"></a>5.编写一个有逼格的makefile</h2><p>我们将上一节的makefile再修改一下，显得专业一点，让别人看不懂</p>
+<h2 id="编写一个有逼格的makefile">5.编写一个有逼格的makefile</h2>
+<p>我们将上一节的makefile再修改一下，显得专业一点，让别人看不懂</p>
 <pre class="line-numbers language-makefile" data-language="makefile"><code class="language-makefile">#定义，引用定义时，格式为：$(VAR)
 OBJ = main.o f1.o f2.o
 CC = gcc
