@@ -6,7 +6,7 @@
   <link href="http://paran0idy.github.io/atom.xml" rel="self"/>
   
   <link href="http://paran0idy.github.io/"/>
-  <updated>2023-08-04T17:19:33.736Z</updated>
+  <updated>2023-08-04T17:27:35.181Z</updated>
   <id>http://paran0idy.github.io/</id>
   
   <author>
@@ -18,18 +18,18 @@
   
   <entry>
     <title>The Great Ideas in CS</title>
-    <link href="http://paran0idy.github.io/posts/dee6.html"/>
-    <id>http://paran0idy.github.io/posts/dee6.html</id>
+    <link href="http://paran0idy.github.io/posts/The-Great-Ideas-in-CS.html"/>
+    <id>http://paran0idy.github.io/posts/The-Great-Ideas-in-CS.html</id>
     <published>2023-08-04T11:51:56.000Z</published>
-    <updated>2023-08-04T17:19:33.736Z</updated>
+    <updated>2023-08-04T17:27:35.181Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;program-analysis&quot;&gt;Program Analysis&lt;/h1&gt;
-&lt;h2 id=&quot;books&quot;&gt;Books&lt;/h2&gt;
+    <summary type="html">&lt;h2 id=&quot;program-analysis&quot;&gt;Program Analysis&lt;/h2&gt;
+&lt;h3 id=&quot;books&quot;&gt;Books&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://cs.au.dk/~amoeller/spa/&quot;&gt;Static</summary>
         
