@@ -4,10 +4,20 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Sysprog：1. Shell, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="lab1：ShellQuestion 1:If you add a background command after the pipeline command, can the pipeline work?
-Solution
-由上图可知，b">
+    <meta name="keywords" content="The Great Ideas in CS, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
+    <meta name="description" content="Program Analysis
+Books
+
+Static Program
+Analysis
+Program
+Analysis
+
+Courses
+
+⭐NJU :
+Static Program Analysis | Fall 2021
+CM">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -21,7 +31,7 @@ Solution
 
     
 
-    <title>Sysprog：1. Shell | Paranoid</title>
+    <title>The Great Ideas in CS | Paranoid</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -256,12 +266,12 @@ Solution
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Sysprog：1. Shell</h1>
+                    <h1 class="description center-align post-title">The Great Ideas in CS</h1>
                 </div>
             </div>
         </div>
@@ -378,25 +388,12 @@ Solution
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/Sysprog/">
-                                <span class="chip bg-color">Sysprog</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">No tag</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/Operating-System/" class="post-category">
-                                Operating System
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -405,7 +402,7 @@ Solution
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2022-10-27
+                    2023-08-04
                 </div>
                 
 
@@ -429,253 +426,106 @@ Solution
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="lab1：Shell"><a href="#lab1：Shell" class="headerlink" title="lab1：Shell"></a>lab1：Shell</h1><h2 id="Question-1"><a href="#Question-1" class="headerlink" title="Question 1:"></a><strong>Question 1</strong>:</h2><p>If you add a background command after the pipeline command, can the pipeline work?</p>
-<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><p><img src="/posts/sfaaf/image-20221004234233382.png" alt="Q1"></p>
-<p>由上图可知，background command会导致pipeline不能正常工作，shell提前打印出了<code>ccs-lab@</code>字样，并且在执行完background command后依然在等待用户输入，我实现的background如下</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">case CMD_BACK: {
-	struct Cmd_Back *t = (struct Cmd_Back *) cmd;
-	Cmd_t back = t-&gt;back;
-
-	if(fork() == 0){
-      	Cmd_run(back);
-     }
-  	//wait(0);  //no care child
-	 break;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>而在pipe的实现机制下</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">case CMD_PIPE: {
-	struct Cmd_Pipe *t = (struct Cmd_Pipe *) cmd;
-	Cmd_t left = t-&gt;left;
-	Cmd_t right = t-&gt;right;
-	int fd[2];
-	pipe(fd);
-
-    if(fork() == 0) {
-       	close(1);
-       	dup(fd[1]);
-        close(fd[0]);
-       	close(fd[1]);
-       	Cmd_run(left);
-	}
-    wait(0);
-
-    if(fork() == 0){
-      	close(0);
-       	dup(fd[0]);
-        close(fd[0]);
-        close(fd[1]);
-     	Cmd_run(right);
-   	}
-    close(fd[0]);
-    close(fd[1]);
-    wait(0);
-    break;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>分析其原因，执行right节点命令时，fork出子进程来执行<code>grep</code>，由于此时执行的是background command，父进程并未等待子进程退出(<code>grep程序还在运行</code>)，可以直接返回到父进程，最终返回到main函数中，此时进入新一轮循环，<code>css-lab@</code>被打印出来了，但此时cpu又调度了grep进程，grep执行完后，又返回到main里，这时shell会等待用户输入命令，所以出现了一个空行，等待命令输入</p>
-<h2 id="Question-2"><a href="#Question-2" class="headerlink" title="Question 2:"></a><strong>Question 2</strong>:</h2><p>Why <code>fork</code> and <code>exec</code> are not combined in a single call?</p>
-<h3 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h3><p><code>fork</code>和<code>exec</code>分离，可以使得在fork后exec前，设置一些必要的参数，如设置argv[]参数、打开或关闭文件描述符</p>
-<p>例如在实现<code>redirect</code>过程中，执行<code>left节点</code>命令之前，先关闭<code>stdout/stdin</code>，再打开要重定向的文件，然后直接left节点命令，即可实现重定向</p>
-<h2 id="Question-3"><a href="#Question-3" class="headerlink" title="Question 3:"></a><strong>Question 3</strong>:</h2><p>What are the advantages of pipes over temporary files in this situation?</p>
+                <h1 id="program-analysis">Program Analysis</h1>
+<h2 id="books">Books</h2>
 <ul>
-<li>use pipe</li>
+<li><a target="_blank" rel="noopener" href="https://cs.au.dk/~amoeller/spa/">Static Program
+Analysis</a></li>
+<li><a target="_blank" rel="noopener" href="https://cmu-program-analysis.github.io/2022/resources/program-analysis.pdf">Program
+Analysis</a></li>
 </ul>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">echo hello world | wc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="courses">Courses</h2>
 <ul>
-<li>without pipe</li>
+<li>⭐<a target="_blank" rel="noopener" href="https://pascal-group.bitbucket.io/teaching.html">NJU :
+Static Program Analysis | Fall 2021</a></li>
+<li><a target="_blank" rel="noopener" href="https://cmu-program-analysis.github.io/2022/index.html">CMU
+17-355/17-665/17-819: Program Analysis | Spring 2022</a></li>
+<li>⭐<a target="_blank" rel="noopener" href="https://software-lab.org/teaching/winter2021/pa/">Stuttgart :
+Program Analysis | Winter 2021</a></li>
+<li><a target="_blank" rel="noopener" href="http://staff.ustc.edu.cn/~yuzhang/tpl/2020s/index.html#schedule">USTC
+: Theory of Programming Language | Spring 2020</a></li>
+<li>⭐<a target="_blank" rel="noopener" href="https://xiongyingfei.github.io/SA/2022/main.htm">PKU :
+软件分析技术 | 2022</a></li>
+<li>⭐<a target="_blank" rel="noopener" href="http://staff.ustc.edu.cn/~yuzhang/pldpa/">USTC :
+Programming Language Design and Program Analysis | Spring 2023</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cs.cmu.edu/~15414/index.html">CMU 15-414 Bug
+Catching: Automated Program Verification and Testing | Spring
+2023</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.cs.cmu.edu/~emc/15817-s11/index.html">CMU 15-817
+Introduction to Model Checking | Spring 2011</a></li>
+<li>⭐<a target="_blank" rel="noopener" href="https://homepages.dcc.ufmg.br/~fernando/classes/dcc888/">Static
+Program Analysis - DCC888</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.cs.columbia.edu/~suman/program_analysis_security.html">COMS
+W4995: Program Analysis for Security</a></li>
+<li><a target="_blank" rel="noopener" href="https://suif.stanford.edu/~courses/cs243/#staff">Stanford :
+CS243 – Program Analysis and Optimizations | Winter 2023</a></li>
+<li><a target="_blank" rel="noopener" href="https://groups.seas.harvard.edu/courses/cs252/2015fa/schedule.html">Harvard
+: Advanced Topics in Programming Languages | Fall 2015</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/barghouthi/cs704">WISC : CS704
+Principles of Programming Languages | Spring 2022</a></li>
+<li><a target="_blank" rel="noopener" href="https://pages.cs.wisc.edu/~horwitz/CS704-NOTES/">WISC :
+CS704-NOTES | Spring 2013</a></li>
+<li><a target="_blank" rel="noopener" href="http://janmidtgaard.dk/aiws15/">Abstract Interpretation
+Winter School | Winter 2015</a></li>
 </ul>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">echo hello world &gt; /tmp/xyz ; wc &lt; /tmp/xyz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h3><p>代码简洁明了，不需要暂时文件来存储中间信息，便于编写组合命令，实现复杂命令</p>
-<h2 id="Exercise-1"><a href="#Exercise-1" class="headerlink" title="Exercise 1:"></a><strong>Exercise 1</strong>:</h2><p>Please complete the corresponding part in:</p>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">Cmd_t Cmd_Back_new(Cmd_t back);
-Cmd_t Cmd_Pipe_new(Cmd_t left, Cmd_t right);
-Cmd_t Cmd_Redir_new(Cmd_t left, Cmd_t right, int fd);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>Hint: you can refer to the data structure defined in the <code>ast.h</code>.</p>
-<h3 id="Soution"><a href="#Soution" class="headerlink" title="Soution"></a>Soution</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">Cmd_t Cmd_Back_new(Cmd_t back){
-    Cmd_Back cmd;
-    NEW(cmd);
-    cmd-&gt;type = CMD_BACK;
-    cmd-&gt;back = back;
-    return (Cmd_t)cmd;
-}
-
-Cmd_t Cmd_Pipe_new(Cmd_t left, Cmd_t right){
-    Cmd_Pipe cmd;
-    NEW(cmd);
-    cmd-&gt;type = CMD_PIPE;
-    cmd-&gt;left = left;
-    cmd-&gt;right = right;
-    return (Cmd_t)cmd;
-}
-
-Cmd_t Cmd_Redir_new(Cmd_t left, Cmd_t right, int fd){
-    Cmd_Redir cmd;
-    NEW(cmd);
-    cmd-&gt;type = CMD_REDIR;
-    cmd-&gt;left = left;
-    cmd-&gt;right = right;
-    cmd-&gt;fd = fd;
-    return (Cmd_t)cmd;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="Exercise-2"><a href="#Exercise-2" class="headerlink" title="Exercise 2:"></a><strong>Exercise 2</strong>:</h2><p>Please complete the <code>void Cmd_print(Cmd_t cmd)</code>. Then call <code>void Cmd_print(Cmd_t cmd)</code> in <code>main.c</code> and comment out <code>Cmd_run(root)</code>.</p>
-<p>Finally, compile and run the project in Clion and use the following test cases to check whether your answer is correct.</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat hello.txt | grep -n hello &gt; c.txt ; ls -l <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>The result will be as shown in the figure below.</p>
-<p><img src="/posts/sfaaf/print1.PNG" alt="img"></p>
- <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sleep 10 &amp;    <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>The result will be as shown in the figure below.</p>
-<p><img src="/posts/sfaaf/image-20220924143217317.png" alt="img"></p>
-<h3 id="Solution-3"><a href="#Solution-3" class="headerlink" title="Solution"></a>Solution</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">case CMD_BACK: {
-    struct Cmd_Back *t = (struct Cmd_Back *) cmd;
-    Cmd_t back = t-&gt;back;
-
-    Cmd_print(back);
-    printf("&amp; ");
-    break;
-}
-
-case CMD_PIPE: {
-    struct Cmd_Pipe *t = (struct Cmd_Pipe *) cmd;
-    Cmd_t left = t-&gt;left;
-    Cmd_t right = t-&gt;right;
-
-    Cmd_print(left);
-    printf("| ");
-    Cmd_print(right);
-    break;
-}
-
-case CMD_REDIR: {
-    struct Cmd_Redir *t = (struct Cmd_Redir *) cmd;
-    Cmd_t left = t-&gt;left;
-    Cmd_t right = t-&gt;right;
-
-    Cmd_print(left);
-    printf("&gt; ");
-    Cmd_print(right);
-    break;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>运行效果如下：</p>
-<p><img src="/posts/sfaaf/image-20221004233932251.png" alt="Q2"></p>
-<h2 id="Exercise-3"><a href="#Exercise-3" class="headerlink" title="Exercise 3:"></a><strong>Exercise 3</strong>:</h2><p>Please complete the <code>void Cmd_run(Cmd_t cmd)</code>. Regarding redirection commands, you only need to implement output redirection. Commands like this:</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat hello.txt &gt; c.txt <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Then call <code>void Cmd_run(Cmd_t cmd)</code> in <code>main.c</code> and comment out <code>Cmd_print(root)</code>.</p>
-<p>Finally, compile and run the project in Clion and use the following test cases to check whether your answer is correct.</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">cat hello.txt | grep -n hello &gt; c.txt ; cat c.txt ; ls<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>Before entering the command, create a file called <code>hello.txt</code> in the current working directory. The content of the file is as follows:</p>
-<p><img src="/posts/sfaaf/contents.PNG" alt="img"></p>
-<p>The result will be as shown in the figure below.</p>
-<p><img src="https://csslab-ustc.github.io/courses/sysprog/labs/lab1/figures/test1.PNG" alt="img"></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sleep 10 &amp;  <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>If you enter the command <code>sleep 10</code>, you cannot use the shell for ten seconds. However, when you add an extra <code>&amp;</code> to your command, you’ll be able to use the shell immediately. The result will be as shown in the figure below.</p>
-<p><img src="/posts/sfaaf/test2.PNG" alt="img"></p>
-<h3 id="Thinking"><a href="#Thinking" class="headerlink" title="Thinking"></a>Thinking</h3><p>BACK设计思路：</p>
+<h1 id="programming-language">Programming Language</h1>
+<h2 id="book">Book</h2>
 <ul>
-<li>父进程不等候子进程的退出</li>
+<li><a target="_blank" rel="noopener" href="https://www.cis.upenn.edu/~bcpierce/tapl/">Types and
+Programming Languages</a></li>
+<li><a target="_blank" rel="noopener" href="https://agda-zh.github.io/PLFA-zh/">编程语言基础：Agda
+描述</a></li>
+<li><a target="_blank" rel="noopener" href="https://coq-zh.github.io/SF-zh/">软件基础</a></li>
 </ul>
-<p>PIPE设计思想：</p>
+<h2 id="courses-1">Courses</h2>
 <ul>
-<li>先fork一个子进程用来运行left，使得文件描述符1指向管道的写端，当left执行时会输出到管道里，第二次fork，子进程也会指向这个管道，让文件描述符0指向管道的读端，当right执行时会从管道中读入，最后父进程关闭管道</li>
+<li>⭐<a target="_blank" rel="noopener" href="https://csslab-ustc.github.io/courses/popl/schedule.html">USTC
+Principle of Programming Languages | Spring 2023</a></li>
+<li>⭐<a target="_blank" rel="noopener" href="https://bobzhang.github.io/courses/">IDEA :
+程序语言理论与实现</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.cs.columbia.edu/~aho/cs4115/">COMS W4115
+Programming Languages and Translators | Spring 2015</a></li>
+<li><a target="_blank" rel="noopener" href="https://xiongyingfei.github.io/SF/2023/">PKU : 软件科学基础
+| 2023春</a></li>
+<li><a target="_blank" rel="noopener" href="https://xiongyingfei.github.io/DPPL/2021/main.htm">PKU :
+编程语言的设计原理 | 2021</a></li>
+<li>⭐<a target="_blank" rel="noopener" href="https://csslab-ustc.github.io/courses/theory/schedule.html">USTC :
+Formal Methods Foundation</a></li>
+<li><a target="_blank" rel="noopener" href="http://staff.ustc.edu.cn/~bjhua/courses/theory/2015/schedule.html">USTC
+: Formal Methods Foundation | 2015</a></li>
+<li><a target="_blank" rel="noopener" href="http://staff.ustc.edu.cn/~bjhua/courses/theory/2014/schedule.html">USTC
+: Formal Methods Foundation | 2014</a></li>
 </ul>
-<p>REDIR设计思想：</p>
+<p>Interestingly, the last two courses are about PL and not FM.</p>
+<h1 id="mlsys">MLSys</h1>
+<h2 id="guides">Guides</h2>
 <ul>
-<li>获取right的文件名，关闭文件描述符0/1，然后再打开right文件，运行left即可</li>
+<li><a target="_blank" rel="noopener" href="https://fazzie-key.cool/2023/02/21/MLsys/">ML system
+入坑指南</a></li>
+<li><a target="_blank" rel="noopener" href="https://openmlsys.github.io/index.html">机器学习系统：设计和实现</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/HuaizhengZhang/Awesome-System-for-Machine-Learning">Awesome
+System for Machine Learning</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/BBuf/tvm_mlir_learn">TVM MLIR
+Learn</a></li>
+<li><a target="_blank" rel="noopener" href="https://tvm.hyper.ai/">Apache TVM</a></li>
+<li><a target="_blank" rel="noopener" href="https://mlir.llvm.org/">MLIR</a></li>
 </ul>
-<h3 id="Solution-4"><a href="#Solution-4" class="headerlink" title="Solution"></a>Solution</h3><pre class="line-numbers language-c" data-language="c"><code class="language-c">case CMD_BACK: {
-    struct Cmd_Back *t = (struct Cmd_Back *) cmd;
-    Cmd_t back = t-&gt;back;
-    if(fork() == 0){
-        Cmd_run(back);
-    }
-    //wait(0);		// don't care child
-    break;
-}
-
-case CMD_PIPE: {
-    struct Cmd_Pipe *t = (struct Cmd_Pipe *) cmd;
-    Cmd_t left = t-&gt;left;
-    Cmd_t right = t-&gt;right;
-    int fd[2];
-    pipe(fd);
-
-    if(fork() == 0) {	// run left
-        close(1);
-        dup(fd[1]);
-        close(fd[0]);
-        close(fd[1]);
-        Cmd_run(left);
-    }
-    wait(0);
-
-    if(fork() == 0){	// run right
-        close(0);
-        dup(fd[0]);
-        close(fd[0]);
-        close(fd[1]);
-        Cmd_run(right);
-    }
-    close(fd[0]);
-    close(fd[1]);
-    wait(0);
-    break;
-}
-
-case CMD_REDIR: {
-    struct Cmd_Redir *t = (struct Cmd_Redir *) cmd;
-    Cmd_t left = t-&gt;left;
-    Cmd_t right = t-&gt;right;
-
-    Cmd_Atom redir = (Cmd_Atom) right; 	// get redir filename
-    char *filename;
-    struct node *node = redir-&gt;node;
-    filename = node-&gt;data;
-
-    close(t-&gt;fd);  // close fd 0/1
-    open(filename, O_CREAT | O_RDWR, 0777); // new file obtain fd 0/1
-    Cmd_run(left);
-    break;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>运行结果如下：</p>
-<p><img src="/posts/sfaaf/image-20221004234347458.png" alt="Q3"></p>
-<h2 id="Challenge"><a href="#Challenge" class="headerlink" title="Challenge:"></a>Challenge:</h2><p>Implement the input redirection.</p>
-<h3 id="Solution-5"><a href="#Solution-5" class="headerlink" title="Solution"></a>Solution</h3><ul>
-<li>修改<code>parser.y</code></li>
-</ul>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">%left '|' ';'
-%left '&gt;'
-%left '&amp;'
-%left '&lt;'
-
-%%
-
-line            :  command '\n'	    		{ root = $1; $$ = 0; return 0; }
-		        | '\n'       		{ root = 0; $$ = 0; return 0; }
-                ;
-                
-command	        :  basic_command		    { $$ = $1;}
-		        |  command ';' command  	{ $$ = Cmd_Seq_new($1, $3);}
-		        |  command '&amp;'			    { $$ = Cmd_Back_new($1);}
-		        |  command '|' command 		{ $$ = Cmd_Pipe_new($1, $3);}
-		        |  command '&gt;' command		{ $$ = Cmd_Redir_new($1, $3, 1);}
-		        |  command '&lt;' command		{ $$ = Cmd_Redir_new($1, $3, 0);}
-		        ;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="courses-2">Courses</h2>
 <ul>
-<li>修改<code>scanner.l</code></li>
+<li><a target="_blank" rel="noopener" href="https://mlc.ai/summer22-zh/schedule">MLC</a></li>
+<li><a target="_blank" rel="noopener" href="https://dlsyscourse.org/lectures/">DLSys</a></li>
+<li><a target="_blank" rel="noopener" href="https://catalyst.cs.cmu.edu/15-884-mlsys-sp21/schedule">CMU
+15-884 MLSys | Spring 2021</a></li>
 </ul>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">&lt;&lt;EOF&gt;&gt;                                 {return 0;}
-"&amp;"|";"|"|"             			    {return yytext[0];}
-"&gt;"                                     {return yytext[0];}
-"&lt;"                                     {return yytext[0];}
-"\n"						            {return yytext[0]; }
-[ ]*					                {}
-{ID}+				    		        {yylval = strdup(yytext); return T_ARG; }
-.						                {printf("lex err:[%s]", yytext); return 0; }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="parallel-computing">Parallel Computing</h1>
+<h2 id="courses-3">Courses</h2>
 <ul>
-<li>原<code>Redir</code>代码无需修改，因为<code>yyparse</code>会根据<code>&lt;</code>和<code>&gt;</code>调用不同的构造函数，区别在于传入的<code>fd</code>不同</li>
+<li><a target="_blank" rel="noopener" href="https://gfxcourses.stanford.edu/cs149/fall22">Stanford : CS
+149 Parallel Computing | Fall 2022</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cs.cmu.edu/afs/cs/academic/class/15418-s21/www/schedule.html">CMU
+15-418/15-618: Parallel Computer Architecture and Programming | Spring
+2021</a></li>
 </ul>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">(yyval.cmd) = Cmd_Redir_new((yyvsp[-2].cmd), (yyvsp[0].cmd), 1);
-(yyval.cmd) = Cmd_Redir_new((yyvsp[-2].cmd), (yyvsp[0].cmd), 0);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>编译运行即可，效果如下：</p>
-<p><img src="/posts/sfaaf/image-20221004234434766-16669737783612.png" alt="challenge"></p>
 
                 
             </div>
@@ -702,7 +552,7 @@ command	        :  basic_command		    { $$ = $1;}
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://Paran0idy.github.io/posts/sfaaf.html">http://Paran0idy.github.io/posts/sfaaf.html</a>
+                    <a href="http://Paran0idy.github.io/posts/dee6.html">http://Paran0idy.github.io/posts/dee6.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -739,11 +589,7 @@ command	        :  basic_command		    { $$ = $1;}
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/Sysprog/">
-                                    <span class="chip bg-color">Sysprog</span>
-                                </a>
-                            
+                            <span class="chip bg-color">No tag</span>
                         </div>
                     
                 </div>
@@ -1238,66 +1084,18 @@ command	        :  basic_command		    { $$ = $1;}
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
-                <a href="/posts/17de.html">
+                <a href="/posts/dee6.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="6.S081：1.关于fork()的思考">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="The Great Ideas in CS">
                         
-                        <span class="card-title">6.S081：1.关于fork()的思考</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-12-05
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Operating-System/" class="post-category">
-                                    Operating System
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/6-S081/">
-                        <span class="chip bg-color">6.S081</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                Next&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/posts/asfdh.html">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Sysprog：2. mini Network-Analyzer">
-                        
-                        <span class="card-title">Sysprog：2. mini Network-Analyzer</span>
+                        <span class="card-title">The Great Ideas in CS</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1308,7 +1106,45 @@ command	        :  basic_command		    { $$ = $1;}
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-10-27
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-08-04
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Paranoid
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/posts/shfa.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="6.S081：COW-fork">
+                        
+                        <span class="card-title">6.S081：COW-fork</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-06-24
                             </span>
                         <span class="publish-author">
                             
@@ -1318,10 +1154,6 @@ command	        :  basic_command		    { $$ = $1;}
                                     Operating System
                                 </a>
                             
-                            <a href="/categories/Operating-System/Network/" class="post-category">
-                                    Network
-                                </a>
-                            
                             
                         </span>
                     </div>
@@ -1329,8 +1161,8 @@ command	        :  basic_command		    { $$ = $1;}
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Sysprog/">
-                        <span class="chip bg-color">Sysprog</span>
+                    <a href="/tags/6-s081/">
+                        <span class="chip bg-color">6.s081</span>
                     </a>
                     
                 </div>

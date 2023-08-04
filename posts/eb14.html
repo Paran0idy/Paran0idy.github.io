@@ -5,10 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="猫狗大战, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="猫狗大战
-通过来自 kaggle 上的猫狗数据集，训练一个识别猫狗图片的分类器。要求
-设计一个使用 ResNet18 作为主干的卷积神经网络，在迁移网络时采用固定值模
-式，要求模型的准确率不低于 90%。猫狗大战数据集训练集有 25000 ">
+    <meta name="description" content="猫狗大战通过来自 kaggle 上的猫狗数据集，训练一个识别猫狗图片的分类器。要求 设计一个使用 ResNet18 作为主干的卷积神经网络，在迁移网络时采用固定值模 式，要求模型的准确率不低于 90%。猫狗大战数据集训练集有 25000 张">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -434,13 +431,8 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="猫狗大战">猫狗大战</h1>
-<p>通过来自 kaggle 上的猫狗数据集，训练一个识别猫狗图片的分类器。要求
-设计一个使用 ResNet18 作为主干的卷积神经网络，在迁移网络时采用固定值模
-式，要求模型的准确率不低于 90%。猫狗大战数据集训练集有 25000 张，猫狗各
-占一半。测试集 12500 张。</p>
-<h2 id="准备数据">1.准备数据</h2>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+                <h1 id="猫狗大战"><a href="#猫狗大战" class="headerlink" title="猫狗大战"></a>猫狗大战</h1><p>通过来自 kaggle 上的猫狗数据集，训练一个识别猫狗图片的分类器。要求 设计一个使用 ResNet18 作为主干的卷积神经网络，在迁移网络时采用固定值模 式，要求模型的准确率不低于 90%。猫狗大战数据集训练集有 25000 张，猫狗各 占一半。测试集 12500 张。</p>
+<h2 id="1-准备数据"><a href="#1-准备数据" class="headerlink" title="1.准备数据"></a>1.准备数据</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
 import torch.nn as nn
 import torch. nn.functional as F
 from torch.utils.data import Dataset, DataLoader, TensorDataset
@@ -514,12 +506,8 @@ from PIL import Image<span aria-hidden="true" class="line-numbers-rows"><span></
     
     return train_loader, valid_loader, test_loader<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>数据集图片如下图所示</p>
-<figure>
-<img src="/posts/eb14/image-20230110173807327.png" alt="数据集中的图片">
-<figcaption aria-hidden="true">数据集中的图片</figcaption>
-</figure>
-<h2 id="建立模型">2.建立模型</h2>
-<p>应用迁移学习，主干网络选用resnet18，从而只需将resnet18的最后一层全连接层改为输出只有2的全连接层</p>
+<p><img src="/posts/eb14/image-20230110173807327.png" alt="数据集中的图片"></p>
+<h2 id="2-建立模型"><a href="#2-建立模型" class="headerlink" title="2.建立模型"></a>2.建立模型</h2><p>应用迁移学习，主干网络选用resnet18，从而只需将resnet18的最后一层全连接层改为输出只有2的全连接层</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"># 加载resnet18作为预训练模型
 net = models.resnet18(pretrained=True)
 
@@ -534,8 +522,7 @@ net.fc = nn.Linear(net.fc.in_features, 2)
 if torch.cuda.is_available():
     net = net.cuda()
     net.fc = net.fc.cuda()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="训练模型">3.训练模型</h2>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">def train(train_loader, valid_loader, net, loss_func, opt, epochs):
+<h2 id="3-训练模型"><a href="#3-训练模型" class="headerlink" title="3.训练模型"></a>3.训练模型</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">def train(train_loader, valid_loader, net, loss_func, opt, epochs):
     valid_loss_min = np.Inf    
     start = time.time()
     train_loss_list = []
@@ -601,12 +588,8 @@ loss_func = nn.CrossEntropyLoss()
 opt = torch.optim.Adam(net.fc.parameters(), lr=0.001)
 epochs = 30
 train(train_loader, valid_loader, net, loss_func, opt, epochs)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<figure>
-<img src="/posts/eb14/image-20230110180145989.png" alt="训练误差">
-<figcaption aria-hidden="true">训练误差</figcaption>
-</figure>
-<h2 id="预测结果">4.预测结果</h2>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">def prediction(test_loader, net):
+<p><img src="/posts/eb14/image-20230110180145989.png" alt="训练误差"></p>
+<h2 id="4-预测结果"><a href="#4-预测结果" class="headerlink" title="4.预测结果"></a>4.预测结果</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">def prediction(test_loader, net):
     rights = 0
     length = 0
     for i, data in enumerate(test_loader):
@@ -627,10 +610,7 @@ def rightness (pred, labels):
     return rights, len(labels)       <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">net.load_state_dict(torch.load('cat_vs_dog.pt'))
 prediction(test_loader, net)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<figure>
-<img src="/posts/eb14/image-20230110180245252.png" alt="准确率">
-<figcaption aria-hidden="true">准确率</figcaption>
-</figure>
+<p><img src="/posts/eb14/image-20230110180245252.png" alt="准确率"></p>
 
                 
             </div>

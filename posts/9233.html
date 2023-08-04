@@ -5,12 +5,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="正弦函数预测, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="正弦函数预测
-通过已知的样本数据对正弦函数进行预测，并绘制出图形。设计
-LSTM网络进行预测，记录预测准确率并绘制图形。
-1.准备数据
-import torch
-import torchvision.datasets as datasets">
+    <meta name="description" content="正弦函数预测通过已知的样本数据对正弦函数进行预测，并绘制出图形。设计 LSTM网络进行预测，记录预测准确率并绘制图形。
+1.准备数据import torch
+import torchvision.datasets as datasets
+i">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -432,11 +430,8 @@ import torchvision.datasets as datasets">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="正弦函数预测">正弦函数预测</h1>
-<p>通过已知的样本数据对正弦函数进行预测，并绘制出图形。设计
-LSTM网络进行预测，记录预测准确率并绘制图形。</p>
-<h2 id="准备数据">1.准备数据</h2>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
+                <h1 id="正弦函数预测"><a href="#正弦函数预测" class="headerlink" title="正弦函数预测"></a>正弦函数预测</h1><p>通过已知的样本数据对正弦函数进行预测，并绘制出图形。设计 LSTM网络进行预测，记录预测准确率并绘制图形。</p>
+<h2 id="1-准备数据"><a href="#1-准备数据" class="headerlink" title="1.准备数据"></a>1.准备数据</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">import torch
 import torchvision.datasets as datasets
 import torch.nn as nn
 import torch. nn.functional as F
@@ -471,8 +466,7 @@ def gen_data():
     test_loader = DataLoader(dataset=test_dataset, batch_size=5, shuffle=False)
     
     return train_y, train_loader, test_loader<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="构建模型">2.构建模型</h2>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">class LSTM(nn.Module):
+<h2 id="2-构建模型"><a href="#2-构建模型" class="headerlink" title="2.构建模型"></a>2.构建模型</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">class LSTM(nn.Module):
     def __init__(self):
         super().__init__()
         self.lstm = nn.LSTM(1, 10, batch_first=True)
@@ -484,8 +478,7 @@ def gen_data():
         output = self.fc(output)
         
         return output<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="训练模型">3.训练模型</h2>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">def train(train_loader, lstm, loss_func, opt, epochs):        
+<h2 id="3-训练模型"><a href="#3-训练模型" class="headerlink" title="3.训练模型"></a>3.训练模型</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">def train(train_loader, lstm, loss_func, opt, epochs):        
     h0 = torch.zeros(1, 5, 10)
     c0 = torch.zeros(1, 5, 10)
     train_loss_list = []
@@ -518,12 +511,8 @@ opt = torch.optim.Adam(lstm.parameters(), lr=0.001)
 epochs = 500
 train_y, train_loader, test_loader = gen_data()
 train(train_loader, lstm, loss_func, opt, epochs)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<figure>
-<img src="/posts/9233/image-20230110173005210.png" alt="训练损失">
-<figcaption aria-hidden="true">训练损失</figcaption>
-</figure>
-<h2 id="预测结果">4.预测结果</h2>
-<pre class="line-numbers language-python" data-language="python"><code class="language-python">def prediction(test_loader, lstm):
+<p><img src="/posts/9233/image-20230110173005210.png" alt="训练损失"></p>
+<h2 id="4-预测结果"><a href="#4-预测结果" class="headerlink" title="4.预测结果"></a>4.预测结果</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">def prediction(test_loader, lstm):
     h0 = torch.zeros(1, 5, 10)
     c0 = torch.zeros(1, 5, 10)
     preds = []
@@ -544,10 +533,7 @@ train(train_loader, lstm, loss_func, opt, epochs)<span aria-hidden="true" class=
     plt.show()
     
 prediction(test_loader, lstm)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<figure>
-<img src="/posts/9233/image-20230110173238553.png" alt="预测结果">
-<figcaption aria-hidden="true">预测结果</figcaption>
-</figure>
+<p><img src="/posts/9233/image-20230110173238553.png" alt="预测结果"></p>
 
                 
             </div>

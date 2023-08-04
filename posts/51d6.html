@@ -5,10 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="6.S081：4.find功能实现, C/C++,Go,Python,Java,Linux,OS,TCP/IP,Algorithm">
-    <meta name="description" content="6.S081：4.find功能实现
-find (moderate)
-Write a simple version of the UNIX find program: find all the files
-in a directory tre">
+    <meta name="description" content="6.S081：4.find功能实现find (moderate)Write a simple version of the UNIX find program: find all the files in a directory tree ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -430,28 +427,20 @@ in a directory tre">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="s0814.find功能实现">6.S081：4.find功能实现</h1>
-<h2 id="find-moderate">find (<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2021/labs/guidance.html">moderate</a>)</h2>
-<p>Write a simple version of the UNIX find program: find all the files
-in a directory tree with a specific name. Your solution should be in the
-file <code>user/find.c</code>.</p>
+                <h1 id="6-S081：4-find功能实现"><a href="#6-S081：4-find功能实现" class="headerlink" title="6.S081：4.find功能实现"></a>6.S081：4.find功能实现</h1><h2 id="find-moderate"><a href="#find-moderate" class="headerlink" title="find (moderate)"></a>find (<a target="_blank" rel="noopener" href="https://pdos.csail.mit.edu/6.828/2021/labs/guidance.html">moderate</a>)</h2><p>Write a simple version of the UNIX find program: find all the files in a directory tree with a specific name. Your solution should be in the file <code>user/find.c</code>.</p>
 <p>Some hints:</p>
 <blockquote>
 <ul>
 <li>Look at <code>user/ls.c</code> to see how to read directories.</li>
 <li>Use recursion to allow find to descend into sub-directories.</li>
-<li>Don't recurse into "." and "..".</li>
-<li>Changes to the file system persist across runs of qemu; to get a
-clean file system run make clean and then make qemu.</li>
-<li>You'll need to use C strings. Have a look at K&amp;R (the C book),
-for example Section 5.5.</li>
-<li>Note that == does not compare strings like in Python. Use strcmp()
-instead.</li>
+<li>Don’t recurse into “.” and “..”.</li>
+<li>Changes to the file system persist across runs of qemu; to get a clean file system run make clean and then make qemu.</li>
+<li>You’ll need to use C strings. Have a look at K&amp;R (the C book), for example Section 5.5.</li>
+<li>Note that == does not compare strings like in Python. Use strcmp() instead.</li>
 <li>Add the program to <code>UPROGS</code> in Makefile.</li>
 </ul>
 </blockquote>
-<p>Your solution is correct if produces the following output (when the
-file system contains the files <code>b</code> and <code>a/b</code>):</p>
+<p>Your solution is correct if produces the following output (when the file system contains the files <code>b</code> and <code>a/b</code>):</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ make qemu
 ...
 init: starting sh
@@ -462,8 +451,7 @@ $ find . b
 ./b
 ./a/b
     $ <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="思考">思考</h2>
-<p>在一个特定目录下根据文件名查找，查看<code>user/ls.c</code>源码可知，需要先打开文件/目录，显然目录里面又包含文件，这样一来，这个查找显然是需要递归的，当查找到目录时，递归查找该目录下的文件，当遇到文件时返回即可。</p>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>在一个特定目录下根据文件名查找，查看<code>user/ls.c</code>源码可知，需要先打开文件/目录，显然目录里面又包含文件，这样一来，这个查找显然是需要递归的，当查找到目录时，递归查找该目录下的文件，当遇到文件时返回即可。</p>
 <p>特别注意的是，不能查找<code>.</code>和<code>..</code>这两个目录，不然废了。</p>
 <p>在xv6中定义了三种类型：</p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">#define T_DIR     1   // Directory
@@ -492,8 +480,7 @@ struct stat {
 <p><code>de</code>保存了文件名，可以通过<code>de.name</code>访问，之后与目标文件名称对比即可，可以用<code>strcmp</code></p>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">strcmp(de.name, target);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>做出本实验的关键是看懂xv6如何读取文件目录</p>
-<h2 id="code">Code</h2>
-<pre class="line-numbers language-c" data-language="c"><code class="language-c">#include "kernel/types.h"
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><pre class="line-numbers language-c" data-language="c"><code class="language-c">#include "kernel/types.h"
 #include "kernel/stat.h"
 #include "user/user.h"
 #include "kernel/fs.h"

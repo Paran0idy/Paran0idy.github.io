@@ -6,7 +6,7 @@
   <link href="http://paran0idy.github.io/atom.xml" rel="self"/>
   
   <link href="http://paran0idy.github.io/"/>
-  <updated>2023-06-24T16:17:28.887Z</updated>
+  <updated>2023-08-04T13:21:33.489Z</updated>
   <id>http://paran0idy.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>The Great Ideas in CS</title>
+    <link href="http://paran0idy.github.io/posts/dee6.html"/>
+    <id>http://paran0idy.github.io/posts/dee6.html</id>
+    <published>2023-08-04T11:51:56.000Z</published>
+    <updated>2023-08-04T13:21:33.489Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;program-analysis&quot;&gt;Program Analysis&lt;/h1&gt;
+&lt;h2 id=&quot;books&quot;&gt;Books&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://cs.au.dk/~amoeller/spa/&quot;&gt;Static</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>6.S081：COW-fork</title>
@@ -28,9 +52,7 @@
       
         
         
-    <summary type="html">&lt;h1 id=&quot;cow-fork&quot;&gt;COW-fork&lt;/h1&gt;
-&lt;h2 id=&quot;implement-copy-on-write-forkhard&quot;&gt;Implement copy-on-write
-fork(&lt;a</summary>
+    <summary type="html">&lt;h1 id=&quot;COW-fork&quot;&gt;&lt;a href=&quot;#COW-fork&quot; class=&quot;headerlink&quot; title=&quot;COW-fork&quot;&gt;&lt;/a&gt;COW-fork&lt;/h1&gt;&lt;h2 id=&quot;Implement-copy-on-write-fork-hard&quot;&gt;&lt;a</summary>
         
       
     
@@ -55,9 +77,7 @@ fork(&lt;a</summary>
       
         
         
-    <summary type="html">&lt;h1 id=&quot;c-programming-lab-assessing-your-c-programming-skills&quot;&gt;C
-Programming Lab: Assessing Your C Programming Skills&lt;/h1&gt;
-&lt;h2</summary>
+    <summary type="html">&lt;h1 id=&quot;C-Programming-Lab-Assessing-Your-C-Programming-Skills&quot;&gt;&lt;a href=&quot;#C-Programming-Lab-Assessing-Your-C-Programming-Skills&quot;</summary>
         
       
     
@@ -82,9 +102,7 @@ Programming Lab: Assessing Your C Programming Skills&lt;/h1&gt;
       
         
         
-    <summary type="html">&lt;h1 id=&quot;基于docker开发tvm&quot;&gt;基于docker开发TVM&lt;/h1&gt;
-&lt;h3 id=&quot;拉取tvm镜像&quot;&gt;1.拉取TVM镜像&lt;/h3&gt;
-&lt;pre class=&quot;line-numbers language-bash&quot;</summary>
+    <summary type="html">&lt;h1 id=&quot;基于docker开发TVM&quot;&gt;&lt;a href=&quot;#基于docker开发TVM&quot; class=&quot;headerlink&quot; title=&quot;基于docker开发TVM&quot;&gt;&lt;/a&gt;基于docker开发TVM&lt;/h1&gt;&lt;h3 id=&quot;1-拉取TVM镜像&quot;&gt;&lt;a</summary>
         
       
     
@@ -111,9 +129,7 @@ Programming Lab: Assessing Your C Programming Skills&lt;/h1&gt;
       
         
         
-    <summary type="html">&lt;h1 id=&quot;git提交冲突问题&quot;&gt;git提交冲突问题&lt;/h1&gt;
-&lt;p&gt;远程仓库和本地仓库同时有修改时，此时&lt;code&gt;git push&lt;/code&gt;会产生冲突。例如下图&lt;/p&gt;
-&lt;p&gt;执行&lt;code&gt;git push origin</summary>
+    <summary type="html">&lt;h1 id=&quot;git提交冲突问题&quot;&gt;&lt;a href=&quot;#git提交冲突问题&quot; class=&quot;headerlink&quot; title=&quot;git提交冲突问题&quot;&gt;&lt;/a&gt;git提交冲突问题&lt;/h1&gt;&lt;p&gt;远程仓库和本地仓库同时有修改时，此时&lt;code&gt;git</summary>
         
       
     
@@ -138,10 +154,7 @@ Programming Lab: Assessing Your C Programming Skills&lt;/h1&gt;
       
         
         
-    <summary type="html">&lt;h1 id=&quot;challenge使用antlr4构建ast&quot;&gt;Challenge：使用ANTLR4构建AST&lt;/h1&gt;
-&lt;h2 id=&quot;定义语法规则&quot;&gt;1.定义语法规则&lt;/h2&gt;
-&lt;p&gt;编写&lt;code&gt;Calculator.g4&lt;/code&gt;文件，如下&lt;/p&gt;
-&lt;pre</summary>
+    <summary type="html">&lt;h1 id=&quot;Challenge：使用ANTLR4构建AST&quot;&gt;&lt;a href=&quot;#Challenge：使用ANTLR4构建AST&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -166,10 +179,7 @@ Programming Lab: Assessing Your C Programming Skills&lt;/h1&gt;
       
         
         
-    <summary type="html">&lt;h1 id=&quot;猫狗大战&quot;&gt;猫狗大战&lt;/h1&gt;
-&lt;p&gt;通过来自 kaggle 上的猫狗数据集，训练一个识别猫狗图片的分类器。要求
-设计一个使用 ResNet18 作为主干的卷积神经网络，在迁移网络时采用固定值模
-式，要求模型的准确率不低于 90%。猫狗大战数据集训练集有</summary>
+    <summary type="html">&lt;h1 id=&quot;猫狗大战&quot;&gt;&lt;a href=&quot;#猫狗大战&quot; class=&quot;headerlink&quot; title=&quot;猫狗大战&quot;&gt;&lt;/a&gt;猫狗大战&lt;/h1&gt;&lt;p&gt;通过来自 kaggle 上的猫狗数据集，训练一个识别猫狗图片的分类器。要求 设计一个使用 ResNet18</summary>
         
       
     
@@ -196,11 +206,7 @@ Programming Lab: Assessing Your C Programming Skills&lt;/h1&gt;
       
         
         
-    <summary type="html">&lt;h1 id=&quot;正弦函数预测&quot;&gt;正弦函数预测&lt;/h1&gt;
-&lt;p&gt;通过已知的样本数据对正弦函数进行预测，并绘制出图形。设计
-LSTM网络进行预测，记录预测准确率并绘制图形。&lt;/p&gt;
-&lt;h2 id=&quot;准备数据&quot;&gt;1.准备数据&lt;/h2&gt;
-&lt;pre class=&quot;line-numbers</summary>
+    <summary type="html">&lt;h1 id=&quot;正弦函数预测&quot;&gt;&lt;a href=&quot;#正弦函数预测&quot; class=&quot;headerlink&quot; title=&quot;正弦函数预测&quot;&gt;&lt;/a&gt;正弦函数预测&lt;/h1&gt;&lt;p&gt;通过已知的样本数据对正弦函数进行预测，并绘制出图形。设计</summary>
         
       
     
@@ -225,9 +231,7 @@ LSTM网络进行预测，记录预测准确率并绘制图形。&lt;/p&gt;
       
         
         
-    <summary type="html">&lt;h1 id=&quot;cifar-10分类网络&quot;&gt;CIFAR-10分类网络&lt;/h1&gt;
-&lt;p&gt;通过 CIFAR-10 数据集训练得到一个彩色图像分类网络。要求设计一
-个至少包含 5 个卷积层和池化层的卷积神经网络。卷积核的尺寸统一采用</summary>
+    <summary type="html">&lt;h1 id=&quot;CIFAR-10分类网络&quot;&gt;&lt;a href=&quot;#CIFAR-10分类网络&quot; class=&quot;headerlink&quot; title=&quot;CIFAR-10分类网络&quot;&gt;&lt;/a&gt;CIFAR-10分类网络&lt;/h1&gt;&lt;p&gt;通过 CIFAR-10</summary>
         
       
     
@@ -252,10 +256,7 @@ LSTM网络进行预测，记录预测准确率并绘制图形。&lt;/p&gt;
       
         
         
-    <summary type="html">&lt;h1 id=&quot;手写数字识别器&quot;&gt;手写数字识别器&lt;/h1&gt;
-&lt;p&gt;通过 MNIST 数据集训练得到一个手写数字分类器。要求设计一个至 少包含 2
-个卷积层和池化层的卷积神经网络。卷积核的尺寸不小于 5*5，要求训
-后的得到的网络在测试集确率不低于 96%（要求在网络中使用</summary>
+    <summary type="html">&lt;h1 id=&quot;手写数字识别器&quot;&gt;&lt;a href=&quot;#手写数字识别器&quot; class=&quot;headerlink&quot; title=&quot;手写数字识别器&quot;&gt;&lt;/a&gt;手写数字识别器&lt;/h1&gt;&lt;p&gt;通过 MNIST 数据集训练得到一个手写数字分类器。要求设计一个至 少包含 2</summary>
         
       
     
@@ -280,8 +281,7 @@ LSTM网络进行预测，记录预测准确率并绘制图形。&lt;/p&gt;
       
         
         
-    <summary type="html">&lt;h1 id=&quot;鸢尾花分类&quot;&gt;鸢尾花分类&lt;/h1&gt;
-&lt;p&gt;iris 数据集包含 150</summary>
+    <summary type="html">&lt;h1 id=&quot;鸢尾花分类&quot;&gt;&lt;a href=&quot;#鸢尾花分类&quot; class=&quot;headerlink&quot; title=&quot;鸢尾花分类&quot;&gt;&lt;/a&gt;鸢尾花分类&lt;/h1&gt;&lt;p&gt;iris 数据集包含 150 个样本，对应数据集的每行数据。每行数据包含每个</summary>
         
       
     
@@ -306,9 +306,7 @@ LSTM网络进行预测，记录预测准确率并绘制图形。&lt;/p&gt;
       
         
         
-    <summary type="html">&lt;h1 id=&quot;共享单车预测&quot;&gt;共享单车预测&lt;/h1&gt;
-&lt;p&gt;通过历史数据预测某一地区接下来一段时间内的共享单车的数量。数据保存在文件
-bikes.csv 中，请按 11:1</summary>
+    <summary type="html">&lt;h1 id=&quot;共享单车预测&quot;&gt;&lt;a href=&quot;#共享单车预测&quot; class=&quot;headerlink&quot; title=&quot;共享单车预测&quot;&gt;&lt;/a&gt;共享单车预测&lt;/h1&gt;&lt;p&gt;通过历史数据预测某一地区接下来一段时间内的共享单车的数量。数据保存在文件 bikes.csv 中，请按</summary>
         
       
     
@@ -333,10 +331,7 @@ bikes.csv 中，请按 11:1</summary>
       
         
         
-    <summary type="html">&lt;h1 id=&quot;神经网络拟合函数&quot;&gt;神经网络拟合函数&lt;/h1&gt;
-&lt;h2 id=&quot;准备数据&quot;&gt;1.准备数据&lt;/h2&gt;
-&lt;p&gt;导入需要使用的第三方库&lt;/p&gt;
-&lt;pre class=&quot;line-numbers language-python&quot;</summary>
+    <summary type="html">&lt;h1 id=&quot;神经网络拟合函数&quot;&gt;&lt;a href=&quot;#神经网络拟合函数&quot; class=&quot;headerlink&quot; title=&quot;神经网络拟合函数&quot;&gt;&lt;/a&gt;神经网络拟合函数&lt;/h1&gt;&lt;h2 id=&quot;1-准备数据&quot;&gt;&lt;a href=&quot;#1-准备数据&quot;</summary>
         
       
     
@@ -361,8 +356,7 @@ bikes.csv 中，请按 11:1</summary>
       
         
         
-    <summary type="html">&lt;h1 id=&quot;s0815.xargs命令实现&quot;&gt;6.S081：5.xargs命令实现&lt;/h1&gt;
-&lt;h2 id=&quot;xargs-moderate&quot;&gt;xargs (&lt;a</summary>
+    <summary type="html">&lt;h1 id=&quot;6-S081：5-xargs命令实现&quot;&gt;&lt;a href=&quot;#6-S081：5-xargs命令实现&quot; class=&quot;headerlink&quot; title=&quot;6.S081：5.xargs命令实现&quot;&gt;&lt;/a&gt;6.S081：5.xargs命令实现&lt;/h1&gt;&lt;h2</summary>
         
       
     
@@ -387,8 +381,7 @@ bikes.csv 中，请按 11:1</summary>
       
         
         
-    <summary type="html">&lt;h1 id=&quot;s0814.find功能实现&quot;&gt;6.S081：4.find功能实现&lt;/h1&gt;
-&lt;h2 id=&quot;find-moderate&quot;&gt;find (&lt;a</summary>
+    <summary type="html">&lt;h1 id=&quot;6-S081：4-find功能实现&quot;&gt;&lt;a href=&quot;#6-S081：4-find功能实现&quot; class=&quot;headerlink&quot; title=&quot;6.S081：4.find功能实现&quot;&gt;&lt;/a&gt;6.S081：4.find功能实现&lt;/h1&gt;&lt;h2</summary>
         
       
     
@@ -413,8 +406,7 @@ bikes.csv 中，请按 11:1</summary>
       
         
         
-    <summary type="html">&lt;h1 id=&quot;s0813.素数筛primes实验&quot;&gt;6.S081：3.素数筛Primes实验&lt;/h1&gt;
-&lt;h2 id=&quot;problemprimes-moderatehard&quot;&gt;Problem：primes (&lt;a</summary>
+    <summary type="html">&lt;h1 id=&quot;6-S081：3-素数筛Primes实验&quot;&gt;&lt;a href=&quot;#6-S081：3-素数筛Primes实验&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -439,8 +431,7 @@ bikes.csv 中，请按 11:1</summary>
       
         
         
-    <summary type="html">&lt;h1 id=&quot;s0812.makefile初体验&quot;&gt;6.S081：2.makefile初体验&lt;/h1&gt;
-&lt;h2</summary>
+    <summary type="html">&lt;h1 id=&quot;6-S081：2-makefile初体验&quot;&gt;&lt;a href=&quot;#6-S081：2-makefile初体验&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -467,9 +458,7 @@ bikes.csv 中，请按 11:1</summary>
       
         
         
-    <summary type="html">&lt;h1 id=&quot;s0811.关于fork的思考&quot;&gt;6.S081：1.关于fork()的思考&lt;/h1&gt;
-&lt;h2 id=&quot;fork&quot;&gt;1.fork&lt;/h2&gt;
-&lt;pre class=&quot;line-numbers language-c&quot; data-language=&quot;c&quot;&gt;&lt;code</summary>
+    <summary type="html">&lt;h1 id=&quot;6-S081：1-关于fork-的思考&quot;&gt;&lt;a href=&quot;#6-S081：1-关于fork-的思考&quot; class=&quot;headerlink&quot;</summary>
         
       
     
@@ -479,34 +468,6 @@ bikes.csv 中，请按 11:1</summary>
     
     
     <category term="6.S081" scheme="http://paran0idy.github.io/tags/6-S081/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Sysprog：2. mini Network-Analyzer</title>
-    <link href="http://paran0idy.github.io/posts/asfdh.html"/>
-    <id>http://paran0idy.github.io/posts/asfdh.html</id>
-    <published>2022-10-27T15:48:39.000Z</published>
-    <updated>2023-03-13T14:28:44.386Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;mini-network-analyzer&quot;&gt;mini Network-Analyzer&lt;/h1&gt;
-&lt;h2 id=&quot;part-dpacket-spoofing&quot;&gt;Part D：packet</summary>
-        
-      
-    
-    
-    
-    <category term="Operating System" scheme="http://paran0idy.github.io/categories/Operating-System/"/>
-    
-    <category term="Network" scheme="http://paran0idy.github.io/categories/Operating-System/Network/"/>
-    
-    
-    <category term="Sysprog" scheme="http://paran0idy.github.io/tags/Sysprog/"/>
     
   </entry>
   
@@ -522,9 +483,7 @@ bikes.csv 中，请按 11:1</summary>
       
         
         
-    <summary type="html">&lt;h1 id=&quot;lab1shell&quot;&gt;lab1：Shell&lt;/h1&gt;
-&lt;h2 id=&quot;question-1&quot;&gt;&lt;strong&gt;Question 1&lt;/strong&gt;:&lt;/h2&gt;
-&lt;p&gt;If you add a background command after the</summary>
+    <summary type="html">&lt;h1 id=&quot;lab1：Shell&quot;&gt;&lt;a href=&quot;#lab1：Shell&quot; class=&quot;headerlink&quot; title=&quot;lab1：Shell&quot;&gt;&lt;/a&gt;lab1：Shell&lt;/h1&gt;&lt;h2 id=&quot;Question-1&quot;&gt;&lt;a</summary>
         
       
     
@@ -538,26 +497,26 @@ bikes.csv 中，请按 11:1</summary>
   </entry>
   
   <entry>
-    <title>Sysprog：3. A Minimal Debugger</title>
-    <link href="http://paran0idy.github.io/posts/1234.html"/>
-    <id>http://paran0idy.github.io/posts/1234.html</id>
+    <title>Sysprog：2. mini Network-Analyzer</title>
+    <link href="http://paran0idy.github.io/posts/asfdh.html"/>
+    <id>http://paran0idy.github.io/posts/asfdh.html</id>
     <published>2022-10-27T15:48:39.000Z</published>
-    <updated>2023-03-13T14:28:49.649Z</updated>
+    <updated>2023-03-13T14:28:44.386Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h1 id=&quot;lab3-a-minimal-debugger&quot;&gt;lab3 ：A Minimal Debugger&lt;/h1&gt;
-&lt;h2 id=&quot;exercise-1&quot;&gt;Exercise 1:&lt;/h2&gt;
-&lt;p&gt;Now read the source file and answer</summary>
+    <summary type="html">&lt;h1 id=&quot;mini-Network-Analyzer&quot;&gt;&lt;a href=&quot;#mini-Network-Analyzer&quot; class=&quot;headerlink&quot; title=&quot;mini Network-Analyzer&quot;&gt;&lt;/a&gt;mini</summary>
         
       
     
     
     
     <category term="Operating System" scheme="http://paran0idy.github.io/categories/Operating-System/"/>
+    
+    <category term="Network" scheme="http://paran0idy.github.io/categories/Operating-System/Network/"/>
     
     
     <category term="Sysprog" scheme="http://paran0idy.github.io/tags/Sysprog/"/>
