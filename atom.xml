@@ -6,7 +6,7 @@
   <link href="http://paran0idy.github.io/atom.xml" rel="self"/>
   
   <link href="http://paran0idy.github.io/"/>
-  <updated>2023-08-04T17:27:35.181Z</updated>
+  <updated>2023-08-05T11:06:40.495Z</updated>
   <id>http://paran0idy.github.io/</id>
   
   <author>
@@ -17,11 +17,33 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>MLIR Toy Tutorial</title>
+    <link href="http://paran0idy.github.io/posts/c59c.html"/>
+    <id>http://paran0idy.github.io/posts/c59c.html</id>
+    <published>2023-08-05T08:35:11.000Z</published>
+    <updated>2023-08-05T11:06:40.495Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;mlir-toy-tutorial&quot;&gt;MLIR Toy Tutorial&lt;/h1&gt;
+&lt;h2 id=&quot;toy-and-ast&quot;&gt;1. Toy and</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>The Great Ideas in CS</title>
     <link href="http://paran0idy.github.io/posts/The-Great-Ideas-in-CS.html"/>
     <id>http://paran0idy.github.io/posts/The-Great-Ideas-in-CS.html</id>
     <published>2023-08-04T11:51:56.000Z</published>
-    <updated>2023-08-04T17:27:35.181Z</updated>
+    <updated>2023-08-05T05:50:20.669Z</updated>
     
     
       
@@ -527,34 +549,6 @@ bikes.csv 中，请按 11:1</summary>
     
     
     <category term="Operating System" scheme="http://paran0idy.github.io/categories/Operating-System/"/>
-    
-    
-    <category term="Sysprog" scheme="http://paran0idy.github.io/tags/Sysprog/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Sysprog：2. mini Network-Analyzer</title>
-    <link href="http://paran0idy.github.io/posts/asfdh.html"/>
-    <id>http://paran0idy.github.io/posts/asfdh.html</id>
-    <published>2022-10-27T15:48:39.000Z</published>
-    <updated>2023-03-13T14:28:44.386Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;mini-network-analyzer&quot;&gt;mini Network-Analyzer&lt;/h1&gt;
-&lt;h2 id=&quot;part-dpacket-spoofing&quot;&gt;Part D：packet</summary>
-        
-      
-    
-    
-    
-    <category term="Operating System" scheme="http://paran0idy.github.io/categories/Operating-System/"/>
-    
-    <category term="Network" scheme="http://paran0idy.github.io/categories/Operating-System/Network/"/>
     
     
     <category term="Sysprog" scheme="http://paran0idy.github.io/tags/Sysprog/"/>
