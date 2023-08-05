@@ -525,7 +525,7 @@ lowering，才能生成 LLVM IR。</p>
 <p>MLIR是一个完全可扩展的基础架构，没有封闭的属性集、操作和类型。通过Dialect来支持可扩展性，方言提供了一种分组机制，可在特定的namespace下进行抽象。</p>
 <p>MLIR中Operations是一个Abstraction和Computaion核心单元，和LLVM指令类似。</p>
 <figure>
-<img src="/posts/c59c/image-20230805171030968.png" alt="image-20230805171030968">
+<img src="/posts/MLIR%20Toy%20Tutorial/image-20230805171030968.png" alt="image-20230805171030968">
 <figcaption aria-hidden="true">image-20230805171030968</figcaption>
 </figure>
 <pre class="line-numbers language-c" data-language="c"><code class="language-c">%t_tensor = "toy.transpose"(%tensor) {inplace = true} : (tensor&lt;2x3xf64&gt;) -&gt; tensor&lt;3x2xf64&gt; loc("example/file/path":12:1)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -719,7 +719,7 @@ class Toy_Op&lt;string mnemonic, list&lt;Trait&gt; traits = []&gt; :
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>我们需要弄清楚<code>codegen.toy</code>是如何产生的MLIR文件。也即下图的AST到MLIR表达式那部分（包含Dialect）。</p>
 <figure>
-<img src="/posts/c59c/v2-b2b6b256c4d085cced7f70546797149b_1440w.webp" alt="img">
+<img src="/posts/MLIR%20Toy%20Tutorial/v2-b2b6b256c4d085cced7f70546797149b_1440w.webp" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>这里首先有一个MLIRGen函数负责遍历AST。在<code>mlir/examples/toy/Ch2/mlir/MLIRGen.cpp</code>文件中实现，里面有一个<code>mlirGen</code>函数，实现如下：</p>
@@ -778,7 +778,7 @@ class Toy_Op&lt;string mnemonic, list&lt;Trait&gt; traits = []&gt; :
 <p>我们可以看到<code>if (callee == "transpose")</code>这里是对函数签名进行判断，如果是<code>transpose</code>
 那么就需要新建一个<code>TransposeOp</code>类型的MLIR节点，即<code>builder.create&lt;TransposeOp&gt;(location, operands[0])</code></p>
 <figure>
-<img src="/posts/c59c/v2-549034c51768bfe5181565b567a7223d_1440w.webp" alt="img">
+<img src="/posts/MLIR%20Toy%20Tutorial/v2-549034c51768bfe5181565b567a7223d_1440w.webp" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 
@@ -807,7 +807,7 @@ class Toy_Op&lt;string mnemonic, list&lt;Trait&gt; traits = []&gt; :
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://Paran0idy.github.io/posts/c59c.html">http://Paran0idy.github.io/posts/c59c.html</a>
+                    <a href="http://Paran0idy.github.io/posts/MLIR%20Toy%20Tutorial.html">http://Paran0idy.github.io/posts/MLIR%20Toy%20Tutorial.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1344,7 +1344,7 @@ class Toy_Op&lt;string mnemonic, list&lt;Trait&gt; traits = []&gt; :
                 <i class="far fa-dot-circle"></i>&nbsp;Current
             </div>
             <div class="card">
-                <a href="/posts/c59c.html">
+                <a href="/posts/MLIR%20Toy%20Tutorial.html">
                     <div class="card-image">
                         
                         
